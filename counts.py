@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys
+import sys, pdb
 sys.dont_write_bytecode =True
 
 from lib import *
@@ -266,7 +266,8 @@ def sdiv(lst, attr=None,tiny=None,cohen=None,small=None,
     if cut: 
       recurse(this[:cut], small, cuts)
       recurse(this[cut:], small, cuts)
-    else:   
+    else:
+      # pdb.set_trace()
       cuts += [Range(attr = attr,
                      x    = o(lo=x(this[0]), hi=x(this[-1])),
                      y    = o(mu=mu, sd=sd),

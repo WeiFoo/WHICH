@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys,random
+import sys,random,pdb
 sys.dont_write_bytecode = True
 
 """
@@ -37,12 +37,13 @@ class Rule:
     i.score  = sum(map(lambda z:z.score,rows))/len(rows)
   def __repr__(i):
     return '%s:%s' % (str(map(str,i.ranges)),len(i.rows))
-  def same(i,j):
+  def same(i,j): ## how does this work?
     if len(i.keys) < len(j.keys):
       return j.same(i)
     else: # is the smaller a subset of the larger
       return j.keys.issubset(i.keys)
-  def __add__(i,j): 
+  def __add__(i,j):
+   pdb.set_trace()
    if i.same(j): 
      return False
    ranges = list(set(i.ranges + j.ranges)) # list uniques
@@ -73,14 +74,15 @@ def ranges(t):
   out = []
   atLeast = t.score
   better  = the.RULER.better
-  for column  in t.indep: 
+  # pdb.set_trace()
+  for column  in t.indep:
     tmp = sdiv(t.data,attr=t.names[column],
               tiny = the.RULER.rules.tiny,
               x    = lambda z : z[column],
               y    = lambda z : z.score,
               small= the.RULER.rules.small)
     if len(tmp) > 1: # this column is useful
-        out += tmp 
+        out += tmp
   return [one for one in out if # better mu than b4
           better(one.y.mu,atLeast)]
 
@@ -88,20 +90,22 @@ def ruler(t):
   retries = xrange(the.RULER.rules.retries)
   repeats = xrange(the.RULER.rules.repeats)
   out     = []
-  taboo   = set()
+  taboo   = set() #??????
   ranges0 = ranges(t)
   while True:
     best  = None
     top   = t.score
+    pdb.set_trace()
     rules = ranges2Rules(ranges0)
     for _ in retries:
       rules = bestRules(rules)
       for _ in repeats:
         rule = ask(rules) + ask(rules)
+        pdb.set_trace()
         if rule:
           if rule.score > top:
-            if wellSupported(rule.rows,t):
-              if not tabooed(rule.rows,taboo):
+            if wellSupported(rule.rows,t): # why this?
+              if not tabooed(rule.rows,taboo): # why check this?
                 best   = rule
                 top    = rule.score
                 rules += [rule]
