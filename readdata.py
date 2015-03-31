@@ -75,6 +75,7 @@ def data(**d):
     return all**2 / n**2
   names=d["names"] 
   data=d["data"]
+  pdb.set_trace()
   more=[i for i,name in enumerate(names)
           if the.DATA.more in name]
   less=[i for i,name in enumerate(names)

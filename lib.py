@@ -1,7 +1,9 @@
 from __future__ import division,print_function
 import sys
+from os import listdir
+from os.path import join, isfile
 sys.dont_write_bytecode =True
-
+from table import *
 """
 
 # General stuff
@@ -176,3 +178,32 @@ def run(f):
   t2 = time.time() # show how long it took to run
   print("\n#" + ("-" * 72))
   print("# Runtime: %.3f secs" % (t2-t1))
+
+"""
+Data Set transformation
+any instance with "bug > 0" will convert to "1"
+
+"""
+
+def savetbl(t, fname):
+  def writetofile(f, lst):
+    f.write(",".join(map(str, lst)) + '\n')
+  f = open(fname, 'wb')
+  writetofile(f, [i.name for i in t.headers])  # write header
+  for i in t._rows:
+    writetofile(f, (i.cells))
+
+def transform(f="./data"):
+  folder = [ join(f,folder) for folder in listdir(f) if not isfile(join(f,folder))]
+  for one in folder[:]:
+    files = [ join(one,file) for file in listdir(one) if isfile(join(one,file))]
+    for each in files:
+      t1 = t = table(each)
+      for n,row in enumerate(t._rows):
+        if row.cells[-1]> 0:
+          t1._rows[n].cells[-1] =1
+      savetbl(t1, each[:-4]+"copy.csv")
+  return
+
+if __name__ == "__main__":
+  transform()
