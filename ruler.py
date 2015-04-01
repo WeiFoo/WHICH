@@ -65,7 +65,11 @@ class Rule:
      b4 = now
    return Rule(ranges,rows)
 
+
   def computeB(i):
+ #all the rows associated with this rule will be predicted as defective.
+ #then calculate pd,pf, efforts.
+ #efforts is normalized
     FP, TP,Loc = 0,0,0,
     for row in i.rows:
       Loc += row[10] # this is loc, # 10
@@ -75,8 +79,7 @@ class Rule:
         TP += 1
     pd = TP/the.NP.defective
     pf = FP/the.NP.nondefective
-    print(str(pf))
-    effort = Loc/the.effortNorm.Total[10]# this is normalized effort
+    effort = (Loc-the.effortNorm.Lo[10])/(the.effortNorm.Hi[10]-the.effortNorm.Lo[10]+0.00001)# this is normalized effort
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
