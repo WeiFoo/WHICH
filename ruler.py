@@ -11,17 +11,20 @@ from readdata import *
 from counts import *
 
 @setting
-def RULER(**d): 
+def RULER(**d):
   def enough(ruleRows,allRows):
-      return len(ruleRows) >= len(allRows)**0.5 
-  return o( 
+      return len(ruleRows) >= len(allRows)**0.5
+  return o(
     better = gt,
     rules =o(tiny=20,
-             small=0.01,
+             small=0.001,
              repeats=32,
              beam=16,
              retries=32,
              fresh=0.33,
+             alpha = 1,
+             beta = 1000,
+             gamma = 0,
              enough=enough)
   ).update(**d)
 """
@@ -34,7 +37,8 @@ class Rule:
     i.ranges = ranges
     i.keys   = set(map(lambda z:z.key, ranges))
     i.rows   = rows
-    i.score  = sum(map(lambda z:z.score,rows))/len(rows)
+    # i.score  = sum(map(lambda z:z.score,rows))/len(rows)
+    i.score = i.computeB()
   def __repr__(i):
     return '%s:%s' % (str(map(str,i.ranges)),len(i.rows))
   def same(i,j): ## how does this work?
@@ -43,22 +47,45 @@ class Rule:
     else: # is the smaller a subset of the larger
       return j.keys.issubset(i.keys)
   def __add__(i,j):
-   pdb.set_trace()
-   if i.same(j): 
+   if i.same(j):
      return False
    ranges = list(set(i.ranges + j.ranges)) # list uniques
-   ranges = sorted(ranges,key=lambda x:x.attr) 
-   b4  = ranges[0] 
+   ranges = sorted(ranges,key=lambda x:x.attr)
+   b4  = ranges[0]
    rows = b4.rows
    for now in ranges[1:]:
+     # if b4.attr == "$dit" and now.attr == "$mfa":
+       # pdb.set_trace()
      if now.attr == b4.attr:
        rows = rows | now.rows
      else:
-       rows = rows & now.rows 
-     if not rows: 
+       rows = rows & now.rows
+     if not rows:
        return False
      b4 = now
    return Rule(ranges,rows)
+
+  def computeB(i):
+    FP, TP,Loc = 0,0,0,
+    for row in i.rows:
+      Loc += row[10] # this is loc, # 10
+      if row[-1]==0:
+        FP += 1
+      else:
+        TP += 1
+    # pdb.set_trace()
+    # print("def:"+str(TP))
+
+    pd = TP/the.NP.defective
+    pf = FP/the.NP.nondefective
+    print(str(pf))
+    effort = Loc/the.effortNorm.Total[10]# this is normalized effort
+    alpha = the.RULER.rules.alpha
+    beta = the.RULER.rules.beta
+    gamma = the.RULER.rules.gamma
+    B = (pd**2*alpha +(1-pf)**2*beta\
+        +(1-effort)**2*gamma)**0.5/(alpha+beta+gamma)**0.5
+    return B
 """
 
 Return the ranges:
@@ -92,20 +119,22 @@ def ruler(t):
   out     = []
   taboo   = set() #??????
   ranges0 = ranges(t)
+  pdb.set_trace()
   while True:
     best  = None
-    top   = t.score
-    pdb.set_trace()
+    # top   = t.score # issue : here, we should change to 0 or what ever.
+    top = 0
     rules = ranges2Rules(ranges0)
     for _ in retries:
       rules = bestRules(rules)
       for _ in repeats:
         rule = ask(rules) + ask(rules)
-        pdb.set_trace()
+        # pdb.set_trace()
         if rule:
           if rule.score > top:
             if wellSupported(rule.rows,t): # why this?
               if not tabooed(rule.rows,taboo): # why check this?
+                pdb.set_trace()
                 best   = rule
                 top    = rule.score
                 rules += [rule]
