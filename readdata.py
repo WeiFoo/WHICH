@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys 
+import sys
 sys.dont_write_bytecode = True
 
 """
@@ -18,13 +18,25 @@ def DATA(**d): return o(
     more = ">",
     less = "<"
   ).update(**d)
+@setting
+def effortNorm(**d): return o(
+    Lo = 10**5,
+    Hi = -10**5,
+	  Total = 0
+).update(**d)
+
+@setting
+def NP(**d):return o(
+	defective = None, # number of modules are defective
+	nondefective = None
+).update(**d)
 
 class Row:
   id=0
   def __init__(i,cells,score):
     i.cells= cells
     i.score=score
-    Row.id = i.id = Row.id+1 
+    Row.id = i.id = Row.id+1
   def __hash__(i): return i.id
   def __getitem__(i, n): return i.cells[n]
 """
@@ -53,39 +65,57 @@ values of the dependent columns. _FromHell()_ is normalized (so
 always is a number zero to one).
 
 """
-def data(**d):  
+def data(**d):
   lo,hi={},{}
-  def lohi0(j,n):  
+  total = {}
+  N,P = 0,0
+  def lohi0(j,n):
       hi[j] = max(n, hi.get(j,-1*the.LIB.most))
       lo[j] = min(n, lo.get(j,   the.LIB.most))
   def lohi(one):
-    for j in less: lohi0(j,one[j])
+    for j in less: # total loc
+      lohi0(j,one[j])
+      total[j] = total.get(j,0)+ one[j]
     for j in more: lohi0(j, one[j])
-  def norm(j,n):  
-    return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny) 
+  def norm(j,n):
+    return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny)
   def fromHell(one):
     all,n = 0,0
     moreHell, lessHell = 0,1
     for j in more:
-      n   += 1 
+      n   += 1
       all += (moreHell - norm(j,one[j]))**2
     for j in less:
-      n   += 1 
+      n   += 1
       all += (lessHell - norm(j,one[j]))**2
     return all**2 / n**2
-  names=d["names"] 
+  def ratio(one): return one[-1]/(one[10]+0.001) # return bug/effort
+  # def B(one):
+  #   all = 0
+  #   for j in less: # effort
+  #     all += the.RULER.rules.gamma*(1-norm(j,one[j]))**2
+  #   all += the.RULER.rules.alpha*1**2+the.RULER.rules.beta if one[-1] >0 else 0
+  #   return all**0.5/(the.RULER.rules.alpha +the.RULER.rules.beta+the.RULER.rules.gamma)**0.5
+  names=d["names"]
   data=d["data"]
-  pdb.set_trace()
   more=[i for i,name in enumerate(names)
           if the.DATA.more in name]
   less=[i for i,name in enumerate(names)
           if the.DATA.less in name]
   dep = more+less
   indep=[i for i,name in enumerate(names) if not i in dep]
-  for one in data: lohi(one)
+  for one in data:
+    lohi(one)
+    if one[-1] > 0:
+     P += 1 #  num of defective modules
+    else:
+     N += 1 # non defective modules
+  NP(defective= P, nondefective = N )
+  print("N="+str(N),"P="+str(P))
+  effortNorm(Lo =lo, Hi= hi,Total = total ) # keep effort max, min in global.
   out = o(more=more,less=less,indep=indep,names=names,
            data=map(lambda one: Row(one,
-                                    fromHell(one)),
+                                    ratio(one)),
                     data))
   out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
   return out
