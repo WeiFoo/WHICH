@@ -243,7 +243,7 @@ itself according to changes in itself.
 
 """
 def sdiv(lst, attr=None,tiny=None,cohen=None,small=None,
-         x=lambda z:z[0], y=lambda z:z[-1],better=gt):
+         x=lambda z:z[0], y=lambda z:z[-1],better=lt): # a bug: change better to lt!
   "Divide lst of (x,y) using variance of y."
   tiny = tiny or the.CNT.sdivTiny
   cohen= cohen or the.CNT.sdivCohen
@@ -254,7 +254,7 @@ def sdiv(lst, attr=None,tiny=None,cohen=None,small=None,
     for j,one  in enumerate(this): 
       if lhs.n > tiny and rhs.n > tiny: 
         maybe= lhs.n/n0*lhs.sd()+ rhs.n/n0*rhs.sd()
-        if better(maybe,score) :  
+        if better(maybe,score) :  # bug?? maybe< score is preferred, right ? so better should be lt
           if abs(lhs.mu - rhs.mu) >= small:
             cut,score = j,maybe
       rhs - y(one)
