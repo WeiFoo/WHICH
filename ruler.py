@@ -79,7 +79,7 @@ class Rule:
         TP += 1
     pd = TP/the.NP.defective
     pf = FP/the.NP.nondefective
-    effort = (Loc-the.effortNorm.Lo[10])/(the.effortNorm.Hi[10]-the.effortNorm.Lo[10]+0.00001)# this is normalized effort
+    effort = Loc/the.effortNorm.Total[10]# this is normalized effort
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
