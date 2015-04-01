@@ -73,9 +73,6 @@ class Rule:
         FP += 1
       else:
         TP += 1
-    # pdb.set_trace()
-    # print("def:"+str(TP))
-
     pd = TP/the.NP.defective
     pf = FP/the.NP.nondefective
     print(str(pf))
