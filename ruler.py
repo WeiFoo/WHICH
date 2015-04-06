@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys,random,pdb
+import sys,random,pdb,math
 sys.dont_write_bytecode = True
 
 """
@@ -64,8 +64,24 @@ class Rule:
        return False
      b4 = now
    return Rule(ranges,rows)
-
-
+  def predict(i,t = None):
+    '''use the rule to predict'''
+    lo = lambda z: z.x.lo
+    hi = lambda z: z.x.hi
+    def check(row,col):
+      for j, cell in enumerate(col):
+        if row[cell]<lo(i.ranges[j]) or row[cell]>hi(i.ranges[j]):
+          return 0
+        else:
+          continue
+      return 1 # pass the rule and predict as defectibe
+    attr = [ r.attr for r in i.ranges]
+    col = [ t.names.index(a) for a in attr]
+    defective,actual = [],[]
+    for d in t.data:
+      actual +=[d.cells[-1]]
+      defective += [check(d,col)]
+    return actual,defective
   def computeB(i):
  #all the rows associated with this rule will be predicted as defective.
  #then calculate pd,pf, efforts.
@@ -85,6 +101,7 @@ class Rule:
     gamma = the.RULER.rules.gamma
     B = (pd**2*alpha +(1-pf)**2*beta\
         +(1-effort)**2*gamma)**0.5/(alpha+beta+gamma)**0.5
+    # pdb.set_trace()
     return B
 """
 
@@ -101,7 +118,7 @@ def ranges(t):
   out = []
   atLeast = t.score
   better  = the.RULER.better
-  # pdb.set_trace()
+  pdb.set_trace()
   for column  in t.indep:
     tmp = sdiv(t.data,attr=t.names[column],
               tiny = the.RULER.rules.tiny,
@@ -110,16 +127,62 @@ def ranges(t):
               small= the.RULER.rules.small)
     if len(tmp) > 1: # this column is useful
         out += tmp
+  pdb.set_trace()
   return [one for one in out if # better mu than b4
           better(one.y.mu,atLeast)]
+def rangesEqual(t, N = 2):
+  def one(lst,attr, x = lambda z: z[col]):
+    i, dist = 0, int(math.ceil(len(lst)/N))
+    cut,out = [],[]
+    while True:
+      if i+dist <len(lst):
+        cut +=[lst[i:i+dist]]
+        i = i+dist
+      else:
+        # cut[-1].extend([lst[i:]])
+        cut +=[lst[i:]]
+        break
+    for sub in cut:
+      out +=[Range(attr = attr, x = o(lo = x(sub[0]), hi = x(sub[-1])), rows = sub)]
+    return out
+  # def divide(lst,n,attr,x = lambda z:z(col)):
+  #   '''
+  #   recursively divide
+  #   '''
+  #   out = []
+  #   if n > N:
+  #     return None
+  #   cut = [lst[:int(n/2)],lst[int(n/2):]]
+  #   n +=1
+  #   return cut,n
+  # def recursive(lst,n):
+  #   cut,i = divide(lst,n)
+  #   if cut:
+  #     recursive(cut[0],i+1)
+  #     recursive(cut[1],i+1)
+  #   else:
+  #     out +=[Range(attr = attr, x = o(lo = x(cut[0]), hi = x(cut[-1])), rows = cut)]
+  #   return out
+  result = []
+  for col in t.indep:
+    result +=one(sorted(t.data, key = lambda x:x[col]), attr = t.names[col])
+  return result
+
+
+
+  pass
+
+def rangesSelect(t,method = rangesEqual):
+  return method(t)
 
 def ruler(t):
   retries = xrange(the.RULER.rules.retries)
   repeats = xrange(the.RULER.rules.repeats)
   out     = []
   taboo   = set() #??????
-  ranges0 = ranges(t)
-  pdb.set_trace()
+  ranges0 = rangesSelect(t)
+  # ranges0 = ranges(t)
+  # pdb.set_trace()
   while True:
     best  = None
     # top   = t.score # issue : here, we should change to 0 or what ever.
@@ -134,7 +197,6 @@ def ruler(t):
           if rule.score > top:
             if wellSupported(rule.rows,t): # why this?
               if not tabooed(rule.rows,taboo): # why check this?
-                pdb.set_trace()
                 best   = rule
                 top    = rule.score
                 rules += [rule]

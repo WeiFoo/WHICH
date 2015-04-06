@@ -1,6 +1,6 @@
 from __future__ import division
 import sys
-from lib import *
+from libW import *
 sys.dont_write_bytecode = True
 
 class Sym(Thing):
