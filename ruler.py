@@ -77,11 +77,11 @@ class Rule:
       return 1 # pass the rule and predict as defectibe
     attr = [ r.attr for r in i.ranges]
     col = [ t.names.index(a) for a in attr]
-    defective,actual = [],[]
+    predict,actual = [],[]
     for d in t.data:
-      actual +=[d.cells[-1]]
-      defective += [check(d,col)]
-    return actual,defective
+      actual += [d.cells[-1]]
+      predict += [check(d,col)]
+    return actual,predict
   def computeB(i):
  #all the rows associated with this rule will be predicted as defective.
  #then calculate pd,pf, efforts.
