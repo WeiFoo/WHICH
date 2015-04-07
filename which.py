@@ -6,6 +6,7 @@ from table import *
 from Abcd import *
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.tree import DecisionTreeRegressor
 
 def csv(f= "./data/ant/ant-1.5copy.csv"):
   t = table(f)
@@ -53,7 +54,9 @@ def gbest(t):
   data = sorted(data, key = lambda z: z[10])
   return XY(data)
 
-
+def cart(t):
+  clf = DecisionTreeRegressor(random_state = 1)
+  clf.fit()
 
 def plot(result):
   color = ['r-','b-','k-','g-','y-']
@@ -76,22 +79,25 @@ def _rule():
   LIB(seed=1)
   RULER(tiny=4,better=gt)
   def _ruler():
-    t=csv()
-    print(t.score, "baseline :",len(t.data))
-    for z in ruler(t):
+    train=csv()
+    print(train.score, "baseline :",len(train.data))
+    for z in ruler(train):
       print(z.score,z)
-    best = ruler(t)[0]
+    best = ruler(train)[0]
     # actual,predict = best.predict(csv())
     # _Abcd(predict, actual)
-    t = csv(f= "./data/ant/ant-1.4copy.csv")
-    result=[manual(t)]
-    result +=[manual(t,up = False)]
-    result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
-    result +=[best.predict(t)]
-    result +=[gbest(t)]
-    plot(result)
-    # pdb.set_trace()
-  run(_ruler)
+    return best
+  return _ruler()
+
+def _main():
+  bestrule=_rule()
+  test = csv(f= "./data/ant/ant-1.4copy.csv")
+  result=[manual(test)]
+  result +=[manual(test,up = False)]
+  result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
+  result +=[bestrule.predict(test)]
+  result +=[gbest(test)]
+  plot(result)
 
 if __name__ == "__main__":
-  _rule()
+  run(_main())

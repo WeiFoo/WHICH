@@ -4,8 +4,8 @@
     <list default="true" id="7b4d1d98-7f16-44cc-b613-677129d9d244" name="Default" comment="manualUp and manualDown plots done!&#10;&#10;">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/image.py" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/img.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ruler.py" afterPath="$PROJECT_DIR$/ruler.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/ant/ant-1.6copy.csv" afterPath="$PROJECT_DIR$/data/ant/ant-1.6copy.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/ant/ant-1.7copy.csv" afterPath="$PROJECT_DIR$/data/ant/ant-1.7copy.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/which.py" afterPath="$PROJECT_DIR$/which.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -85,8 +85,8 @@
           <file leaf-file-name="which.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/which.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8378378" vertical-offset="825" max-vertical-offset="1530">
-                  <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+                <state vertical-scroll-proportion="0.43243244" vertical-offset="1065" max-vertical-offset="1620">
+                  <caret line="87" column="28" selection-start-line="87" selection-start-column="28" selection-end-line="87" selection-end-column="28" />
                   <folding>
                     <element signature="e#22#69#0" expanded="true" />
                   </folding>
@@ -97,8 +97,8 @@
           <file leaf-file-name="lib.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lib.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="3210">
-                  <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="2320" max-vertical-offset="3210">
+                  <caret line="167" column="4" selection-start-line="167" selection-start-column="4" selection-end-line="167" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#46#0" expanded="true" />
                   </folding>
@@ -437,7 +437,13 @@
       <option name="project" value="LOCAL" />
       <updated>1428361089765</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="plot best, good, manualup , minimum, manual down done!&#10;&#10;">
+      <created>1428367173071</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1428367173071</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -510,7 +516,8 @@
     <MESSAGE value="add new files&#10;" />
     <MESSAGE value="evenly split into N bins done!&#10;&#10;" />
     <MESSAGE value="manualUp and manualDown plots done!&#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="manualUp and manualDown plots done!&#10;&#10;" />
+    <MESSAGE value="plot best, good, manualup , minimum, manual down done!&#10;&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="plot best, good, manualup , minimum, manual down done!&#10;&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -904,16 +911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="485" max-vertical-offset="3210">
-          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
@@ -989,10 +986,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2320" max-vertical-offset="3210">
+          <caret line="167" column="4" selection-start-line="167" selection-start-column="4" selection-end-line="167" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/which.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8378378" vertical-offset="825" max-vertical-offset="1530">
-          <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.43243244" vertical-offset="1065" max-vertical-offset="1620">
+          <caret line="87" column="28" selection-start-line="87" selection-start-column="28" selection-end-line="87" selection-end-column="28" />
           <folding>
             <element signature="e#22#69#0" expanded="true" />
           </folding>
