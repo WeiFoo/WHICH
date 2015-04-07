@@ -1,19 +1,36 @@
 #__author__ = 'WeiFu'
 from __future__ import print_function, division
-import sys,pdb
+import sys,pdb,random
 from ruler import *
 from table import *
 from Abcd import *
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.cross_validation import KFold
 
 def csv(f= "./data/ant/ant-1.7copy.csv"):
   t = table(f)
-  n = [ header.name for header in t.headers]
-  d = sorted([ row.cells for row in t._rows],key =lambda z: z[10] ) # sorted by $loc
+  names = [ header.name for header in t.headers]
+  rows = [ row.cells for row in t._rows]
+  return names,rows
+  # d = sorted(,key =lambda z: z[10] ) # sorted by $loc
   # pdb.set_trace()
-  return data(names= n, data = d)
+  # return data(names= n, data = d)
+  # return n,d
+
+def threeCV(n,rows, N = 3):
+  length = len(rows)
+  fold_size = length//N *np.ones(N)
+  fold_size[:length%N] +=1
+  last = 0
+  for i in fold_size:
+    yield rows[last:last+i]
+  # kf = KFold(temp, n_folds=3,shuffle=True)
+  # for train,test in kf:
+  #   train_sorted = sorted([rows[i] for i in train],key= lambda z:z[10])
+  #   test_sorted = sorted([rows[i] for i in test],key= lambda z:z[10])
+  #   yield data(names = n, data = train_sorted),data(names = n, data = test_sorted)
 
 def _range():
   LIB(seed=1)
@@ -72,7 +89,7 @@ def cart(train,test):
     pd +=[100*TP/the.NP.defective]
   x = np.array(x)
   pd = np.array(pd)
-  pdb.set_trace()
+  # pdb.set_trace()
   return[x,pd]
 
 
@@ -106,15 +123,30 @@ def _rule(train):
   return best
 
 def _main():
-  train=csv()
-  bestrule=_rule(train)
-  test = csv(f= "./data/ant/ant-1.6copy.csv")
-  result=[manual(test)]
-  result +=[manual(test,up = False)]
-  result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
-  result +=[bestrule.predict(test)]
-  result +=[gbest(test)]
-  result +=[cart(train,test)]
+  result = []
+  N = 3
+  for _ in range(10):
+    name,rows = csv()
+    length = len(rows)
+    fold_size = length//N *np.ones(N)
+    fold_size[:length%N] +=1
+    last = 0
+    for i in fold_size:
+      start,stop = last, int(last+i)
+      test0 = rows[start:stop]
+      train0 = rows[:start] +rows[stop:]
+      train_sorted = sorted(train0,key= lambda z:z[10])
+      test_sorted = sorted(test0,key= lambda z:z[10])
+      train = data(names = name, data = train_sorted)
+      test = data(names = name, data = test_sorted)
+      bestrule=_rule(train)
+      # test = csv(f= "./data/ant/ant-1.4copy.csv")
+      result +=[manual(test)]
+      result +=[manual(test,up = False)]
+      result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
+      result +=[bestrule.predict(test)]
+      result +=[gbest(test)]
+      result +=[cart(train,test)]
   plot(result)
 
 if __name__ == "__main__":
