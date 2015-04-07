@@ -84,8 +84,8 @@
           <file leaf-file-name="which.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/which.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4054054" vertical-offset="1815" max-vertical-offset="2370">
-                  <caret line="136" column="38" selection-start-line="136" selection-start-column="38" selection-end-line="136" selection-end-column="38" />
+                <state vertical-scroll-proportion="0.45945945" vertical-offset="1275" max-vertical-offset="1890">
+                  <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
                   <folding>
                     <element signature="e#22#69#0" expanded="true" />
                   </folding>
@@ -494,15 +494,21 @@
       <option name="project" value="LOCAL" />
       <updated>1428371551699</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="10 repeats 3 cross-validation done! but this will be modified in the near future!!!">
+      <created>1428379908749</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1428379908749</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943925" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31892523" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31892523" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3995327" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -570,7 +576,8 @@
     <MESSAGE value="plot best, good, manualup , minimum, manual down done!&#10;&#10;" />
     <MESSAGE value="main function added done!&#10;" />
     <MESSAGE value="CART plots done! &#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="CART plots done! &#10;" />
+    <MESSAGE value="10 repeats 3 cross-validation done! but this will be modified in the near future!!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="10 repeats 3 cross-validation done! but this will be modified in the near future!!!" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1060,8 +1067,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/which.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4054054" vertical-offset="1815" max-vertical-offset="2370">
-          <caret line="136" column="38" selection-start-line="136" selection-start-column="38" selection-end-line="136" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.45945945" vertical-offset="1275" max-vertical-offset="1890">
+          <caret line="102" column="24" selection-start-line="102" selection-start-column="24" selection-end-line="102" selection-end-column="24" />
           <folding>
             <element signature="e#22#69#0" expanded="true" />
           </folding>
