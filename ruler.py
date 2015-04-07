@@ -1,5 +1,6 @@
 from __future__ import division,print_function
 import sys,random,pdb,math
+import numpy as np
 sys.dont_write_bytecode = True
 
 """
@@ -24,7 +25,7 @@ def RULER(**d):
              fresh=0.33,
              alpha = 1,
              beta = 1000,
-             gamma = 0,
+             gamma = 1,
              enough=enough)
   ).update(**d)
 """
@@ -68,6 +69,8 @@ class Rule:
     '''use the rule to predict'''
     lo = lambda z: z.x.lo
     hi = lambda z: z.x.hi
+    TP,Loc = 0,0
+    x,pd = [],[]
     def check(row,col):
       for j, cell in enumerate(col):
         if row[cell]<lo(i.ranges[j]) or row[cell]>hi(i.ranges[j]):
@@ -79,8 +82,18 @@ class Rule:
     col = [ t.names.index(a) for a in attr]
     predict,actual = [],[]
     for d in t.data:
-      actual += [d.cells[-1]]
-      predict += [check(d,col)]
+      actual = d.cells[-1]
+      predict = check(d,col)
+      if actual == predict and actual ==1:
+        TP+=1
+      Loc += d.cells[10]
+      x +=[100*Loc/the.effortNorm.Total[10]]
+      pd +=[100*TP/the.NP.defective]
+    x = np.array(x)
+    pd = np.array(pd)
+    return[x,pd]
+
+
     return actual,predict
   def computeB(i):
  #all the rows associated with this rule will be predicted as defective.
@@ -99,7 +112,7 @@ class Rule:
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
-    B = (pd**2*alpha +(1-pf)**2*beta\
+    B = 1-(pd**2*alpha +(1-pf)**2*beta\
         +(1-effort)**2*gamma)**0.5/(alpha+beta+gamma)**0.5
     # pdb.set_trace()
     return B

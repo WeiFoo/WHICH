@@ -7,7 +7,7 @@ from Abcd import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-def csv(f= "./data/ant/ant-1.4copy.csv"):
+def csv(f= "./data/ant/ant-1.5copy.csv"):
   t = table(f)
   n = [ header.name for header in t.headers]
   d = sorted([ row.cells for row in t._rows],key =lambda z: z[10] ) # sorted by $loc
@@ -27,12 +27,11 @@ def _Abcd(predicted, actual):
     abcd.tell(act, pre)
   abcd.header()
   score = abcd.ask()
-def manual(t, up = True):
-  TP,TN,FP,FN,pd,xx = 0,0,0,0,[],[]
-  data = t.data
-  Loc = 0
-  if not up:
-    data = sorted(t.data,key = lambda z :z[10], reverse = True)
+
+def XY(data):
+  '''generate X, Y for plotting'''
+  Loc,TP = 0,0
+  xx,pd = [],[]
   for d in data:
     TP += d.cells[-1]
     Loc += d.cells[10]
@@ -42,19 +41,34 @@ def manual(t, up = True):
   pd = np.array(pd)
   return[x,pd]
 
+def manual(t, up = True):
+  data = t.data
+  if not up:
+    data = sorted(t.data,key = lambda z :z[10], reverse = True)
+  return XY(data)
+
+def gbest(t):
+  '''the best method which has highest score'''
+  data =[d for d in t.data if d[-1] ==1]
+  data = sorted(data, key = lambda z: z[10])
+  return XY(data)
+
+
 
 def plot(result):
+  color = ['r-','b-','k-','g-','y-']
+  labels = ['manualUp','manualDown','minimum','good','best']
   plt.figure(1)
   # plt.figure(figsize=(8,4))
-  for x in result:
-    plt.plot(x[0],x[1],"b--")
+  for j,x in enumerate(result):
+    plt.plot(x[0],x[1],color[j],label =labels[j])
   plt.xlabel("Effort(% LOC inspected)")
   plt.ylabel("PD(% probability of detection)")
   plt.title("Effort-vs-PD")
   plt.ylim(0,100)
-  plt.legend()
-  plt.text(60,20,'manualDown')
-  plt.text(35,70,'manualUp')
+  plt.legend(loc='down right')
+  # plt.text(60,20,'manualDown')
+  # plt.text(35,70,'manualUp')
   plt.show()
   pdb.set_trace()
 
@@ -67,11 +81,14 @@ def _rule():
     for z in ruler(t):
       print(z.score,z)
     best = ruler(t)[0]
-    actual,predict = best.predict(csv())
-    _Abcd(predict, actual)
+    # actual,predict = best.predict(csv())
+    # _Abcd(predict, actual)
+    t = csv(f= "./data/ant/ant-1.4copy.csv")
     result=[manual(t)]
     result +=[manual(t,up = False)]
     result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
+    result +=[best.predict(t)]
+    result +=[gbest(t)]
     plot(result)
     # pdb.set_trace()
   run(_ruler)
