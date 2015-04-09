@@ -24,7 +24,7 @@ def RULER(**d):
              retries=32,
              fresh=0.33,
              alpha = 1,
-             beta = 1000,
+             beta = 0,
              gamma = 1,
              enough=enough)
   ).update(**d)
@@ -40,6 +40,7 @@ class Rule:
     i.rows   = rows
     # i.score  = sum(map(lambda z:z.score,rows))/len(rows)
     i.score = i.computeB()
+    # i.score = i.effortPd()
   def __repr__(i):
     return '%s:%s' % (str(map(str,i.ranges)),len(i.rows))
   def same(i,j): ## how does this work?
@@ -70,52 +71,70 @@ class Rule:
     lo = lambda z: z.x.lo
     hi = lambda z: z.x.hi
     TP,Loc = 0,0
-    x,pd = [],[]
+    x,pd,col = [],[],{}
     def check(row,col):
-      for j, cell in enumerate(col):
-        if row[cell]<lo(i.ranges[j]) or row[cell]>hi(i.ranges[j]):
+      count =0
+      for key, val in col.iteritems():
+        Flag = False
+        for _ in range(val):
+          if lo(i.ranges[count])<=row[key]<=hi(i.ranges[count]):
+            Flag = True
+          count +=1
+        if not Flag:
           return 0
-        else:
-          continue
-      return 1 # pass the rule and predict as defectibe
+      return 1   # pass the rule and predict as defectie
     attr = [ r.attr for r in i.ranges]
-    col = [ t.names.index(a) for a in attr]
-    predict,actual = [],[]
+    for a in attr:
+      temp = t.names.index(a)
+      col[temp] = col.get(temp,0) +1
+    predicted = []
     for d in t.data:
-      actual = d.cells[-1]
-      predict = check(d,col)
-      if actual == predict and actual ==1:
-        TP+=1
-      Loc += d.cells[10]
-      x +=[100*Loc/the.effortNorm.Total[10]]
-      pd +=[100*TP/the.NP.defective]
+      if check(d,col) ==1 :
+        predicted.append(d)
+    predicted_sorted = sorted(predicted, key = lambda z:z.cells[10])
+    for p in predicted_sorted:
+      if p.cells[-1] == 1:
+        TP += 1
+      Loc += p.cells[10]
+      x +=[100*Loc/the.DATA.total[10]]
+      pd +=[100*TP/the.DATA.defective]
     x = np.array(x)
     pd = np.array(pd)
+    pdb.set_trace()
     return[x,pd]
 
-
-    return actual,predict
   def computeB(i):
  #all the rows associated with this rule will be predicted as defective.
  #then calculate pd,pf, efforts.
  #efforts is normalized
-    FP, TP,Loc = 0,0,0,
+    FP, TP,Loc = 0,0,0
     for row in i.rows:
       Loc += row[10] # this is loc, # 10
       if row[-1]==0:
         FP += 1
       else:
         TP += 1
-    pd = TP/the.NP.defective
-    pf = FP/the.NP.nondefective
-    effort = Loc/the.effortNorm.Total[10]# this is normalized effort
+    pd = TP/the.DATA.defective
+    pf = FP/the.DATA.nondefective
+    effort = Loc/the.DATA.total[10]# percentage effort
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
-    B = 1-(pd**2*alpha +(1-pf)**2*beta\
+    B = (pd**2*alpha +(1-pf)**2*beta\
         +(1-effort)**2*gamma)**0.5/(alpha+beta+gamma)**0.5
     # pdb.set_trace()
     return B
+  def effortPd(i):
+    FP, TP,Loc = 0,0,0
+    for row in i.rows:
+      Loc += row[10] # this is loc, # 10
+      if row[-1]==0:
+        FP += 1
+      else:
+        TP += 1
+    pd = TP/the.DATA.defective
+    return pd/(Loc/the.DATA.total[10])
+
 """
 
 Return the ranges:
@@ -144,46 +163,24 @@ def ranges(t):
   return [one for one in out if # better mu than b4
           better(one.y.mu,atLeast)]
 def rangesEqual(t, N = 2):
-  def one(lst,attr, x = lambda z: z[col]):
-    i, dist = 0, int(math.ceil(len(lst)/N))
-    cut,out = [],[]
-    while True:
-      if i+dist <len(lst):
-        cut +=[lst[i:i+dist]]
-        i = i+dist
+  def one(lst, col, attr, x = lambda z: z[col]):
+    out = []
+    last = this = 0
+    width = (the.DATA.Hi[col] - the.DATA.Lo[col])/N
+    for j,row in enumerate(lst):
+      if row[col] <= width and j < (len(lst)-1):
+        continue
       else:
-        # cut[-1].extend([lst[i:]])
-        cut +=[lst[i:]]
-        break
-    for sub in cut:
-      out +=[Range(attr = attr, x = o(lo = x(sub[0]), hi = x(sub[-1])), rows = sub)]
+          this = j if j<(len(lst)-1) and j != 0 else j+1 # get the last row included
+          sub = lst[last:this]
+          out +=[Range(attr = attr, x = o(lo = x(sub[0]), hi = x(sub[-1])), rows = sub)]
+          width +=width
+          last = j
     return out
-  # def divide(lst,n,attr,x = lambda z:z(col)):
-  #   '''
-  #   recursively divide
-  #   '''
-  #   out = []
-  #   if n > N:
-  #     return None
-  #   cut = [lst[:int(n/2)],lst[int(n/2):]]
-  #   n +=1
-  #   return cut,n
-  # def recursive(lst,n):
-  #   cut,i = divide(lst,n)
-  #   if cut:
-  #     recursive(cut[0],i+1)
-  #     recursive(cut[1],i+1)
-  #   else:
-  #     out +=[Range(attr = attr, x = o(lo = x(cut[0]), hi = x(cut[-1])), rows = cut)]
-  #   return out
   result = []
   for col in t.indep:
-    result +=one(sorted(t.data, key = lambda x:x[col]), attr = t.names[col])
+    result +=one(sorted(t.data, key = lambda x:x.cells[col]), col, attr = t.names[col])
   return result
-
-
-
-  pass
 
 def rangesSelect(t,method = rangesEqual):
   return method(t)

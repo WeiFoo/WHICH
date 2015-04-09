@@ -16,20 +16,13 @@ from counts import *
 def DATA(**d): return o(
     #Thresholds are from http://goo.gl/25bAh9
     more = ">",
-    less = "<"
+    less = "<",
+    max = {},
+    min = {},
+    total = None,
+    defective = None,
+    nondefective = None,
   ).update(**d)
-@setting
-def effortNorm(**d): return o(
-    Lo = 10**5,
-    Hi = -10**5,
-	  Total = 0
-).update(**d)
-
-@setting
-def NP(**d):return o(
-	defective = None, # number of modules are defective
-	nondefective = None
-).update(**d)
 
 class Row:
   id=0
@@ -69,14 +62,11 @@ def data(**d):
   lo,hi={},{}
   total = {}
   N,P = 0,0
-  def lohi0(j,n):
+  def lohi(one):
+    for j,n in enumerate(one):
       hi[j] = max(n, hi.get(j,-1*the.LIB.most))
       lo[j] = min(n, lo.get(j,   the.LIB.most))
-  def lohi(one):
-    for j in less: # total loc
-      lohi0(j,one[j])
-      total[j] = total.get(j,0)+ one[j]
-    for j in more: lohi0(j, one[j])
+      total[j] = total.get(j,0)+ n
   def norm(j,n):
     return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny)
   def fromHell(one):
@@ -89,13 +79,7 @@ def data(**d):
       n   += 1
       all += (lessHell - norm(j,one[j]))**2
     return all**2 / n**2
-  def ratio(one): return one[-1]/(one[10]+0.001) # return bug/effort
-  # def B(one):
-  #   all = 0
-  #   for j in less: # effort
-  #     all += the.RULER.rules.gamma*(1-norm(j,one[j]))**2
-  #   all += the.RULER.rules.alpha*1**2+the.RULER.rules.beta if one[-1] >0 else 0
-  #   return all**0.5/(the.RULER.rules.alpha +the.RULER.rules.beta+the.RULER.rules.gamma)**0.5
+  def ratio(one): return one[-1]/((one[10]+0.001)/the.DATA.total[10]) # return bug/effort
   names=d["names"]
   data=d["data"]
   more=[i for i,name in enumerate(names)
@@ -110,12 +94,12 @@ def data(**d):
      P += 1 #  num of defective modules
     else:
      N += 1 # non defective modules
-  NP(defective= P, nondefective = N )
   print("N="+str(N),"P="+str(P))
-  effortNorm(Lo =lo, Hi= hi,Total = total ) # keep effort max, min in global.
+  DATA(Lo =lo, Hi= hi,total = total, defective= P, nondefective = N )
   out = o(more=more,less=less,indep=indep,names=names,
            data=map(lambda one: Row(one,
                                     ratio(one)),
                     data))
   out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
+  # pdb.set_trace()
   return out

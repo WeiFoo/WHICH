@@ -12,7 +12,6 @@ def csv(f= "./data/ant/ant-1.7copy.csv"):
   t = table(f)
   n = [ header.name for header in t.headers]
   d = sorted([ row.cells for row in t._rows],key =lambda z: z[10] ) # sorted by $loc
-  # pdb.set_trace()
   return data(names= n, data = d)
 
 def _range():
@@ -36,8 +35,8 @@ def XY(data):
   for d in data:
     TP += d.cells[-1]
     Loc += d.cells[10]
-    xx +=[100*Loc/the.effortNorm.Total[10]]
-    pd +=[100*TP/the.NP.defective]
+    xx +=[100*Loc/the.DATA.total[10]]
+    pd +=[100*TP/the.DATA.defective]
   x = np.array(xx)
   pd = np.array(pd)
   return[x,pd]
@@ -64,22 +63,26 @@ def cart(train,test):
   clf = DecisionTreeRegressor(random_state = 1).fit(train_x,train_y)
   array = clf.predict(test_x)
   predictresult = [i for i in array]
-  for i,d in enumerate(test.data):
-    if d.cells[-1] == predictresult[i] and predictresult[i] ==1:
-      TP+=1
-    Loc += d.cells[10]
-    x +=[100*Loc/the.effortNorm.Total[10]]
-    pd +=[100*TP/the.NP.defective]
+  predicted = []
+  for j,p in enumerate(predictresult):
+    if p == 1:
+      predicted.append(test.data[j])
+  predicted_sorted = sorted(predicted, key = lambda z:z.cells[10])
+  for p in predicted_sorted:
+    if p.cells[-1] == 1:
+      TP += 1
+    Loc += p.cells[10]
+    x +=[100*Loc/the.DATA.total[10]]
+    pd +=[100*TP/the.DATA.defective]
   x = np.array(x)
   pd = np.array(pd)
-  pdb.set_trace()
   return[x,pd]
 
 
 
 def plot(result):
   color = ['r-','b-','k-','g-','y-','c-']
-  labels = ['manualUp','manualDown','minimum','good','best','CART']
+  labels = ['manualUp','manualDown','minimum','WHICH','best','CART']
   plt.figure(1)
   # plt.figure(figsize=(8,4))
   for j,x in enumerate(result):
@@ -106,16 +109,18 @@ def _rule(train):
   return best
 
 def _main():
-  train=csv(f= "./data/ant/ant-1.6copy.csv")
+  train=csv(f= "./data/ant/ant-1.3copy.csv")
   bestrule=_rule(train)
-  test = csv(f= "./data/ant/ant-1.6copy.csv")
+  test = csv(f= "./data/ant/ant-1.5copy.csv")
   result=[manual(test)]
   result +=[manual(test,up = False)]
   result +=[[np.linspace(0,100,100),np.linspace(0,100,100)]]
   result +=[bestrule.predict(test)]
   result +=[gbest(test)]
   result +=[cart(train,test)]
+  # pdb.set_trace()
   plot(result)
+
 
 if __name__ == "__main__":
   run(_main())
