@@ -1,0 +1,12 @@
+#!/bin/bash
+
+train=../data/cm1Train.arff
+test=../data/cm1Test.arff
+loc=1;
+
+# This will output 5 rules to the screen that Which decided best predict the
+# defects.  The best rule should be silimlar to the one that
+# triggered the output in 1.
+./which -score pdpf -ssize -1 -loc $loc -bins 2 -rep 5 -t $train -T $test
+
+

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3884"
+   name=""
+   committed-date="2008-02-20T19:16:18.280018Z"
+   url="http://unbox.org/wisp/tags/which/1.0/doc/latex"
+   last-author="zmilton"
+   kind="dir"
+   repos="http://unbox.org/wisp"
+   revision="4099"/>
+<entry
+   committed-rev="3884"
+   name="FreeSans.ttf"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="c72e08fcfbc0f02bcc5703ec2282cc0e"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="class_rule_set__coll__graph.md5"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="3dff96612b0ff4f339baaa5b4803c4b8"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_rule_set__coll__graph.dot"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="9c3e6f7f6bec0349c2c1a2ac4fc38dbc"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_rule_set.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="d18fc3b36c03ba61ea8795dfcbcf8101"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="refman.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="6aeb5f888350a6b3136ffada697c785d"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="struct_disjunction_set.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="bc27b3ee6897d24094749b6f8fbab40b"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_rule__coll__graph.md5"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="6ecb3a90ad8d7a6fe304eb96f0c7bf89"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_rule__coll__graph.dot"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="83bf6f707d96abca6382d4987cae9538"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_rule.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="4bebd57980b32aaeccbe92a8e18c9189"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_which_stack.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="402857957acacbd3602f4ca2cf73c375"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="doxygen.sty"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="0b35c689419cf0aa8e152dd9879ba3fb"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="annotated.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="f255885277d1239f386556afe6636b14"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="class_data.tex"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="9b5be9bd3a2f9b7c025ec2e370bb8093"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="Makefile"
+   text-time="2008-02-20T18:52:40.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="21699fd3e129b35b3da3af2472ab24be"
+   last-author="zmilton"
+   kind="file"/>
+</wc-entries>

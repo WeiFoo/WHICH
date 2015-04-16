@@ -1,0 +1,230 @@
+\hypertarget{class_which_stack}{
+\section{WhichStack Class Reference}
+\label{class_which_stack}\index{WhichStack@{WhichStack}}
+}
+{\tt \#include $<$WhichStack.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{class_which_stack_040cb3fd18652b932442865486bf8c99}{WhichStack} ()
+\item 
+\hyperlink{class_which_stack_1f9519d1f56a44d3567660f743eeb9dc}{WhichStack} (int maxSize)
+\item 
+\hyperlink{class_which_stack_e73a772df47199f36095c97a64b43056}{$\sim$WhichStack} ()
+\item 
+void \hyperlink{class_which_stack_2a86298424b17599c25c3e1499dcaee8}{create} (\hyperlink{class_data}{Data} $\ast$data, int type, float alpha=1, float beta=1, float gamma=1)
+\item 
+bool \hyperlink{class_which_stack_8f739d30839992275c72fb7c374b8ca2}{push} (\hyperlink{class_rule}{Rule} $\ast$r)
+\item 
+int \hyperlink{class_which_stack_2e3f481005580876cc2de65fcbc7961f}{select} (int count=2000, int check=200, float improve=0.2)
+\item 
+bool \hyperlink{class_which_stack_5f51fdbf5c18e14591a0877f0fac8168}{pickTwo} ()
+\item 
+unsigned int \hyperlink{class_which_stack_a40b3e52737af7c2dfc6afb1e8f785b8}{size} ()
+\item 
+\hyperlink{class_rule}{Rule} $\ast$ \hyperlink{class_which_stack_2f36675a80f41d3fd847a67645f0917f}{getBest} ()
+\item 
+\hyperlink{class_rule}{Rule} $\ast$ \hyperlink{class_which_stack_8dcb6f1aa38e9e38bab202c699334378}{getRule} (int index)
+\item 
+std::ostream \& \hyperlink{class_which_stack_fcaa85b0d6a98bb05371b37211bf46da}{report} (std::ostream \&stream, int n)
+\item 
+void \hyperlink{class_which_stack_0679d5088732b87c05b6d70492734264}{print} (std::ostream \&stream)
+\item 
+bool \hyperlink{class_which_stack_6489dea58299a9327005dec0ade75ed7}{push} (int\mbox{[}$\,$\mbox{]} attVal, float($\ast$scoreFcn)(\hyperlink{class_rule}{Rule} $\ast$))
+\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+bool \hyperlink{class_which_stack_4ecfc1c6d3adbb3b01aa04d563b7ccc2}{contains} (\hyperlink{class_rule}{Rule} $\ast$r)
+\item 
+int \hyperlink{class_which_stack_09536618baf2fb9f35e2eef178120617}{pick} (std::vector$<$ float $>$ scores, float sum)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Represents a Which-specific stack. It is sorted and has special facilities geared towards Which. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_which_stack_040cb3fd18652b932442865486bf8c99}{
+\index{WhichStack@{WhichStack}!WhichStack@{WhichStack}}
+\index{WhichStack@{WhichStack}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}WhichStack::WhichStack ()}}
+\label{class_which_stack_040cb3fd18652b932442865486bf8c99}
+
+
+Empty Constructor. \hypertarget{class_which_stack_1f9519d1f56a44d3567660f743eeb9dc}{
+\index{WhichStack@{WhichStack}!WhichStack@{WhichStack}}
+\index{WhichStack@{WhichStack}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}WhichStack::WhichStack (int {\em maxSize})}}
+\label{class_which_stack_1f9519d1f56a44d3567660f743eeb9dc}
+
+
+Creates a \hyperlink{class_which_stack}{WhichStack} that has a maximum size. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em maxSize}]The maximum size this \hyperlink{class_which_stack}{WhichStack} can be. If it is -1, the size if infinite. \end{description}
+\end{Desc}
+\hypertarget{class_which_stack_e73a772df47199f36095c97a64b43056}{
+\index{WhichStack@{WhichStack}!$\sim$WhichStack@{$\sim$WhichStack}}
+\index{$\sim$WhichStack@{$\sim$WhichStack}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}WhichStack::$\sim$WhichStack ()}}
+\label{class_which_stack_e73a772df47199f36095c97a64b43056}
+
+
+Destructor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_which_stack_2a86298424b17599c25c3e1499dcaee8}{
+\index{WhichStack@{WhichStack}!create@{create}}
+\index{create@{create}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void WhichStack::create ({\bf Data} $\ast$ {\em data}, \/  int {\em type}, \/  float {\em alpha} = {\tt 1}, \/  float {\em beta} = {\tt 1}, \/  float {\em gamma} = {\tt 1})}}
+\label{class_which_stack_2a86298424b17599c25c3e1499dcaee8}
+
+
+Creates a \hyperlink{class_which_stack}{WhichStack} having Rules of single attribute-value pairs. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em data}]The data file to use to create the Rules from. \item[{\em type}]The type of Rules to create. \item[{\em alpha}]The weight for pd. \item[{\em beta}]The weight of pf. \item[{\em gamma}]The weight for effort. \end{description}
+\end{Desc}
+\hypertarget{class_which_stack_8f739d30839992275c72fb7c374b8ca2}{
+\index{WhichStack@{WhichStack}!push@{push}}
+\index{push@{push}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool WhichStack::push ({\bf Rule} $\ast$ {\em r})}}
+\label{class_which_stack_8f739d30839992275c72fb7c374b8ca2}
+
+
+Pushes a \hyperlink{class_rule}{Rule} onto the \hyperlink{class_which_stack}{WhichStack} in the position based on the Rule's score. If the \hyperlink{class_rule}{Rule} would be last on a \hyperlink{class_which_stack}{WhichStack} of finite size that is full, the item will not be pushed. --- THE RULE WILL NOT BE DELETED IF IT IS NOT ADDED --- \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em r}]The \hyperlink{class_rule}{Rule} to push onto the \hyperlink{class_which_stack}{WhichStack}. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]True if the \hyperlink{class_rule}{Rule} made it onto the \hyperlink{class_which_stack}{WhichStack}, false otherwise. \end{Desc}
+\hypertarget{class_which_stack_2e3f481005580876cc2de65fcbc7961f}{
+\index{WhichStack@{WhichStack}!select@{select}}
+\index{select@{select}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int WhichStack::select (int {\em count} = {\tt 2000}, \/  int {\em check} = {\tt 200}, \/  float {\em improve} = {\tt 0.2})}}
+\label{class_which_stack_2e3f481005580876cc2de65fcbc7961f}
+
+
+Calls pickTwo a series of times to attempt to create a \char`\"{}best\char`\"{} Rules. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em count}]The number of times to call PickTwo total. \item[{\em check}]How many pickTwo calls to allow to pass before a check is made to make sure improvement is still happening. \item[{\em improve}]A decimal number representing the percentage of increase in score a current \char`\"{}best\char`\"{} \hyperlink{class_rule}{Rule} must have since the last check in order to continue calling pickTwo. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The true number of times pickTwo was called. A number $<$= count. \end{Desc}
+\hypertarget{class_which_stack_5f51fdbf5c18e14591a0877f0fac8168}{
+\index{WhichStack@{WhichStack}!pickTwo@{pickTwo}}
+\index{pickTwo@{pickTwo}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool WhichStack::pickTwo ()}}
+\label{class_which_stack_5f51fdbf5c18e14591a0877f0fac8168}
+
+
+Based on a weighted distribution, picks two Rules from the \hyperlink{class_which_stack}{WhichStack} and combines them. \begin{Desc}
+\item[Returns:]True if the new \hyperlink{class_rule}{Rule} made it onto the \hyperlink{class_which_stack}{WhichStack}, false otherwise. \end{Desc}
+\hypertarget{class_which_stack_a40b3e52737af7c2dfc6afb1e8f785b8}{
+\index{WhichStack@{WhichStack}!size@{size}}
+\index{size@{size}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int WhichStack::size ()}}
+\label{class_which_stack_a40b3e52737af7c2dfc6afb1e8f785b8}
+
+
+Gets the number of Rules in the \hyperlink{class_which_stack}{WhichStack}. \begin{Desc}
+\item[Returns:]The number of Rules in the \hyperlink{class_which_stack}{WhichStack}. \end{Desc}
+\hypertarget{class_which_stack_2f36675a80f41d3fd847a67645f0917f}{
+\index{WhichStack@{WhichStack}!getBest@{getBest}}
+\index{getBest@{getBest}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rule} $\ast$ WhichStack::getBest ()}}
+\label{class_which_stack_2f36675a80f41d3fd847a67645f0917f}
+
+
+Gets the best \hyperlink{class_rule}{Rule} in the \hyperlink{class_which_stack}{WhichStack}. \begin{Desc}
+\item[Returns:]The top of the \hyperlink{class_which_stack}{WhichStack}. \end{Desc}
+\hypertarget{class_which_stack_8dcb6f1aa38e9e38bab202c699334378}{
+\index{WhichStack@{WhichStack}!getRule@{getRule}}
+\index{getRule@{getRule}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rule} $\ast$ WhichStack::getRule (int {\em index})}}
+\label{class_which_stack_8dcb6f1aa38e9e38bab202c699334378}
+
+
+Gets the \hyperlink{class_rule}{Rule} indexed by index. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em index}]The index of the \hyperlink{class_rule}{Rule} to get( 0 is the same as calling \hyperlink{class_which_stack_2f36675a80f41d3fd847a67645f0917f}{getBest()} ); \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The \hyperlink{class_rule}{Rule} at index index. \end{Desc}
+\hypertarget{class_which_stack_fcaa85b0d6a98bb05371b37211bf46da}{
+\index{WhichStack@{WhichStack}!report@{report}}
+\index{report@{report}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::ostream\& WhichStack::report (std::ostream \& {\em stream}, \/  int {\em n})}}
+\label{class_which_stack_fcaa85b0d6a98bb05371b37211bf46da}
+
+
+Prints the first n Rules in the \hyperlink{class_which_stack}{WhichStack}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print to. \item[{\em n}]The number of Rules to print. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The stream; \end{Desc}
+\hypertarget{class_which_stack_0679d5088732b87c05b6d70492734264}{
+\index{WhichStack@{WhichStack}!print@{print}}
+\index{print@{print}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void WhichStack::print (std::ostream \& {\em stream})}}
+\label{class_which_stack_0679d5088732b87c05b6d70492734264}
+
+
+Outputs the \hyperlink{class_which_stack}{WhichStack} to a stream. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to output to. \end{description}
+\end{Desc}
+\hypertarget{class_which_stack_6489dea58299a9327005dec0ade75ed7}{
+\index{WhichStack@{WhichStack}!push@{push}}
+\index{push@{push}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool WhichStack::push (int\mbox{[}$\,$\mbox{]} {\em attVal}, \/  float($\ast$)({\bf Rule} $\ast$) {\em scoreFcn})}}
+\label{class_which_stack_6489dea58299a9327005dec0ade75ed7}
+
+
+This is a special method for using the \hyperlink{class_which_stack}{WhichStack} as an API. This allows a user to push items in isolation into the WhickStack, much like the standard construction does. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attVal}]A length 1x2 array that stores an attribute index and its value index to be added to the \hyperlink{class_which_stack}{WhichStack}. \item[{\em scoreFcn}]A pointer to the method of evaluating a \hyperlink{class_rule}{Rule}. \end{description}
+\end{Desc}
+\hypertarget{class_which_stack_4ecfc1c6d3adbb3b01aa04d563b7ccc2}{
+\index{WhichStack@{WhichStack}!contains@{contains}}
+\index{contains@{contains}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool WhichStack::contains ({\bf Rule} $\ast$ {\em r})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_which_stack_4ecfc1c6d3adbb3b01aa04d563b7ccc2}
+
+
+Checks to see if a \hyperlink{class_rule}{Rule} is already in this \hyperlink{class_which_stack}{WhichStack}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em r}]The Rulet to look for. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]True if r is in this \hyperlink{class_which_stack}{WhichStack}, false otherwise. \end{Desc}
+\hypertarget{class_which_stack_09536618baf2fb9f35e2eef178120617}{
+\index{WhichStack@{WhichStack}!pick@{pick}}
+\index{pick@{pick}!WhichStack@{WhichStack}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int WhichStack::pick (std::vector$<$ float $>$ {\em scores}, \/  float {\em sum})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_which_stack_09536618baf2fb9f35e2eef178120617}
+
+
+Picks a \hyperlink{class_rule}{Rule} from the \hyperlink{class_which_stack}{WhichStack}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em scores}]The vector of scores for the rule. \item[{\em max}]The maximum number to select. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The position in the \hyperlink{class_which_stack}{WhichStack} of the chosen rule. \end{Desc}
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+My Documents/Zach/School/Research/Which/which/WhichStack.h\item 
+My Documents/Zach/School/Research/Which/which/WhichStack.cpp\end{CompactItemize}

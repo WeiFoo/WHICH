@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3884"
+   name=""
+   committed-date="2008-02-20T19:16:18.280018Z"
+   url="http://unbox.org/wisp/tags/which/1.0/doc"
+   last-author="zmilton"
+   kind="dir"
+   repos="http://unbox.org/wisp"
+   revision="4099"/>
+<entry
+   name="html"
+   kind="dir"/>
+<entry
+   name="latex"
+   kind="dir"/>
+</wc-entries>

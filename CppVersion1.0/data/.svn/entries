@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3884"
+   name=""
+   committed-date="2008-02-20T19:16:18.280018Z"
+   url="http://unbox.org/wisp/tags/which/1.0/data"
+   last-author="zmilton"
+   kind="dir"
+   repos="http://unbox.org/wisp"
+   revision="4099"/>
+<entry
+   committed-rev="3884"
+   name="cm1Train.arff"
+   text-time="2008-02-20T14:07:11.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="940f75ba6344b2207fd62a985bb3e4bf"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="cm1Test.arff"
+   text-time="2008-02-20T14:07:11.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="98e9e519b66114b05e29bd12a004dd2c"
+   last-author="zmilton"
+   kind="file"/>
+</wc-entries>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3884"
+   name=""
+   committed-date="2008-02-20T19:16:18.280018Z"
+   url="http://unbox.org/wisp/tags/which/1.0/eg"
+   last-author="zmilton"
+   kind="dir"
+   repos="http://unbox.org/wisp"
+   revision="4099"/>
+<entry
+   committed-rev="3884"
+   name="0"
+   text-time="2008-02-20T14:12:07.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="69ff71ba945449212eb8994c59682488"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="1"
+   text-time="2008-02-20T14:09:21.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="ae2b3e11c09941143014f0c00cb25823"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="2"
+   text-time="2008-02-20T14:10:47.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="a145771e931b7c4cf97aa9a34cf6d5e7"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="which"
+   text-time="2008-02-20T14:12:12.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="62b57c8cf9f9b010c76a17d06c687246"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="README.txt"
+   text-time="2008-02-20T14:03:03.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="30ca5e7729d8538ba80298025b180e93"
+   last-author="zmilton"
+   kind="file"/>
+</wc-entries>

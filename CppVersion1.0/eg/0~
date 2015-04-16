@@ -1,0 +1,6 @@
+#!/bin/bash
+dir=~/wisp/var/Zach/tmp/which
+
+g++ $dir/main.cpp $dir/Data.cpp $dir/Rule.cpp $dir/WhichStack.cpp $dir/RuleSet.cpp -lm -o which -w 2> temp
+grep error temp
+rm -f temp
