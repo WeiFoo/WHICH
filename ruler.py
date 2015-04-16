@@ -14,17 +14,18 @@ from counts import *
 @setting
 def RULER(**d):
   def enough(ruleRows,allRows):
-      return len(ruleRows) >= len(allRows)**0.5
+      return len(ruleRows) >= len(allRows)**the.RULER.rules.enoughPara
   return o(
     better = gt,
     rules =o(tiny=20,
              small=0.001,
              repeats=32,
-             beam=16,
              retries=32,
+             beam=16,
              fresh=0.33,
+             enoughPara = 0.5,
              alpha = 1,
-             beta = 0,
+             beta = 1,
              gamma = 1,
              enough=enough)
   ).update(**d)
@@ -68,11 +69,20 @@ class Rule:
    return Rule(ranges,rows)
   def predict(i,t = None):
     '''use the rule to predict'''
-    lo = lambda z: z.x.lo
-    hi = lambda z: z.x.hi
-    TP,Loc = 0,0
     x,pd,col = [],[],{}
-    def check(row,col):
+    def duplicates():
+      attr = [ r.attr for r in i.ranges]
+      for a in attr:
+        temp = t.names.index(a)
+        col[temp] = col.get(temp,0) +1 # count # of same attribute
+    def check0():
+      duplicates()
+      predicted = []
+      for d in t.data:
+        if check(d,col) ==1 :
+          predicted.append(d)
+      return sorted(predicted, key = lambda z:z.cells[10])
+    def check(row,col,lo = lambda z: z.x.lo,hi = lambda z: z.x.hi):
       count =0
       for key, val in col.iteritems():
         Flag = False
@@ -82,26 +92,22 @@ class Rule:
           count +=1
         if not Flag:
           return 0
-      return 1   # pass the rule and predict as defectie
-    attr = [ r.attr for r in i.ranges]
-    for a in attr:
-      temp = t.names.index(a)
-      col[temp] = col.get(temp,0) +1
-    predicted = []
-    for d in t.data:
-      if check(d,col) ==1 :
-        predicted.append(d)
-    predicted_sorted = sorted(predicted, key = lambda z:z.cells[10])
-    for p in predicted_sorted:
-      if p.cells[-1] == 1:
-        TP += 1
-      Loc += p.cells[10]
-      x +=[100*Loc/the.DATA.total[10]]
-      pd +=[100*TP/the.DATA.defective]
-    x = np.array(x)
-    pd = np.array(pd)
-    pdb.set_trace()
-    return[x,pd]
+      return 1   # pass the whole rule and predict as defective
+    def cal(predicted_sorted):
+      TP,Loc = 0,0
+      x,pd = [],[]
+      for p in predicted_sorted:
+        if p.cells[-1] == 1:
+          TP += 1
+        Loc += p.cells[10]
+        x +=[100*Loc/the.DATA.total[10]]
+        pd +=[100*TP/the.DATA.defective]
+      x = np.array(x)
+      pd = np.array(pd)
+      # pdb.set_trace()
+      return[x,pd]
+    return cal(check0())
+
 
   def computeB(i):
  #all the rows associated with this rule will be predicted as defective.
@@ -115,15 +121,15 @@ class Rule:
       else:
         TP += 1
     pd = TP/the.DATA.defective
-    pf = FP/the.DATA.nondefective
+    pf = FP/(the.DATA.nondefective+0.00001)
     effort = Loc/the.DATA.total[10]# percentage effort
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
     B = (pd**2*alpha +(1-pf)**2*beta\
         +(1-effort)**2*gamma)**0.5/(alpha+beta+gamma)**0.5
-    # pdb.set_trace()
     return B
+
   def effortPd(i):
     FP, TP,Loc = 0,0,0
     for row in i.rows:
@@ -162,24 +168,24 @@ def ranges(t):
   pdb.set_trace()
   return [one for one in out if # better mu than b4
           better(one.y.mu,atLeast)]
-def rangesEqual(t, N = 2):
-  def one(lst, col, attr, x = lambda z: z[col]):
-    out = []
-    last = this = 0
-    width = (the.DATA.Hi[col] - the.DATA.Lo[col])/N
-    for j,row in enumerate(lst):
-      if row[col] <= width and j < (len(lst)-1):
-        continue
+def rangesEqual(t, N = 8):
+  def one(lst,attr, x = lambda z: z[col]):
+    i, dist = 0, int(math.ceil(len(lst)/N))
+    cut,out = [],[]
+    while True:
+      if i+dist <len(lst):
+        cut +=[lst[i:i+dist]]
+        i = i+dist
       else:
-          this = j if j<(len(lst)-1) and j != 0 else j+1 # get the last row included
-          sub = lst[last:this]
-          out +=[Range(attr = attr, x = o(lo = x(sub[0]), hi = x(sub[-1])), rows = sub)]
-          width +=width
-          last = j
+        # cut[-1].extend([lst[i:]])
+        cut +=[lst[i:]]
+        break
+    for sub in cut:
+      out +=[Range(attr = attr, x = o(lo = x(sub[0]), hi = x(sub[-1])), rows = sub)]
     return out
   result = []
   for col in t.indep:
-    result +=one(sorted(t.data, key = lambda x:x.cells[col]), col, attr = t.names[col])
+    result +=one(sorted(t.data, key = lambda x:x[col]), attr = t.names[col])
   return result
 
 def rangesSelect(t,method = rangesEqual):
@@ -205,7 +211,7 @@ def ruler(t):
         # pdb.set_trace()
         if rule:
           if rule.score > top:
-            if wellSupported(rule.rows,t): # why this?
+            if wellSupported(rule.rows,t): # # of rows should be greater than threshold
               if not tabooed(rule.rows,taboo): # why check this?
                 best   = rule
                 top    = rule.score

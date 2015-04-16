@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys
+import sys,pdb
 sys.dont_write_bytecode = True
 
 """
@@ -59,16 +59,14 @@ always is a number zero to one).
 
 """
 def data(**d):
-  lo,hi={},{}
-  total = {}
+  lo, hi, total = {}, {}, {}
   N,P = 0,0
   def lohi(one):
-    for j,n in enumerate(one):
-      hi[j] = max(n, hi.get(j,-1*the.LIB.most))
-      lo[j] = min(n, lo.get(j,   the.LIB.most))
-      total[j] = total.get(j,0)+ n
-  def norm(j,n):
-    return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny)
+    for j,val in enumerate(one):
+      hi[j] = max(val, hi.get(j,-1*the.LIB.most))
+      lo[j] = min(val, lo.get(j,   the.LIB.most))
+      total[j] = total.get(j,0)+ val # sum up the whole column
+  def norm(j,n): return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny)
   def fromHell(one):
     all,n = 0,0
     moreHell, lessHell = 0,1
@@ -78,8 +76,9 @@ def data(**d):
     for j in less:
       n   += 1
       all += (lessHell - norm(j,one[j]))**2
-    return all**2 / n**2
+    return all**2 / n**2 # Is his right ???? I thought it should be al**0.5/n**0.5. Right now, do not use it
   def ratio(one): return one[-1]/((one[10]+0.001)/the.DATA.total[10]) # return bug/effort
+  # pdb.set_trace()
   names=d["names"]
   data=d["data"]
   more=[i for i,name in enumerate(names)
@@ -97,9 +96,6 @@ def data(**d):
   print("N="+str(N),"P="+str(P))
   DATA(Lo =lo, Hi= hi,total = total, defective= P, nondefective = N )
   out = o(more=more,less=less,indep=indep,names=names,
-           data=map(lambda one: Row(one,
-                                    ratio(one)),
-                    data))
+          data=map(lambda one: Row(one,ratio(one)), data))
   out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
-  # pdb.set_trace()
   return out

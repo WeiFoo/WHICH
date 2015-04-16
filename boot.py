@@ -1,5 +1,5 @@
 from __future__ import division,print_function
-import sys
+import sys,pdb
 sys.dont_write_bytecode =True
 
 """
@@ -26,6 +26,7 @@ class o:
     return '{'+' '.join(show)+'}'
 
 def name(x):
+  pdb.set_trance()
   f=lambda z: z.__class__.__name__ == 'function'
   return 'function(%s)'% x.__name__ if f(x) else x
   
