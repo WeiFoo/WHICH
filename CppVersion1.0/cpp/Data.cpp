@@ -41,11 +41,11 @@ void Data::read( string fName )
 {
 	ifstream file( fName.c_str() );
 	mFileName = fName;
-	if ( !file.is_open() )
-	{
-		cerr << "Error opening file " << fName << ". Exiting." << endl;
-		exit( 0 );
-	}
+//	if ( !file.is_open() )
+//	{
+//		cerr << "Error opening file " << fName << ". Exiting." << endl;
+//		exit( 0 );
+//	}
 
 	string line;
 	bool atData = false;

@@ -34,7 +34,7 @@ void WhichStack::create( Data *data, int type, float alpha, float beta, float ga
 	{
 		for ( unsigned int val = 0; val < data->getNumAttVals( data->getAttName( att ) ); val++ )
 		{
-			Rule *r = new Rule( att, val, data, t );
+			Rule *r = new Rule( att, val, data, t ); 
 			r->setWeights( alpha, beta, gamma );
 			r->score();
 			if ( !( push( r ) ) ) delete r;

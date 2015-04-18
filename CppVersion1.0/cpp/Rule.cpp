@@ -254,7 +254,7 @@ void Rule::scoreEffort()
 	else mPD = freqBest/(float)mData->getClassFreqs()[mTargetClass];
 
 	if ( freqBest + freqRest <= 0 )  mPF = 0;
-	else mPF = freqRest/(float)(freqBest + freqRest );
+	else mPF = freqRest/(float)(freqBest + freqRest ); // PF = FP/(FP +TN) = freqRest/(freqRest + TN)!!!!
 
 	if ( mData->getClassFreqs().back() <= 0 ) mSupport = 0;
 	else mSupport = freqBest/(float)(mData->getClassFreqs().back()) * 100;
