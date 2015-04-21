@@ -15,11 +15,11 @@ import tifffile as tiff
 
  # img = data.coffee()
 img = mpimg.imread('ilk-3b-1024.tif')
-labels1 = segmentation.slic(img, compactness=20, n_segments=400)
+labels1 = segmentation.slic(img, compactness=16, n_segments=256)
 out1 = color.label2rgb(labels1, img, kind='avg')
 # tif = TIFF.open('A.tif', mode='w')
 # tif.write_image(out1)
-tiff.imsave('ilk-3b-1024_segment.tiff', out1)
+tiff.imsave('ilk-3b-1024_segmentqiang.tiff', out1)
 # pdb.set_trace()
 g = graph.rag_mean_color(img, labels1, mode='similarity')
 labels2 = graph.cut_normalized(labels1, g)
