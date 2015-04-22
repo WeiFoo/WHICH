@@ -25,8 +25,8 @@ def RULER(**d):
              fresh=0.33,
              enoughPara = 0.5,
              alpha = 1,
-             beta = 1,
-             gamma = 1,
+             beta = 1000,
+             gamma = 0,
              enough=enough)
   ).update(**d)
 """
@@ -81,7 +81,7 @@ class Rule:
       for d in t.data:
         if check(d,col) ==1 :
           predicted.append(d)
-      return sorted(predicted, key = lambda z:z.cells[10])
+      return sorted(predicted, key = lambda z:z.cells[the.DATA.loc])
     def check(row,col,lo = lambda z: z.x.lo,hi = lambda z: z.x.hi):
       count =0
       for key, val in col.iteritems():
@@ -99,8 +99,8 @@ class Rule:
       for p in predicted_sorted:
         if p.cells[-1] == 1:
           TP += 1
-        Loc += p.cells[10]
-        x +=[100*Loc/the.DATA.total[10]]
+        Loc += p.cells[the.DATA.loc]
+        x +=[100*Loc/the.DATA.total[the.DATA.loc]]
         pd +=[100*TP/the.DATA.defective]
       x = np.array(x)
       pd = np.array(pd)
@@ -115,14 +115,14 @@ class Rule:
  #efforts is normalized
     FP, TP,Loc = 0,0,0
     for row in i.rows:
-      Loc += row[10] # this is loc, # 10
+      Loc += row[the.DATA.loc]
       if row[-1]==0:
         FP += 1
       else:
         TP += 1
     pd = TP/the.DATA.defective
     pf = FP/(the.DATA.nondefective+0.00001)
-    effort = Loc/the.DATA.total[10]# percentage effort
+    effort = Loc/the.DATA.total[the.DATA.loc]# percentage effort
     alpha = the.RULER.rules.alpha
     beta = the.RULER.rules.beta
     gamma = the.RULER.rules.gamma
@@ -133,13 +133,13 @@ class Rule:
   def effortPd(i):
     FP, TP,Loc = 0,0,0
     for row in i.rows:
-      Loc += row[10] # this is loc, # 10
+      Loc += row[the.DATA.loc]
       if row[-1]==0:
         FP += 1
       else:
         TP += 1
     pd = TP/the.DATA.defective
-    return pd/(Loc/the.DATA.total[10])
+    return pd/(Loc/the.DATA.total[the.DATA.loc])
 
 """
 
@@ -168,7 +168,7 @@ def ranges(t):
   pdb.set_trace()
   return [one for one in out if # better mu than b4
           better(one.y.mu,atLeast)]
-def rangesEqual(t, N = 8):
+def equal_frequency(t, N = 2):
   def one(lst,attr, x = lambda z: z[col]):
     i, dist = 0, int(math.ceil(len(lst)/N))
     cut,out = [],[]
@@ -188,17 +188,22 @@ def rangesEqual(t, N = 8):
     result +=one(sorted(t.data, key = lambda x:x[col]), attr = t.names[col])
   return result
 
-def rangesSelect(t,method = rangesEqual):
-  return method(t)
+def discretize(t, method = 'equal_frequency'):
+    """
+    switch in python
+    """
+    return {
+        'sdiv':ranges,
+        'equal_frequency':equal_frequency
+    }[method](t)
+
 
 def ruler(t):
   retries = xrange(the.RULER.rules.retries)
   repeats = xrange(the.RULER.rules.repeats)
   out     = []
   taboo   = set() #??????
-  ranges0 = rangesSelect(t)
-  # ranges0 = ranges(t)
-  # pdb.set_trace()
+  ranges0 = discretize(t)
   while True:
     best  = None
     # top   = t.score # issue : here, we should change to 0 or what ever.
@@ -212,7 +217,7 @@ def ruler(t):
         if rule:
           if rule.score > top:
             if wellSupported(rule.rows,t): # # of rows should be greater than threshold
-              if not tabooed(rule.rows,taboo): # why check this?
+              if not tabooed(rule.rows,taboo): # the new rule should have less overlap of rows with previous best rules
                 best   = rule
                 top    = rule.score
                 rules += [rule]
