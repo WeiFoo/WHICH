@@ -22,7 +22,7 @@ def cart(**d):
 def csv(f= "./data/ant/ant-1.7copy.csv"):
   t = table(f)
   n = [ header.name for header in t.headers]
-  d = sorted([ row.cells for row in t._rows ],key =lambda z: z[10] ) # sorted by $loc
+  d = sorted([ row.cells for row in t._rows ],key =lambda z: z[the.DATA.loc] ) # sorted by $loc
   return data(names= n, data = d)
 
 def _range():
@@ -45,8 +45,8 @@ def XY(data):
   xx,pd = [],[]
   for d in data:
     TP += d.cells[-1]
-    Loc += d.cells[10]
-    xx +=[100*Loc/the.DATA.total[10]]
+    Loc += d.cells[the.DATA.loc]
+    xx +=[100*Loc/the.DATA.total[the.DATA.loc]]
     pd +=[100*TP/the.DATA.defective]
   x = np.array(xx)
   pd = np.array(pd)
@@ -55,13 +55,13 @@ def XY(data):
 def manual(t, up = True):
   data = t.data
   if not up:
-    data = sorted(t.data,key = lambda z :z[10], reverse = True)
+    data = sorted(t.data,key = lambda z :z[the.DATA.loc], reverse = True)
   return XY(data)
 
 def gbest(t):
   '''the best method which has highest score'''
   data =[d for d in t.data if d[-1] ==1]
-  data = sorted(data, key = lambda z: z[10])
+  data = sorted(data, key = lambda z: z[the.DATA.loc])
   return XY(data)
 
 def cart(train,test, tuning = True):
@@ -81,12 +81,12 @@ def cart(train,test, tuning = True):
   for j,p in enumerate(predictresult):
     if p == 1:
       predicted.append(test.data[j])
-  predicted_sorted = sorted(predicted, key = lambda z:z.cells[10])
+  predicted_sorted = sorted(predicted, key = lambda z:z.cells[the.DATA.loc])
   for p in predicted_sorted:
     if p.cells[-1] == 1:
       TP += 1
-    Loc += p.cells[10]
-    x +=[100*Loc/the.DATA.total[10]]
+    Loc += p.cells[the.DATA.loc]
+    x +=[100*Loc/the.DATA.total[the.DATA.loc]]
     pd +=[100*TP/the.DATA.defective]
   x = np.array(x)
   pd = np.array(pd)
@@ -94,8 +94,9 @@ def cart(train,test, tuning = True):
 
 
 def plot(result):
-  color = ['r-','b-','k-','g-','y-','c-','m-']
-  labels = ['WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
+
+  color = ['r-','k-','b-','b^','g-','y-','c-','m-']
+  labels = ['WHICH','Tuned_WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
   plt.figure(1)
   # plt.figure(figsize=(8,4))
   for j,x in enumerate(result):
@@ -113,7 +114,7 @@ def plot(result):
 def _rule(train):
   LIB(seed=1)
   #RULER(tiny=4,better=gt) initialize
-  print(train.score, "baseline :",len(train.data))
+  # print(train.score, "baseline :",len(train.data))
   for z in ruler(train):
     print(z.score,z)
   try:
@@ -123,7 +124,7 @@ def _rule(train):
   return best
 
 def which():
-  train=csv(f= "./data/ant/ant-1.5copy.csv")
+  train=csv(f= "./data/ant/ant-1.7copy.csv")
   test = csv(f= "./data/ant/ant-1.7copy.csv")
   bestrule = _rule(train)
   if bestrule:
@@ -131,29 +132,29 @@ def which():
     if not Settings.tunner.isTuning:
       return result # not tuning
     else:
-      return result[0][1][-1]/(result[0][0][-1]+0.00001) if len(result[0][0]) != 0 else 0
+      # return result[0][1][-1]/(result[0][0][-1]+0.00001) if len(result[0][0]) != 0 else 0
+      return result[0][1][-1] if len(result[0][0]) != 0 else 0
         # this is tuning score, the last point in curve: pd/effort
   else:
       return 0 # no rules, then return 0
 def main():
-  train=csv(f= "./data/ant/ant-1.5copy.csv")
-  test = csv(f= "./data/ant/ant-1.7copy.csv")
+  train=csv(f= "./data/cm1/cm1.1copy.csv")
+  test = csv(f= "./data/cm1/cm1.3copy.csv")
   # result = []
   bestrule = _rule(train)
   result =[bestrule.predict(test)]
   # TUNER = Which()
   # TUNER.DE()
-  # result =which()
-  # pdb.set_trace()
-  TUNER = Cart()
-  TUNER.DE()
-  pdb.set_trace()
+  # result +=which()
+  # TUNER = Cart()
+  # TUNER.DE()
   result += [manual(test)]
   result += [manual(test,up = False)]
   result += [[np.linspace(0,100,100),np.linspace(0,100,100)]]
   result += [gbest(test)]
   result += [cart(train,test)] # tuned cart
   result += [cart(train,test,False)] # default cart
+  # pdb.set_trace()
   plot(result)
 
 
