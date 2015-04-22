@@ -92,7 +92,7 @@ class DeBase(object):
       changed = False
     i.assign(i.tobetuned,i.bestconf)
     print "DONE !!!!"
-    pdb.set_trace()
+    # pdb.set_trace()
     Settings.tunner.isTuning = False
 
 
@@ -150,8 +150,8 @@ class Cart(DeBase):
     train=csv(f= "./data/ant/ant-1.4copy.csv")
     test = csv(f= "./data/ant/ant-1.7copy.csv")
     result = cart(train,test)
-
-    return result[1][-1]/(result[0][-1] + 0.0001) if len(result[0]) != 0 else 0
+    return result[1][-1] if len(result[0]) != 0 else 0
+    # return result[1][-1]/(result[0][-1] + 0.0001) if len(result[0]) != 0 else 0
   def evaluate(i):
     for n, arglst in enumerate(i.frontier):
       i.assign(i.tobetuned,arglst)
