@@ -1,6 +1,7 @@
 from __future__ import division,print_function
 import sys,pdb
 sys.dont_write_bytecode = True
+from counts import *
 
 """
 
@@ -10,7 +11,6 @@ Each line of table is store as a row. _Row_ has a unique
 integer hash (so interesections of set of _Row_s is very fast).
 
 """
-from counts import *
 
 @setting
 def DATA(**d): return o(
@@ -22,6 +22,7 @@ def DATA(**d): return o(
     total = None,
     defective = None,
     nondefective = None,
+    loc = 0, # location of loc attribute
   ).update(**d)
 
 class Row:
@@ -66,19 +67,8 @@ def data(**d):
       hi[j] = max(val, hi.get(j,-1*the.LIB.most))
       lo[j] = min(val, lo.get(j,   the.LIB.most))
       total[j] = total.get(j,0)+ val # sum up the whole column
+  def ratio(one): return one[-1]/((one[the.DATA.loc]+0.001)/the.DATA.total[the.DATA.loc]) # return bug/effort
   def norm(j,n): return (n - lo[j] ) / (hi[j] - lo[j] + the.LIB.tiny)
-  def fromHell(one):
-    all,n = 0,0
-    moreHell, lessHell = 0,1
-    for j in more:
-      n   += 1
-      all += (moreHell - norm(j,one[j]))**2
-    for j in less:
-      n   += 1
-      all += (lessHell - norm(j,one[j]))**2
-    return all**2 / n**2 # Is his right ???? I thought it should be al**0.5/n**0.5. Right now, do not use it
-  def ratio(one): return one[-1]/((one[10]+0.001)/the.DATA.total[10]) # return bug/effort
-  # pdb.set_trace()
   names=d["names"]
   data=d["data"]
   more=[i for i,name in enumerate(names)
@@ -91,11 +81,9 @@ def data(**d):
     lohi(one)
     if one[-1] > 0:
      P += 1 #  num of defective modules
-    else:
-     N += 1 # non defective modules
-  print("N="+str(N),"P="+str(P))
+  N = len(data) - P # non defective modules
   DATA(Lo =lo, Hi= hi,total = total, defective= P, nondefective = N )
   out = o(more=more,less=less,indep=indep,names=names,
           data=map(lambda one: Row(one,ratio(one)), data))
-  out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
+  # out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
   return out
