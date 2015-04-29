@@ -1,8 +1,7 @@
 #__author__ = 'WeiFu'
 from __future__ import print_function, division
-import sys,pdb
+import sys,pdb,csv
 from ruler import *
-from table import *
 from Abcd import *
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,10 +18,11 @@ def cart(**d):
         min_samples_leaf = 1
   ).update(**d)
 
-def csv(f= "./data/ant/ant-1.7copy.csv"):
-  t = table(f)
-  n = [ header.name for header in t.headers]
-  d = sorted([ row.cells for row in t._rows ],key =lambda z: z[the.DATA.loc] ) # sorted by $loc
+def readcsv(f= "./data/ant/ant-1.7copy.csv"):
+  ff = open(f,"r")
+  content = ff.readline().split("\r")
+  n = content[0].split(",")
+  d =[ map(float,row.split(",")) for row in content[1:]]
   return data(names= n, data = d)
 
 def _range():
@@ -63,6 +63,12 @@ def gbest(t):
   data =[d for d in t.data if d[-1] ==1]
   data = sorted(data, key = lambda z: z[the.DATA.loc])
   return XY(data)
+def readcpp(f):
+  ff = open(f,"r")
+  pdb.set_trace()
+  X = map(float,ff.readline().split(",")[:-1]) # this line is X
+  Pd = map(float,ff.readline().split(",")[:-1]) # this line is Pd
+  return[np.array(X), np.array(Pd)]
 
 def cart(train,test, tuning = True):
   TP,Loc = 0,0
@@ -95,8 +101,10 @@ def cart(train,test, tuning = True):
 
 def plot(result):
 
-  color = ['r-','k-','b-','b^','g-','y-','c-','m-']
-  labels = ['WHICH','Tuned_WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
+  # color = ['r-','k-','b-','b^','g-','y-','c-','m-']
+  # labels = ['WHICH','Tuned_WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
+  color = ['r-','k-','b-','g-','y-','c-']
+  labels = ['WHICH','manualUp','manualDown','minimum','best','CART']
   plt.figure(1)
   # plt.figure(figsize=(8,4))
   for j,x in enumerate(result):
@@ -109,7 +117,6 @@ def plot(result):
   # plt.text(60,20,'manualDown')
   # plt.text(35,70,'manualUp')
   plt.show()
-  pdb.set_trace()
 
 def _rule(train):
   LIB(seed=1)
@@ -124,8 +131,8 @@ def _rule(train):
   return best
 
 def which():
-  train=csv(f= "./data/ant/ant-1.7copy.csv")
-  test = csv(f= "./data/ant/ant-1.7copy.csv")
+  train=readcsv(f= "./data/ant/ant-1.7copy.csv")
+  test = readcsv(f= "./data/ant/ant-1.7copy.csv")
   bestrule = _rule(train)
   if bestrule:
     result =[bestrule.predict(test)]
@@ -137,26 +144,30 @@ def which():
         # this is tuning score, the last point in curve: pd/effort
   else:
       return 0 # no rules, then return 0
+@go
 def main():
-  train=csv(f= "./data/cm1/cm1.1copy.csv")
-  test = csv(f= "./data/cm1/cm1.3copy.csv")
-  # result = []
+  train= readcsv(f= "./data/cm1/cm1Train.arff.csv")
+  test = readcsv(f= "./data/cm1/cm1Test.arff.csv")
+  # ============python which============
   bestrule = _rule(train)
   result =[bestrule.predict(test)]
+  result =[readcpp(f="./data/cm1/Rule111.csv")]
+  # ============tuned WHICH and CART============
   # TUNER = Which()
   # TUNER.DE()
   # result +=which()
   # TUNER = Cart()
   # TUNER.DE()
+
   result += [manual(test)]
   result += [manual(test,up = False)]
   result += [[np.linspace(0,100,100),np.linspace(0,100,100)]]
   result += [gbest(test)]
-  result += [cart(train,test)] # tuned cart
+  # result += [cart(train,test)] # tuned cart
   result += [cart(train,test,False)] # default cart
   # pdb.set_trace()
   plot(result)
 
 
-if __name__ == "__main__":
-  run(main())
+# if __name__ == "__main__":
+#   run(main())
