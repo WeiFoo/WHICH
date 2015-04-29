@@ -26,10 +26,10 @@ int main( int argc, char **argv )
 	  picks = 2000,
 	  check = 200,
 	  reportNo = 5,
-	  discBins = 7,
+	  discBins = 3,
 	  scoreType = LIFT,
 	  microAmt = 0;
-	float improvement = 0.2, alpha = 1, beta = 1, gamma = 1, seed = time(NULL);
+	float improvement = 0.2, alpha = 1, beta = 1000, gamma = 0, seed = time(NULL);
 
 	bool statOnly = false, wekaP = false, noeff = false, justRule = false, isTar3 = false;
 
