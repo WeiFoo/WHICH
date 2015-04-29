@@ -173,7 +173,7 @@ void Data::discretizeEqInt( int bins, Data *combine )
   }  
 }
 
-void Data::discretizeEqFreq( int bins, Data *combine )
+void Data::discretizeEqFreq( int bins, Data *combine ) // the original algorithm is Equal Width Disrectizetion
 {
 	vector< vector < InstanceElement * > * > allData;
 
@@ -227,8 +227,8 @@ void Data::discretizeEqFreq( int bins, Data *combine )
 			
 			for ( int b = 0; b < bins; b++ )
 			{
-				mins[b] = allData[0]->at( att )->mValue;
-				maxes[b] = allData[0]->at( att )->mValue;
+				mins[b] = pow(10, 5);
+				maxes[b] = pow(-10, 5);
 			}
 
 			for ( unsigned int i = 0; i < allData.size(); i++ )
@@ -245,6 +245,30 @@ void Data::discretizeEqFreq( int bins, Data *combine )
 			mAttVals[mAtts[att]].resize( bins );
 			if ( combine != NULL )
 				combine->mAttVals[combine->mAtts[att]].resize( bins );
+//            // from here by Foo
+//            int distance = (int) mItems.size()/bins;
+//            int *cut = new int[bins];
+//            for (unsigned int i = 0; i < bins; i++) {
+//                if (i + distance < mItems.size())
+//                {
+//                    cut[i] = i + distance;
+//                }
+//                else
+//                {
+//                    cut[i] = mItems.size();
+//                }
+//            }
+//            for (unsigned int i = 0; i < mItems.size();i++)
+//            {
+//                int binNo = floor(i/(float)mItems.size() * bins);
+//                unsigned int pos = mItems[i].mPos;
+//                if(pos <= *cut)
+//                {
+//                    mins[binNo] = min(mins[binNo], mItems[i].mVal);
+//                    
+//                }
+//                
+//            }
 			
 			for ( unsigned int i = 0; i < mItems.size(); i++ )
 			{

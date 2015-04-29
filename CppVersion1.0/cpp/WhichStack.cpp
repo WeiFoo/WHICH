@@ -88,7 +88,7 @@ bool WhichStack::contains( Rule *r )
 
 int WhichStack::pick( vector< float > scores, float sum )
 {
-	int x = randomNum( 0, sum );
+	float x = randomNum( 0, sum );
 	for ( unsigned int i = 0; i < mRules.size(); i++ )
 	{
 		if ( x < scores[i] )
@@ -119,7 +119,7 @@ bool WhichStack::push( Rule *r )
 		{
 			Rule *current = *ri;
 			if ( r->compare( current ) > 0 ||
-				 ( r->compare( current ) == 0 && r->getSize() < current->getSize() ) )
+				 ( r->compare( current ) == 0 && r->getSize() < current->getSize() ) ) // the same score but fewer length
 			{
 				ri = mRules.insert( ri, r );
 				wasInserted = true;
@@ -195,7 +195,7 @@ bool WhichStack::pickTwo()
 		// If this new Rule is at the top of the WhichStack, attempt to
 		// do a greedy back-select on it until the smaller Rules
 		// aren't scoring as well as the bigger ones.
-		if ( false && r->isEqualTo( mRules.front() ) && r->getSize() > 1 )
+		if ( r->isEqualTo( mRules.front() ) && r->getSize() > 1 )
 		{
 			Rule *bs = r->backSelect();
 			while ( bs != NULL )
