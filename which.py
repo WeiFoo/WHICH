@@ -1,12 +1,15 @@
 #__author__ = 'WeiFu'
 from __future__ import print_function, division
-import sys,pdb,csv
+import sys,pdb,csv,random
 from ruler import *
 from Abcd import *
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeRegressor
 from tuner import *
+from processarff import *
+from callCpp import *
+from sk import rdivDemo
 
 
 @setting
@@ -20,7 +23,8 @@ def cart(**d):
 
 def readcsv(f= "./data/ant/ant-1.7copy.csv"):
   ff = open(f,"r")
-  content = ff.readline().split("\r")
+  # content = ff.readline().split("\r")
+  content = ff.readlines()
   n = content[0].split(",")
   d =[ map(float,row.split(",")) for row in content[1:]]
   return data(names= n, data = d)
@@ -52,10 +56,9 @@ def XY(data):
   pd = np.array(pd)
   return[x,pd]
 
-def manual(t, up = True):
-  data = t.data
-  if not up:
-    data = sorted(t.data,key = lambda z :z[the.DATA.loc], reverse = True)
+def manual(t, up = False):
+  # data = t.data
+  data = sorted(t.data,key = lambda z :z[the.DATA.loc], reverse = up)
   return XY(data)
 
 def gbest(t):
@@ -65,7 +68,7 @@ def gbest(t):
   return XY(data)
 def readcpp(f):
   ff = open(f,"r")
-  pdb.set_trace()
+  # pdb.set_trace()
   X = map(float,ff.readline().split(",")[:-1]) # this line is X
   Pd = map(float,ff.readline().split(",")[:-1]) # this line is Pd
   return[np.array(X), np.array(Pd)]
@@ -144,14 +147,16 @@ def which():
         # this is tuning score, the last point in curve: pd/effort
   else:
       return 0 # no rules, then return 0
-@go
+
 def main():
-  train= readcsv(f= "./data/cm1/cm1Train.arff.csv")
-  test = readcsv(f= "./data/cm1/cm1Test.arff.csv")
+  train= readcsv(f= "/Users/WeiFu/Github/DATASET/newcsv/CM1train.csv")
+  test = readcsv(f= "/Users/WeiFu/Github/DATASET/newcsv/CM1test.csv")
+  # train= readcsv(f= "./data/cm1/cm1Train.arff.csv")
+  # test = readcsv(f= "./data/cm1/cm1Test.arff.csv")
   # ============python which============
   bestrule = _rule(train)
   result =[bestrule.predict(test)]
-  result =[readcpp(f="./data/cm1/Rule111.csv")]
+  result =[readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
   # ============tuned WHICH and CART============
   # TUNER = Which()
   # TUNER.DE()
@@ -159,8 +164,8 @@ def main():
   # TUNER = Cart()
   # TUNER.DE()
 
-  result += [manual(test)]
-  result += [manual(test,up = False)]
+  result += [manual(test, False)] # up : ascending order
+  result += [manual(test,True)] # down: descending order
   result += [[np.linspace(0,100,100),np.linspace(0,100,100)]]
   result += [gbest(test)]
   # result += [cart(train,test)] # tuned cart
@@ -168,6 +173,56 @@ def main():
   # pdb.set_trace()
   plot(result)
 
+def postCalculation(result):
+  areaLst = []
+  for data in result:
+    areaLst += [area(data)]
+  return percentage(areaLst)
+def preSK(stats):
+  names = ["manualUp","manualDown","CART","WHICH-2"]
+  out = []
+  for key,value in stats.iteritems():
+    ordered = sorted(value)
+    ordered.insert(0,names[key])
+    out +=[ordered]
+    pdb.set_trace()
+  return out
 
-# if __name__ == "__main__":
-#   run(main())
+
+
+
+def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
+  cppresult = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv"
+  stats = {}
+  for k in range(3):
+    All(src,folds)
+    folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
+    for j in range(1):
+      for i in range(folds):
+        result = []
+        if os.path.exists(cppresult):
+          os.remove(cppresult)
+        csvtrain = readcsv(folders[j]+'/csv/train'+str(i)+'.csv')
+        csvtest = readcsv(folders[j]+'/csv/test'+str(i)+'.csv')
+        arfftrain = folders[j]+'/arff/train'+str(i)+'.arff'
+        arfftest = folders[j]+'/arff/test'+str(i)+'.arff'
+        cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins 2"
+        os.system(cpp)
+        result +=[gbest(csvtest)]
+        result += [manual(csvtest, False)] # up : ascending order
+        result += [manual(csvtest,True)] # down: descending order
+        result += [cart(csvtrain,csvtest,False)] # default cart
+        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        mypercentage = postCalculation(result)
+        for t, each in enumerate(mypercentage):
+          stats[t] = stats.get(t,[])+[each]
+  out = preSK(stats)
+  pdb.set_trace()
+  rdivDemo(out)
+  print("DONE!")
+
+
+
+if __name__ == "__main__":
+  # run(main())
+  crossEval()
