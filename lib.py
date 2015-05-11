@@ -3,7 +3,6 @@ import sys
 from os import listdir
 from os.path import join, isfile
 sys.dont_write_bytecode =True
-from table import *
 """
 
 # General stuff
