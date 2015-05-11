@@ -179,45 +179,54 @@ def postCalculation(result):
     areaLst += [area(data)]
   return percentage(areaLst)
 def preSK(stats):
-  names = ["manualUp","manualDown","CART","WHICH-2"]
+  names = ["manualUp","manualDown","CART","WHICH-2","WHICH-4","WHICH-8"]
   out = []
   for key,value in stats.iteritems():
     ordered = sorted(value)
     ordered.insert(0,names[key])
     out +=[ordered]
-    pdb.set_trace()
   return out
 
 
 
 
 def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
-  cppresult = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv"
+  def deletelog():
+    cppresult = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv"
+    if os.path.exists(cppresult):
+      os.remove(cppresult)
   stats = {}
-  for k in range(3):
+  def cppWhich(arfftrain,arfftest,bin):
+    cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins "+bin
+    os.system(cpp)
+
+  for k in range(10):
     All(src,folds)
     folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
-    for j in range(1):
+    for j in range(folders):
       for i in range(folds):
         result = []
-        if os.path.exists(cppresult):
-          os.remove(cppresult)
+        deletelog()
         csvtrain = readcsv(folders[j]+'/csv/train'+str(i)+'.csv')
         csvtest = readcsv(folders[j]+'/csv/test'+str(i)+'.csv')
         arfftrain = folders[j]+'/arff/train'+str(i)+'.arff'
         arfftest = folders[j]+'/arff/test'+str(i)+'.arff'
-        cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins 2"
-        os.system(cpp)
+        cppWhich(arfftrain,arfftest,"2")
         result +=[gbest(csvtest)]
         result += [manual(csvtest, False)] # up : ascending order
         result += [manual(csvtest,True)] # down: descending order
         result += [cart(csvtrain,csvtest,False)] # default cart
         result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        deletelog()
+        cppWhich(arfftrain,arfftest,"4")
+        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        deletelog()
+        cppWhich(arfftrain,arfftest,"8")
+        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
         for t, each in enumerate(mypercentage):
           stats[t] = stats.get(t,[])+[each]
   out = preSK(stats)
-  pdb.set_trace()
   rdivDemo(out)
   print("DONE!")
 
