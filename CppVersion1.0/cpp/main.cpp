@@ -25,12 +25,12 @@ int main( int argc, char **argv )
 	  stackSize = INFINITY, 
 	  picks = 2000,
 	  check = 200,
-	  reportNo = 5,
-	  discBins = 3,
+	  reportNo = 1,
+	  discBins = 4,
 	  scoreType = LIFT,
 	  microAmt = 0;
 	float improvement = 0.2, alpha = 1, beta = 1000, gamma = 0, seed = time(NULL);
-
+//    ofstream writeTo("/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv", ios_base::trunc);
 	bool statOnly = false, wekaP = false, noeff = false, justRule = false, isTar3 = false;
 
 	/*
@@ -133,7 +133,7 @@ int main( int argc, char **argv )
 	  for ( int r = 0; r < reportNo; r++ )
 	  {
 	    stack->getRule( r )->setData( test );
-	    stack->getRule( r )->score();
+	    stack->getRule( r )->score(true);
 	    if ( justRule ) stack->getRule( r )->printRule( cout );
 	    else stack->getRule( r )->print( cout );
 	    cout << endl;

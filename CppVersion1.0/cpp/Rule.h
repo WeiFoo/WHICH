@@ -94,7 +94,7 @@ class Rule
 		/**
 		 * Scores the Rule based on which type of Rule it is.
 		**/
-		void score();
+		void score(bool isTest = false);
 
 		/**
 		 * Checks to see if an attribute index is already in the Rule.
@@ -176,7 +176,7 @@ class Rule
 	protected:
 		void scoreLift();
 		float calcDist();
-		void scoreEffort();
+		void scoreEffort(bool isTest = false);
 		void scoreProbSupt();
 		void scoreInfoGain();
 		void scorePDPF();

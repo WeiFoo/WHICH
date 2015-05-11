@@ -3,6 +3,8 @@
 #include "defines.h"
 #include "WhichStack.h"
 #include <cmath>
+#include <iostream>
+#include <fstream>
 using namespace std;
 
 Rule::Rule()
@@ -173,12 +175,12 @@ bool Rule::isSatisfied( vector< InstanceElement * > *instance )
 	return true;
 }
 
-void Rule::score()
+void Rule::score(bool isTest)
 {
   	switch( mType )
 	{
 		case LIFT: scoreLift(); break;
-		case EFFORT: scoreEffort(); break;
+		case EFFORT: scoreEffort(isTest); break;
 		case PROBSUPT: scoreProbSupt(); break;
 		case INFOGAIN: scoreInfoGain(); break;
 		case PDPF: scorePDPF(); break;
@@ -230,22 +232,70 @@ float Rule::calcDist()
 				 sqrt( (double)mAlpha + mBeta + mGamma );
 }
 
-void Rule::scoreEffort()
+struct predictResult
+{
+    int index;
+    int loc;
+    int targetclass;
+    predictResult(int i, int l, int tclass) : index(i), loc(l),targetclass(tclass){}
+    
+    bool operator < (const predictResult& R) const
+    {
+        return (loc < R.loc);
+    }
+};
+
+void Rule::scoreEffort(bool isTest)
 {
 	vector< vector< InstanceElement * > *> instances = mData->getInstanceSet();
 	vector< int > LOCs = mData->getLOCs();
+    vector< predictResult > predicted;
 	int freqBest = 0, freqRest = 0;
 	mPD = mPF = mEffort = 0;
+    float totalEffort = 0;
 
 	for ( unsigned int item = 0; item < instances.size(); item++ )
 	{
+        totalEffort += LOCs[item];
 		if ( isSatisfied( instances[item] ) )
 		{
+            predicted.push_back(predictResult(item, LOCs[item],mData->getClassIndex(instances[item])));
 			mEffort += LOCs[item];
 			if ( mData->getClassIndex( instances[item] ) == mTargetClass ) freqBest++;
 			else freqRest++;
 		}
 	}
+    if(isTest)
+    {
+        vector<float> effortX;
+        vector<float> pdY;
+        int temp=0;
+        int TP=0;
+        sort(predicted.begin(), predicted.end()); // sort according to loc by ascending
+        for(unsigned int item = 0; item < predicted.size(); item++)
+        {
+            temp += predicted[item].loc;
+            effortX.push_back(100*temp/totalEffort);
+            if(predicted[item].targetclass== mTargetClass) TP++;
+            pdY.push_back(100*TP/mData->getClassFreqs()[mTargetClass]);
+        }
+        
+        ofstream writeTo("/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv", ios_base::app);
+        for (unsigned int item = 0; item < effortX.size(); item++) {
+            cout<<effortX[item]<<" ";
+            writeTo<<effortX[item]<<" , ";
+        }
+        cout<<endl;
+        writeTo<<endl;
+        for (unsigned int item = 0; item < effortX.size(); item++) {
+            cout<<pdY[item]<<" ";
+            writeTo<<pdY[item]<<" , ";
+        }
+        cout<<endl;
+        writeTo<<endl;
+        writeTo.close();
+        
+    }
 
 	if ( mData->getTotLOC() <= 0 ) mEffort = 0;
 	else mEffort /= (float)mData->getTotLOC();
