@@ -62,7 +62,7 @@ def sperateData(src= "./", percent = 0.2):
         continue
       elif "relation" in line:
         name = line[10:-1]
-        print("*****"+name+"+++++")
+        # print("*****"+name+"+++++")
       elif "@" in line:
         arffheader += [line]
         if "data" in line:
@@ -110,10 +110,6 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
   def generate(srcs):
     def writefile(newfile,newcontent,arff = True):
       f = open(newfile,"w")
-      # if arff:
-      #   content = "@relation "+ newcontent
-      # else:
-      #   content = newcontent
       content = newcontent if not arff else "@relation "+ newcontent
       f.write(content)
       f.close()
@@ -134,25 +130,6 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
       writefile(srcs+"/csv/test"+str(k)+".csv",",".join(csvheader) +"".join(csvout[k]))
       csvtrain = mergeall(csvout,k)
       writefile(srcs+"/csv/train"+str(k)+".csv",",".join(csvheader) +"".join(csvtrain))
-      # arff = open(srcs+"/arff/test"+str(k)+".arff","w")
-      # arfftest = "@relation "+name+"\n\n"+"".join(arffheader)+"\n"+"".join(arffout[k])
-      # arff.write(arfftest)
-      # arff.close()
-      # arff = open(srcs+"/arff/train"+str(k)+".arff","w")
-      # arfftrain = mergeall(arffout,k)
-      # out = "@relation "+name+"\n\n"+"".join(arffheader)+"\n"+"".join(arfftrain)
-      # arff.write(out)
-      # arff.close()
-      # csvf = open(srcs+"/csv/test"+str(k)+".csv","w")
-      # csvtest = ",".join(csvheader) +"".join(csvout[k])
-      # csvf.write(csvtest)
-      # csvf.close()
-      # csvf = open(srcs+"/csv/train"+str(k)+".csv","w")
-      # csvtrain = mergeall(csvout,k)
-      # out = ",".join(csvheader) +"".join(csvtrain)
-      # csvf.write(out)
-      # csvf.close()
-
 
   files = [ join(src,f) for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
   folders = [f[:f.find(".")] for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
@@ -186,7 +163,6 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
       else:
         if "?" in line:
           continue
-        # pdb.set_trace()
         if line[-1] !="\n":
           line+="\n"
         if "yes" in line:
