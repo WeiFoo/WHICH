@@ -95,7 +95,7 @@ int WhichStack::pick( vector< float > scores, float sum )
 			return i;
 		x -= scores[i];
 	}
-	return -1;
+    return -1;
 }
 
 bool WhichStack::push( Rule *r )
@@ -195,7 +195,7 @@ bool WhichStack::pickTwo()
 		// If this new Rule is at the top of the WhichStack, attempt to
 		// do a greedy back-select on it until the smaller Rules
 		// aren't scoring as well as the bigger ones.
-		if ( r->isEqualTo( mRules.front() ) && r->getSize() > 1 )
+		if ( false && r->isEqualTo( mRules.front() ) && r->getSize() > 1 )
 		{
 			Rule *bs = r->backSelect();
 			while ( bs != NULL )
