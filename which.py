@@ -195,16 +195,19 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
     cppresult = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv"
     if os.path.exists(cppresult):
       os.remove(cppresult)
-  stats = {}
   def cppWhich(arfftrain,arfftest,bin):
     cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins "+bin
     os.system(cpp)
-
+  combine = {}
+  files_name = ["cm1","kc1","kc2","kc3","wm1","pc"]
+  first_Time = True
   for k in range(10):
     All(src,folds)
     folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
-    for j in range(folders):
+    for j in range(len(folders)):
+      stats = {}
       for i in range(folds):
+        print(folders[j])
         result = []
         deletelog()
         csvtrain = readcsv(folders[j]+'/csv/train'+str(i)+'.csv')
@@ -224,10 +227,18 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
         cppWhich(arfftrain,arfftest,"8")
         result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
-        for t, each in enumerate(mypercentage):
-          stats[t] = stats.get(t,[])+[each]
-  out = preSK(stats)
-  rdivDemo(out)
+        if first_Time:
+          for t,each in enumerate(mypercentage):
+            stats[t] = stats.get(t,[])+[each]
+          combine[j] = [stats]
+        else:
+          for t,each in enumerate(mypercentage):
+            combine[j][0][t] = combine.get(j)[0][t]+[each]
+    first_Time = False
+  for key, stats in combine.iteritems(): # print results for each data set
+    print("*"*15 +files_name[key]+"*"*15)
+    out = preSK(stats[0])
+    rdivDemo(out)
   print("DONE!")
 
 
