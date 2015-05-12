@@ -2,7 +2,7 @@
 from __future__ import division
 import sys, pdb,os
 import numpy as np
-from scipy.integrate import simps
+from scipy.integrate import simps,trapz
 
 
 def area(result):
@@ -14,7 +14,7 @@ def area(result):
   if 100 not in X:
     X = np.append(X,[100]) # if this curve does not reach top right, we need to add it
     Y = np.append(Y,Y[-1]) # just repeat last value in Y
-  return simps(Y,X)
+  return trapz(Y,X)
 
 def percentage(lst): # lst[0] is the best which is the base.
   val = []
