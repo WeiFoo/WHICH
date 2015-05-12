@@ -152,6 +152,7 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
       elif "relation" in line:
         name = line[10:-1]
         print("*****"+name+"+++++")
+        continue
       elif "@" in line:
         arffheader += [line]
         if "data" in line:
