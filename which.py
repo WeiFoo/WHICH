@@ -51,7 +51,7 @@ def XY(data):
     TP += d.cells[-1]
     Loc += d.cells[the.DATA.loc]
     xx +=[100*Loc/the.DATA.total[the.DATA.loc]]
-    pd +=[100*TP/the.DATA.defective]
+    pd +=[100*TP/(the.DATA.defective+0.00001)]
   x = np.array(xx)
   pd = np.array(pd)
   return[x,pd]
@@ -199,9 +199,9 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
     cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins "+bin
     os.system(cpp)
   combine = {}
-  files_name = ["cm1","kc1","kc2","kc3","wm1","pc"]
+  files_name = ["ar3","ar4","ar5","cm1","kc1","kc2","kc3","wm1","pc"]
   first_Time = True
-  for k in range(10):
+  for k in range(1):
     All(src,folds)
     folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
     for j in range(len(folders)):
