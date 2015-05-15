@@ -5,90 +5,6 @@ from os.path import isfile, join
 import arff
 import numpy as np
 
-def sperateData(src= "./", percent = 0.2):
-  def clearFiles():
-    pdb.set_trace()
-    folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f))]
-    for f in folders:
-      for ff in listdir(f):
-        if isfile(join(f,ff)):
-          os.remove(join(f,ff))
-
-  def generate():
-    clearFiles()
-    pdb.set_trace()
-    sample_Len = int(len(csvcontent)*percent)
-    pdb.set_trace()
-    test = random.sample(arffcontent,sample_Len)
-    train = random.sample(arffcontent,len(arffcontent)-sample_Len)
-    print("slsl")
-    # pdb.set_trace()
-    arff = open("./newarff/"+name+"test.arff","w")
-    arfftest = "@relation "+name+"\n\n"+"".join(arffheader)+"\n"+"".join(test)
-    arff.write(arfftest)
-    arff.close()
-    arff = open("./newarff/"+name+"train.arff","w")
-    arfftrain = "@relation "+name+"\n\n"+"".join(arffheader)+"\n"+"".join(train)
-    arff.write(arfftrain)
-    arff.close()
-
-    test = random.sample(csvcontent,sample_Len)
-    train = random.sample(csvcontent,len(arffcontent)-sample_Len)
-    csvf = open("./newcsv/"+name+"test.csv","w")
-    csvtest = ",".join(csvheader) +"".join(test)
-    csvf.write(csvtest)
-    csvf.close()
-    csvf = open("./newcsv/"+name+"train.csv","w")
-    csvtrain = ",".join(csvheader) +"".join(train)
-    csvf.write(csvtrain)
-    csvf.close()
-
-
-
-
-
-
-
-  files = [ join(src,f) for f in listdir(src) if isfile(join(src,f)) and "py" not in f]
-  for one in files[:]:
-    f = open(one, "r")
-    name = ""
-    csvheader,arffheader, csvcontent, arffcontent  = [],[],[],[]
-    while True:
-      line = f.readline()
-      if not line:
-        break
-      elif "%" in line or len(line) == 1 :
-        continue
-      elif "relation" in line:
-        name = line[10:-1]
-        # print("*****"+name+"+++++")
-      elif "@" in line:
-        arffheader += [line]
-        if "data" in line:
-          continue
-        if "defects" in line:
-          csvheader += ["$<defects\n"]
-        else:
-          csvheader +=["$"+line[line.find("e")+2:line.find("numberic")-8]]
-      else:
-        if len(line) == 2:
-          continue
-        if line[-1] !="\n":
-          line+="\n"
-        arffcontent +=[line]
-        if line[-1] !="\n":
-          line+="\n"
-        if "false" in line:
-          line = line.replace("false","0")
-        if "no" in line:
-          line = line.replace("no","0")
-        if "yes" in line:
-          line = line.replace("yes","1")
-        if "true" in line:
-          line = line.replace("true","1")
-        csvcontent +=[line]
-    generate()
 
 def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
   def clearFiles():
@@ -107,15 +23,30 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
     # out.extend(data[z] for z in range(folds) if z!=k)
     return out
 
-  def generate(srcs):
+  def generate(srcs, dealKC3 = False):
     def writefile(newfile,newcontent,arff = True):
       f = open(newfile,"w")
       content = newcontent if not arff else "@relation "+ newcontent
       f.write(content)
       f.close()
+
+    if(dealKC3):
+      # this code is for process kc3 and wm1 data. only use once
+      newcontent = []
+      for row in arffcontent:
+        if len(row)<20:
+          newcontent.extend(row)
+          continue
+        rowlst = row.split(",")
+        rowlst.insert(0,rowlst[-2]) # insert loc into #0 index
+        rowlst.pop(-2) #delete the old loc
+        newcontent.extend([",".join(rowlst)])
+      pdb.set_trace()
+      writefile(srcs+""+name+".arff",name+"\n\n"+"".join(arffheader)+"\n"+"".join(newcontent))
     # clearFiles()
-    random.shuffle(csvcontent) # each time shuffle the data
-    random.shuffle(arffcontent)
+    for _ in range(10):
+      random.shuffle(csvcontent) # each time shuffle the data
+      random.shuffle(arffcontent) # shuffle the order of data 10 times as the paper suggested.
     last, dist, csvout, arffout = 0, int(math.ceil(len(csvcontent) / folds)), [], []
     cut = [(j + 1) * dist for j in range(folds) if (j + 1) * dist < len(csvcontent)]
     cut.extend([len(csvcontent)])
@@ -162,6 +93,8 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
         else:
           csvheader +=["$"+line[line.find("e")+2:line.find("numberic")-8]]
       else:
+        if len(line) <10:
+          continue
         if "?" in line:
           continue
         if line[-1] !="\n":
