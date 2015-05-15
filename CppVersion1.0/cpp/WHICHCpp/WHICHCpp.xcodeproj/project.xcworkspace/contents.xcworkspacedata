@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "absolute:../../../Desktop/WHICH/WHICH.xcodeproj">
+      location = "self:WHICHCpp.xcodeproj">
    </FileRef>
 </Workspace>
