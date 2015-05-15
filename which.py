@@ -26,7 +26,7 @@ def readcsv(f= "./data/ant/ant-1.7copy.csv"):
   # content = ff.readline().split("\r")
   content = ff.readlines()
   n = content[0].split(",")
-  d =[ map(float,row.split(",")) for row in content[1:]]
+  d =[ map(float,row.split(",")) for kk,row in enumerate(content[1:])]
   return data(names= n, data = d)
 
 def _range():
@@ -96,7 +96,7 @@ def cart(train,test, tuning = True):
       TP += 1
     Loc += p.cells[the.DATA.loc]
     x +=[100*Loc/the.DATA.total[the.DATA.loc]]
-    pd +=[100*TP/the.DATA.defective]
+    pd +=[100*TP/(the.DATA.defective+0.00001)]
   x = np.array(x)
   pd = np.array(pd)
   return[x,pd]
@@ -204,7 +204,7 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
   for k in range(1):
     All(src,folds)
     folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
-    for j in range(len(folders)):
+    for j in range(-3,-1):
       stats = {}
       for i in range(folds):
         print(folders[j])
