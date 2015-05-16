@@ -18,7 +18,7 @@ def area(result):
 
 def percentage(lst): # lst[0] is the best which is the base.
   val = []
-  if lst[0] == 0 or len(lst) == 0: raise ValueError("The Best dose not exist!")
+  if lst[0] == 0 or len(lst) == 0: return val # return empty list
   for i in range(1,len(lst)):
     val +=[lst[i]/lst[0]]
   return val

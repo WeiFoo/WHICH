@@ -201,10 +201,10 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
   combine = {}
   files_name = ["ar3","ar4","ar5","cm1","kc1","kc2","kc3","wm1","pc"]
   first_Time = True
-  for k in range(1):
+  for k in range(5):
     All(src,folds)
     folders = [ join(src,f) for f in listdir(src) if not isfile(join(src,f)) and ".git" not in f and ".idea" not in f]
-    for j in range(-3,-1):
+    for j in range(len(folders)):
       stats = {}
       for i in range(folds):
         print(folders[j])
@@ -227,6 +227,7 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
         cppWhich(arfftrain,arfftest,"8")
         result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
+        if len(mypercentage) ==0: continue  #this is the case, where the best is 0
         if first_Time:
           for t,each in enumerate(mypercentage):
             stats[t] = stats.get(t,[])+[each]
