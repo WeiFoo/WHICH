@@ -2,11 +2,10 @@ from __future__ import division, print_function
 import sys, pdb,random,math,os,shutil
 from os import listdir
 from os.path import isfile, join
-import arff
 import numpy as np
 
 
-def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
+def All(src= "../DATASET",folds = 3):
   def clearFiles():
     folders0 = [ join(src,f) for f in listdir(src) if not isfile(join(src,f))]
     folders = [ join(src,f)for f in listdir(folders0) if not isfile(join(folders0,f))]
@@ -118,7 +117,7 @@ def All(src= "/Users/WeiFu/Github/DATASET",folds = 3):
     generate(srcs)
 
 
-def arffs(src= "/Users/WeiFu/Github/DATASET",folds = 3):
+def arffs(src= "../DATASET",folds = 3):
   data = arff.load(open(src+"/cm1.arff","rb"))
   dataset = np.array(data["data"])
   print(dataset)
