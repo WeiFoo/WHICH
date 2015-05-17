@@ -10,10 +10,16 @@ from tuner import *
 from processarff import *
 from callCpp import *
 from sk import rdivDemo
+import weka.core.jvm as jvm
+from weka.core.converters import Loader
+from weka.classifiers import Classifier
 
 
 @setting
 def cart(**d):
+  """
+  this is for tuning cart.
+  """
   return o(
     max_features=None,
     max_depth=None,
@@ -49,8 +55,9 @@ def _Abcd(predicted, actual):
   score = abcd.ask()
 
 
-def XY(data):
+def XY(mydata, flag = False):
   '''generate X, Y coordinates for plotting'''
+  data = sorted(mydata, key=lambda z: z[the.DATA.loc], reverse = flag )
   Loc, TP = 0, 0
   xx, pd = [], []
   for d in data:
@@ -69,15 +76,15 @@ def manual(t, up=False):
   false : ascending order ==> UP method
   true : descending order ==> Down method
   """
-  data = sorted(t.data, key=lambda z: z[the.DATA.loc], reverse=up)
-  return XY(data)
+  # data = sorted(t.data, key=lambda z: z[the.DATA.loc], reverse=up)
+  return XY(t.data, up)
 
 
 def gbest(t):
   '''the best method which has highest score'''
-  data = [d for d in t.data if d[-1] == 1]
-  data = sorted(data, key=lambda z: z[the.DATA.loc])
-  return XY(data)
+  mydata = [d for d in t.data if d[-1] == 1]
+  # data = sorted(data, key=lambda z: z[the.DATA.loc])
+  return XY(mydata)
 
 
 def readcpp(f):
@@ -105,15 +112,34 @@ def cart(train, test, tuning=True):
   predictresult = [i for i in clf.predict(data[2])]  # to change the format from ndarray to list
   predicted = [test.data[j] for j, p in enumerate(predictresult) if
                p == 1]  # all these data are predicted to be defective
-  predicted_sorted = sorted(predicted, key=lambda z: z.cells[the.DATA.loc])
-  return XY(predicted_sorted)
+  # predicted_sorted = sorted(predicted, key=lambda z: z.cells[the.DATA.loc])
+  # pdb.set_trace()
+  return XY(predicted)
+
+def wekaC45(train, test):
+  if not jvm.started:jvm.start()
+  loader = Loader(classname="weka.core.converters.ArffLoader")
+  train_data = loader.load_file(train)
+  test_data = loader.load_file(test)
+  train_data.class_is_last()
+  test_data.class_is_last()
+  cls = Classifier(classname="weka.classifiers.trees.J48", options=["-C", "0.5"])
+  cls.build_classifier(train_data)
+  predicted, name = [], []
+  for index, inst in enumerate(test_data):
+    pred = cls.classify_instance(inst)
+    if pred != 0:
+      predicted += [[inst.values[i]for i in range(inst.num_attributes)]] # this API changes "false" to 0, and "true" to 1
+      name +=["0"] # this is a fake name for each column, which is made to use data() function in readdata.
+  ss = data(names = name,data =predicted)
+  return XY(ss.data)
 
 
 def plot(result):
   # color = ['r-','k-','b-','b^','g-','y-','c-','m-']
   # labels = ['WHICH','Tuned_WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
-  color = ['r-', 'k-', 'b-', 'g-', 'y-', 'c-']
-  labels = ['WHICH', 'manualUp', 'manualDown', 'minimum', 'best', 'CART']
+  color = ['r-', 'k-', 'b-', 'g-', 'y-', 'c-','m-']
+  labels = ['WHICH', 'manualUp', 'manualDown', 'minimum', 'best', 'CART','C4.5']
   plt.figure(1)
   # plt.figure(figsize=(8,4))
   for j, x in enumerate(result):
@@ -172,7 +198,6 @@ def main():
   # result +=which()
   # TUNER = Cart()
   # TUNER.DE()
-
   result += [manual(test, False)]  # up : ascending order
   result += [manual(test, True)]  # down: descending order
   result += [[np.linspace(0, 100, 100), np.linspace(0, 100, 100)]]
@@ -191,7 +216,7 @@ def postCalculation(result):
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "CART", "WHICH-2", "WHICH-4", "WHICH-8"]
+  names = ["manualUp", "manualDown", "CART","C4.5", "WHICH-2", "WHICH-4", "WHICH-8"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
@@ -218,7 +243,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
     folders = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
     for j in range(len(folders)):
       stats = {}
-      for i in range(folds):
+      for i in range(1):
         print(folders[j])
         result = []
         deletelog()
@@ -231,6 +256,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
         result += [manual(csvtest, False)]  # up : ascending order
         result += [manual(csvtest, True)]  # down: descending order
         result += [cart(csvtrain, csvtest, False)]  # default cart
+        result += [wekaC45(arfftrain,arfftest)]
         result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         deletelog()
         cppWhich(arfftrain, arfftest, "4")
