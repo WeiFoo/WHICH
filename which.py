@@ -190,13 +190,13 @@ def preSK(stats):
 
 
 
-def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
+def crossEval(repeats = 10, folds = 3,src = "../DATASET"):
   def deletelog():
-    cppresult = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv"
+    cppresult = "./CppVersion1.0/cpp/Rule111.csv"
     if os.path.exists(cppresult):
       os.remove(cppresult)
   def cppWhich(arfftrain,arfftest,bin):
-    cpp = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins "+bin
+    cpp = "./CppVersion1.0/cpp/./which -t "+arfftrain+" -T "+ arfftest+" -score effort -bins "+bin
     os.system(cpp)
   combine = {}
   files_name = ["ar3","ar4","ar5","cm1","kc1","kc2","kc3","wm1","pc"]
@@ -219,13 +219,13 @@ def crossEval(repeats = 10, folds = 3,src = "/Users/WeiFu/Github/DATASET"):
         result += [manual(csvtest, False)] # up : ascending order
         result += [manual(csvtest,True)] # down: descending order
         result += [cart(csvtrain,csvtest,False)] # default cart
-        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         deletelog()
         cppWhich(arfftrain,arfftest,"4")
-        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         deletelog()
         cppWhich(arfftrain,arfftest,"8")
-        result += [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
         if len(mypercentage) ==0: continue  #this is the case, where the best is 0
         if first_Time:
