@@ -48,7 +48,8 @@ def XY(data):
   Loc,TP = 0,0
   xx,pd = [],[]
   for d in data:
-    TP += d.cells[-1]
+    if d.cells[-1] == 1:
+      TP += d.cells[-1]
     Loc += d.cells[the.DATA.loc]
     xx +=[100*Loc/the.DATA.total[the.DATA.loc]]
     pd +=[100*TP/(the.DATA.defective+0.00001)]
@@ -73,33 +74,24 @@ def readcpp(f):
   Pd = map(float,ff.readline().split(",")[:-1]) # this line is Pd
   return[np.array(X), np.array(Pd)]
 
-def cart(train,test, tuning = True):
-  TP,Loc = 0,0
-  x,pd = [],[]
+
+def sklearn_data(train,test):
   train_x =[ t.cells[:-1]for t in train.data]
   train_y = [(t.cells[-1]) for t in train.data]
   test_x = [t.cells[:-1] for t in test.data]
   test_y = [(t.cells[-1]) for t in test.data]
+  return [train_x,train_y,test_x,test_y]
+
+def cart(train,test, tuning = True):
+  data = sklearn_data(train,test)
   clf = DecisionTreeRegressor(random_state = 1, max_features = the.cart.max_features, max_depth = the.cart.max_depth,
-        min_samples_split = the.cart.min_samples_split, min_samples_leaf = the.cart.min_samples_leaf ).fit(train_x,train_y)
+        min_samples_split = the.cart.min_samples_split, min_samples_leaf = the.cart.min_samples_leaf ).fit(data[0],data[1])
   if not tuning: # default cart
-    clf = DecisionTreeRegressor(random_state = 1).fit(train_x,train_y)
-  array = clf.predict(test_x)
-  predictresult = [i for i in array]
-  predicted = []
-  for j,p in enumerate(predictresult):
-    if p == 1:
-      predicted.append(test.data[j])
+    clf = DecisionTreeRegressor(random_state = 1).fit(data[0],data[1])
+  predictresult = [i for i in clf.predict(data[2])] # to change the format from ndarray to list
+  predicted=[test.data[j]for j, p in enumerate(predictresult) if p == 1] # all these data are predicted to be defective
   predicted_sorted = sorted(predicted, key = lambda z:z.cells[the.DATA.loc])
-  for p in predicted_sorted:
-    if p.cells[-1] == 1:
-      TP += 1
-    Loc += p.cells[the.DATA.loc]
-    x +=[100*Loc/the.DATA.total[the.DATA.loc]]
-    pd +=[100*TP/(the.DATA.defective+0.00001)]
-  x = np.array(x)
-  pd = np.array(pd)
-  return[x,pd]
+  return XY(predicted_sorted)
 
 
 def plot(result):
