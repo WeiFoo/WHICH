@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EFA56A0E-8AA5-4FD1-831F-31F6F797E980</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WHICHCPP</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E232FB2BCA36C60CF298E79A987690E0C3AE8FC8</key>
+		<string>https://github.com/WeiFoo/WHICH.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CppVersion1.0/cpp/WHICHCPP/WHICHCPP.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E232FB2BCA36C60CF298E79A987690E0C3AE8FC8</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/WeiFoo/WHICH.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E232FB2BCA36C60CF298E79A987690E0C3AE8FC8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E232FB2BCA36C60CF298E79A987690E0C3AE8FC8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WHICH</string>
+		</dict>
+	</array>
+</dict>
+</plist>

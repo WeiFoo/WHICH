@@ -280,7 +280,7 @@ void Rule::scoreEffort(bool isTest)
             pdY.push_back(100*TP/mData->getClassFreqs()[mTargetClass]);
         }
         
-        ofstream writeTo("/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv", ios_base::app);
+        ofstream writeTo("/Users/FuWei/Github/WHICH/CppVersion1.0/cpp/Rule111.csv", ios_base::app);
         for (unsigned int item = 0; item < effortX.size(); item++) {
             cout<<effortX[item]<<" ";
             writeTo<<effortX[item]<<" , ";

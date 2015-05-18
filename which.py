@@ -116,14 +116,25 @@ def cart(train, test, tuning=True):
   # pdb.set_trace()
   return XY(predicted)
 
-def wekaC45(train, test):
+
+def C45(train, test):
+  return wekaCALL(train, test, "weka.classifiers.trees.J48")
+
+
+def RIPPER(train, test):
+  return wekaCALL(train, test, "weka.classifiers.rules.JRip")
+def NaiveBayes(train, test):
+  return wekaCALL(train,test,"weka.classifiers.bayes.NaiveBayes")
+
+
+def wekaCALL(train, test, learner):
   if not jvm.started:jvm.start()
   loader = Loader(classname="weka.core.converters.ArffLoader")
   train_data = loader.load_file(train)
   test_data = loader.load_file(test)
   train_data.class_is_last()
   test_data.class_is_last()
-  cls = Classifier(classname="weka.classifiers.trees.J48", options=["-C", "0.5"])
+  cls = Classifier(classname=learner)
   cls.build_classifier(train_data)
   predicted, name = [], []
   for index, inst in enumerate(test_data):
@@ -216,7 +227,7 @@ def postCalculation(result):
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "CART","C4.5", "WHICH-2", "WHICH-4", "WHICH-8"]
+  names = ["manualUp", "manualDown", "CART","C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
@@ -231,8 +242,8 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
     if os.path.exists(cppresult):
       os.remove(cppresult)
 
-  def cppWhich(arfftrain, arfftest, bin):
-    cpp = "./CppVersion1.0/cpp/./which -t " + arfftrain + " -T " + arfftest + " -score effort -bins " + bin
+  def cppWhich(arfftrain, arfftest, options=""):
+    cpp = "./CppVersion1.0/cpp/./which -t " + arfftrain + " -T " + arfftest + " -score effort" + options
     os.system(cpp)
 
   combine = {}
@@ -246,23 +257,28 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
       for i in range(1):
         print(folders[j])
         result = []
-        deletelog()
         csvtrain = readcsv(folders[j] + '/csv/train' + str(i) + '.csv')
         csvtest = readcsv(folders[j] + '/csv/test' + str(i) + '.csv')
         arfftrain = folders[j] + '/arff/train' + str(i) + '.arff'
         arfftest = folders[j] + '/arff/test' + str(i) + '.arff'
-        cppWhich(arfftrain, arfftest, "2")
         result += [gbest(csvtest)]
         result += [manual(csvtest, False)]  # up : ascending order
         result += [manual(csvtest, True)]  # down: descending order
         result += [cart(csvtrain, csvtest, False)]  # default cart
-        result += [wekaC45(arfftrain,arfftest)]
+        result += [C45(arfftrain,arfftest)]
+        result += [RIPPER(arfftrain,arfftest)]
+        result += [NaiveBayes(arfftrain,arfftest)]
+        deletelog()
+        cppWhich(arfftrain, arfftest, " -micro 20")
         result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         deletelog()
-        cppWhich(arfftrain, arfftest, "4")
+        cppWhich(arfftrain, arfftest, " -bins 2")
         result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         deletelog()
-        cppWhich(arfftrain, arfftest, "8")
+        cppWhich(arfftrain, arfftest, " -bins 4")
+        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
+        deletelog()
+        cppWhich(arfftrain, arfftest, " -bins 8")
         result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
         if len(mypercentage) == 0: continue  #this is the case, where the best is 0
