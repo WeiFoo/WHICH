@@ -206,7 +206,7 @@ def main():
   # ============python which============
   bestrule = _rule(train)
   result = [bestrule.predict(test)]
-  result = [readcpp(f="/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/Rule111.csv")]
+  result = [readcpp(f="/Users/WeiFu/Github/WHICH/cppresults.csv")]
   # ============tuned WHICH and CART============
   # TUNER = Which()
   # TUNER.DE()
@@ -244,12 +244,12 @@ def preSK(stats):
 
 def crossEval(repeats=10, folds=3, src="../DATASET"):
   def deletelog():
-    cppresult = "./CppVersion1.0/cpp/Rule111.csv"
+    cppresult = "./cppresults.csv"
     if os.path.exists(cppresult):
       os.remove(cppresult)
 
   def cppWhich(arfftrain, arfftest, options=""):
-    cpp = "./CppVersion1.0/cpp/./which -t " + arfftrain + " -T " + arfftest + " -score effort" + options
+    cpp = "././which -t " + arfftrain + " -T " + arfftest + " -score effort -alpha 1 -beta 1000 -gamma 0" + options
     os.system(cpp)
 
   combine = {}
@@ -270,22 +270,22 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
         result += [gbest(csvtest)]
         result += [manual(csvtest, False)]  # up : ascending order
         result += [manual(csvtest, True)]  # down: descending order
-        result += [cart(csvtrain, csvtest, False)]  # default cart
+        # result += [cart(csvtrain, csvtest, False)]  # default cart
         result += [C45(arfftrain,arfftest)]
         result += [RIPPER(arfftrain,arfftest)]
         result += [NaiveBayes(arfftrain,arfftest)]
         deletelog()
         cppWhich(arfftrain, arfftest, " -micro 20")
-        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./cppresults.csv")]
         deletelog()
         cppWhich(arfftrain, arfftest, " -bins 2")
-        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./cppresults.csv")]
         deletelog()
         cppWhich(arfftrain, arfftest, " -bins 4")
-        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./cppresults.csv")]
         deletelog()
         cppWhich(arfftrain, arfftest, " -bins 8")
-        result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
+        result += [readcpp(f="./cppresults.csv")]
         mypercentage = postCalculation(result)
         if len(mypercentage) == 0: continue  #this is the case, where the best is 0
         if first_Time: # initialize: for each data set, stats contains all the results of methods for that data set.
