@@ -1,0 +1,290 @@
+\begin{theindex}
+
+  \item {$\sim $Data}
+    \subitem {Data}, \hyperpage{4}
+  \item {$\sim $Rule}
+    \subitem {Rule}, \hyperpage{14}
+  \item {$\sim $RuleSet}
+    \subitem {RuleSet}, \hyperpage{20}
+  \item {$\sim $WhichStack}
+    \subitem {WhichStack}, \hyperpage{22}
+
+  \indexspace
+
+  \item {addComponent}
+    \subitem {Rule}, \hyperpage{17}
+
+  \indexspace
+
+  \item {backSelect}
+    \subitem {Rule}, \hyperpage{18}
+
+  \indexspace
+
+  \item {calcLift}
+    \subitem {Data}, \hyperpage{6}
+  \item {calcPDPFEst}
+    \subitem {Data}, \hyperpage{6}
+  \item {calcProbSupt}
+    \subitem {Data}, \hyperpage{6}
+  \item {clone}
+    \subitem {Data}, \hyperpage{5}
+    \subitem {Rule}, \hyperpage{16}
+  \item {combine}
+    \subitem {Rule}, \hyperpage{18}
+  \item {compare}
+    \subitem {Rule}, \hyperpage{16}
+  \item {compareListItems}
+    \subitem {Data}, \hyperpage{6}
+  \item {contains}
+    \subitem {WhichStack}, \hyperpage{25}
+  \item {cover}
+    \subitem {Data}, \hyperpage{6}
+  \item {create}
+    \subitem {RuleSet}, \hyperpage{20}
+    \subitem {WhichStack}, \hyperpage{23}
+  \item {createFromFile}
+    \subitem {Rule}, \hyperpage{16}
+
+  \indexspace
+
+  \item {Data}, \hyperpage{3}
+    \subitem {$\sim $Data}, \hyperpage{4}
+    \subitem {calcLift}, \hyperpage{6}
+    \subitem {calcPDPFEst}, \hyperpage{6}
+    \subitem {calcProbSupt}, \hyperpage{6}
+    \subitem {clone}, \hyperpage{5}
+    \subitem {compareListItems}, \hyperpage{6}
+    \subitem {cover}, \hyperpage{6}
+    \subitem {Data}, \hyperpage{4}
+    \subitem {discretizeEqFreq}, \hyperpage{5}
+    \subitem {discretizeEqInt}, \hyperpage{4}
+    \subitem {find}, \hyperpage{11}
+    \subitem {getAttIndex}, \hyperpage{8}
+    \subitem {getAttName}, \hyperpage{8}
+    \subitem {getAttValIndex}, \hyperpage{8}
+    \subitem {getAttValName}, \hyperpage{9}
+    \subitem {getClassFreqs}, \hyperpage{9}
+    \subitem {getClassIndex}, \hyperpage{7}
+    \subitem {getClassName}, \hyperpage{9}
+    \subitem {getFrequencyTable}, \hyperpage{9}
+    \subitem {getInstanceSet}, \hyperpage{7}
+    \subitem {getLift}, \hyperpage{6}
+    \subitem {getLOCs}, \hyperpage{7}
+    \subitem {getNumAtts}, \hyperpage{7}
+    \subitem {getNumAttVals}, \hyperpage{8}
+    \subitem {getNumClasses}, \hyperpage{7}
+    \subitem {getTotLOC}, \hyperpage{7}
+    \subitem {microsample}, \hyperpage{5}
+    \subitem {normalizeAttribute}, \hyperpage{5}
+    \subitem {preprocessString}, \hyperpage{10}
+    \subitem {printAttributes}, \hyperpage{9}
+    \subitem {printClassDist}, \hyperpage{10}
+    \subitem {printDataSet}, \hyperpage{10}
+    \subitem {printFrequencyTable}, \hyperpage{10}
+    \subitem {printInstance}, \hyperpage{10}
+    \subitem {processAttribute}, \hyperpage{10}
+    \subitem {processInstance}, \hyperpage{10}
+    \subitem {read}, \hyperpage{4}
+    \subitem {subsample}, \hyperpage{5}
+  \item {discretizeEqFreq}
+    \subitem {Data}, \hyperpage{5}
+  \item {discretizeEqInt}
+    \subitem {Data}, \hyperpage{4}
+  \item {DisjunctionSet}, \hyperpage{12}
+
+  \indexspace
+
+  \item {find}
+    \subitem {Data}, \hyperpage{11}
+  \item {findAttribute}
+    \subitem {Rule}, \hyperpage{17}
+  \item {findAttributeValue}
+    \subitem {Rule}, \hyperpage{17}
+
+  \indexspace
+
+  \item {getAttIndex}
+    \subitem {Data}, \hyperpage{8}
+  \item {getAttName}
+    \subitem {Data}, \hyperpage{8}
+  \item {getAttValIndex}
+    \subitem {Data}, \hyperpage{8}
+  \item {getAttValName}
+    \subitem {Data}, \hyperpage{9}
+  \item {getBest}
+    \subitem {WhichStack}, \hyperpage{24}
+  \item {getClassFreqs}
+    \subitem {Data}, \hyperpage{9}
+  \item {getClassIndex}
+    \subitem {Data}, \hyperpage{7}
+  \item {getClassName}
+    \subitem {Data}, \hyperpage{9}
+  \item {getComponent}
+    \subitem {Rule}, \hyperpage{14}
+  \item {getEffort}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getFrequencyTable}
+    \subitem {Data}, \hyperpage{9}
+  \item {getInstanceSet}
+    \subitem {Data}, \hyperpage{7}
+  \item {getLift}
+    \subitem {Data}, \hyperpage{6}
+  \item {getLOCs}
+    \subitem {Data}, \hyperpage{7}
+  \item {getNumAtts}
+    \subitem {Data}, \hyperpage{7}
+  \item {getNumAttVals}
+    \subitem {Data}, \hyperpage{8}
+  \item {getNumClasses}
+    \subitem {Data}, \hyperpage{7}
+  \item {getPD}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getPF}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getRule}
+    \subitem {WhichStack}, \hyperpage{24}
+  \item {getRuleSet}
+    \subitem {Rule}, \hyperpage{14}
+  \item {getScore}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getSize}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getSupport}
+    \subitem {Rule}, \hyperpage{15}
+  \item {getTotLOC}
+    \subitem {Data}, \hyperpage{7}
+
+  \indexspace
+
+  \item {hasComponent}
+    \subitem {Rule}, \hyperpage{17}
+
+  \indexspace
+
+  \item {isEqualTo}
+    \subitem {Rule}, \hyperpage{17}
+  \item {isSatisfied}
+    \subitem {Rule}, \hyperpage{16}
+
+  \indexspace
+
+  \item {microsample}
+    \subitem {Data}, \hyperpage{5}
+
+  \indexspace
+
+  \item {normalizeAttribute}
+    \subitem {Data}, \hyperpage{5}
+
+  \indexspace
+
+  \item {pick}
+    \subitem {WhichStack}, \hyperpage{25}
+  \item {pickTwo}
+    \subitem {WhichStack}, \hyperpage{23}
+  \item {preprocessString}
+    \subitem {Data}, \hyperpage{10}
+  \item {print}
+    \subitem {Rule}, \hyperpage{18}
+    \subitem {RuleSet}, \hyperpage{21}
+    \subitem {WhichStack}, \hyperpage{24}
+  \item {printAttributes}
+    \subitem {Data}, \hyperpage{9}
+  \item {printClassDist}
+    \subitem {Data}, \hyperpage{10}
+  \item {printDataSet}
+    \subitem {Data}, \hyperpage{10}
+  \item {printFrequencyTable}
+    \subitem {Data}, \hyperpage{10}
+  \item {printGotWant}
+    \subitem {Rule}, \hyperpage{18}
+  \item {printInstance}
+    \subitem {Data}, \hyperpage{10}
+  \item {printRule}
+    \subitem {Rule}, \hyperpage{18}
+  \item {processAttribute}
+    \subitem {Data}, \hyperpage{10}
+  \item {processInstance}
+    \subitem {Data}, \hyperpage{10}
+  \item {push}
+    \subitem {WhichStack}, \hyperpage{23, 24}
+
+  \indexspace
+
+  \item {read}
+    \subitem {Data}, \hyperpage{4}
+  \item {report}
+    \subitem {WhichStack}, \hyperpage{24}
+  \item {Rule}, \hyperpage{13}
+    \subitem {$\sim $Rule}, \hyperpage{14}
+    \subitem {addComponent}, \hyperpage{17}
+    \subitem {backSelect}, \hyperpage{18}
+    \subitem {clone}, \hyperpage{16}
+    \subitem {combine}, \hyperpage{18}
+    \subitem {compare}, \hyperpage{16}
+    \subitem {createFromFile}, \hyperpage{16}
+    \subitem {findAttribute}, \hyperpage{17}
+    \subitem {findAttributeValue}, \hyperpage{17}
+    \subitem {getComponent}, \hyperpage{14}
+    \subitem {getEffort}, \hyperpage{15}
+    \subitem {getPD}, \hyperpage{15}
+    \subitem {getPF}, \hyperpage{15}
+    \subitem {getRuleSet}, \hyperpage{14}
+    \subitem {getScore}, \hyperpage{15}
+    \subitem {getSize}, \hyperpage{15}
+    \subitem {getSupport}, \hyperpage{15}
+    \subitem {hasComponent}, \hyperpage{17}
+    \subitem {isEqualTo}, \hyperpage{17}
+    \subitem {isSatisfied}, \hyperpage{16}
+    \subitem {print}, \hyperpage{18}
+    \subitem {printGotWant}, \hyperpage{18}
+    \subitem {printRule}, \hyperpage{18}
+    \subitem {Rule}, \hyperpage{13}
+    \subitem {score}, \hyperpage{16}
+    \subitem {setComponent}, \hyperpage{14}
+    \subitem {setData}, \hyperpage{14}
+    \subitem {setWeights}, \hyperpage{14}
+  \item {RuleSet}, \hyperpage{20}
+    \subitem {$\sim $RuleSet}, \hyperpage{20}
+    \subitem {create}, \hyperpage{20}
+    \subitem {print}, \hyperpage{21}
+    \subitem {RuleSet}, \hyperpage{20}
+    \subitem {score}, \hyperpage{20}
+
+  \indexspace
+
+  \item {score}
+    \subitem {Rule}, \hyperpage{16}
+    \subitem {RuleSet}, \hyperpage{20}
+  \item {select}
+    \subitem {WhichStack}, \hyperpage{23}
+  \item {setComponent}
+    \subitem {Rule}, \hyperpage{14}
+  \item {setData}
+    \subitem {Rule}, \hyperpage{14}
+  \item {setWeights}
+    \subitem {Rule}, \hyperpage{14}
+  \item {size}
+    \subitem {WhichStack}, \hyperpage{23}
+  \item {subsample}
+    \subitem {Data}, \hyperpage{5}
+
+  \indexspace
+
+  \item {WhichStack}, \hyperpage{22}
+    \subitem {$\sim $WhichStack}, \hyperpage{22}
+    \subitem {contains}, \hyperpage{25}
+    \subitem {create}, \hyperpage{23}
+    \subitem {getBest}, \hyperpage{24}
+    \subitem {getRule}, \hyperpage{24}
+    \subitem {pick}, \hyperpage{25}
+    \subitem {pickTwo}, \hyperpage{23}
+    \subitem {print}, \hyperpage{24}
+    \subitem {push}, \hyperpage{23, 24}
+    \subitem {report}, \hyperpage{24}
+    \subitem {select}, \hyperpage{23}
+    \subitem {size}, \hyperpage{23}
+    \subitem {WhichStack}, \hyperpage{22}
+
+\end{theindex}

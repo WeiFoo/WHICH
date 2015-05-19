@@ -1,0 +1,399 @@
+\hypertarget{class_rule}{
+\section{Rule Class Reference}
+\label{class_rule}\index{Rule@{Rule}}
+}
+{\tt \#include $<$Rule.h$>$}
+
+Collaboration diagram for Rule:\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{class_rule_eb73d8de3bba02f37d8cab6efb645424}{Rule} ()
+\item 
+\hyperlink{class_rule_ccef6b90dd977e8d73956964dcb75b7c}{Rule} (int attribute, int value, \hyperlink{class_data}{Data} $\ast$d, RULE\_\-TYPE type, float($\ast$scoreFnc)(\hyperlink{class_rule}{Rule} $\ast$)=NULL)
+\item 
+\hyperlink{class_rule_92760fc705b3da696f86e42b77943c21}{$\sim$Rule} ()
+\item 
+void $\ast$ \hyperlink{class_rule_c8a17afe63c4fa041ef6891439c9baee}{getComponent} ()
+\item 
+void \hyperlink{class_rule_8d1f33bbdc154ae34a126af0368163e0}{setComponent} (void $\ast$com)
+\item 
+std::vector$<$ \hyperlink{struct_disjunction_set}{DisjunctionSet} $\ast$ $>$ $\ast$ \hyperlink{class_rule_e16ddd7187505cea81c141c0fba02fb1}{getRuleSet} ()
+\item 
+void \hyperlink{class_rule_43ff682a341a03a3c3e27e2b598580ae}{setData} (\hyperlink{class_data}{Data} $\ast$d)
+\item 
+void \hyperlink{class_rule_37a7cb42d14cb3a5f138f68a9873c762}{setWeights} (float alpha, float beta, float gamma)
+\item 
+float \hyperlink{class_rule_2148ab729c7b70110dca6014e990134b}{getScore} ()
+\item 
+float \hyperlink{class_rule_33f3e06bd36631338070130c4ac8f326}{getSupport} ()
+\item 
+float \hyperlink{class_rule_4b1d1b50f81c7533bb078329f2ad8c6b}{getPD} ()
+\item 
+float \hyperlink{class_rule_cf7353621f4237b0ef0cbc2817defe27}{getPF} ()
+\item 
+float \hyperlink{class_rule_de31f4e816e9c1c6c5272d0140a5ac6e}{getEffort} ()
+\item 
+int \hyperlink{class_rule_5bd116e9c9bc5161475710e2304df75e}{getSize} ()
+\item 
+\hyperlink{class_rule}{Rule} $\ast$ \hyperlink{class_rule_c67eceef74c6cdc7cd098bbc65acdead}{clone} ()
+\item 
+bool \hyperlink{class_rule_1b76f4ec5aec7b8afda63728e47ead6c}{createFromFile} (std::string fName, \hyperlink{class_data}{Data} $\ast$d, RULE\_\-TYPE type, float($\ast$scoreFcn)(\hyperlink{class_rule}{Rule} $\ast$)=NULL)
+\item 
+float \hyperlink{class_rule_9f69084a7d9fde37af84024310d061b2}{compare} (\hyperlink{class_rule}{Rule} $\ast$r)
+\item 
+bool \hyperlink{class_rule_27b5854b5e5ab821fe06fc8f4472a771}{isSatisfied} (std::vector$<$ InstanceElement $\ast$ $>$ $\ast$instance)
+\item 
+void \hyperlink{class_rule_3c2cbee4556a09fc797d0973bd57e3b4}{score} ()
+\item 
+int \hyperlink{class_rule_dc1c7829d6e1c60f709b6395a5312fd1}{findAttribute} (int attribute)
+\item 
+int \hyperlink{class_rule_4381c920d53d2059fd94361e69a8e616}{findAttributeValue} (int attribute, int value)
+\item 
+bool \hyperlink{class_rule_4d9d97bc63ca3eb3737252a8e5be2b79}{hasComponent} (int attribute, int value)
+\item 
+bool \hyperlink{class_rule_ecabab59e8538a4bc85b6f7f1d59adaf}{isEqualTo} (\hyperlink{class_rule}{Rule} $\ast$r)
+\item 
+bool \hyperlink{class_rule_a66ac3f68047f34658758abcf838ce28}{addComponent} (int attribute, int value)
+\item 
+\hyperlink{class_rule}{Rule} $\ast$ \hyperlink{class_rule_e6c4e5c295f28d0aa12e94cb2c55e918}{combine} (\hyperlink{class_rule}{Rule} $\ast$r)
+\item 
+\hyperlink{class_rule}{Rule} $\ast$ \hyperlink{class_rule_441614c0a987b05955bf08101a9e5a34}{backSelect} ()
+\item 
+void \hyperlink{class_rule_446c9ec5708ea0f0d893eca650d93f0c}{printGotWant} (std::ostream \&stream, \hyperlink{class_data}{Data} $\ast$eData)
+\item 
+void \hyperlink{class_rule_5f02ab857782c2a31fa8b8199c0f12d5}{print} (std::ostream \&stream)
+\item 
+void \hyperlink{class_rule_5a80e9996896ef50d762dc7277637635}{printRule} (std::ostream \&stream)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Represents a \hyperlink{class_rule}{Rule} for Which. Contains a series of attributes and the ranges they can have for a rule to fire. Rules in Which are a series of conjunctions of disjunctions. EG: ( a = 3 + a = 2 )( b = 9 + b = 5 )( ... ) 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rule_eb73d8de3bba02f37d8cab6efb645424}{
+\index{Rule@{Rule}!Rule@{Rule}}
+\index{Rule@{Rule}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Rule::Rule ()}}
+\label{class_rule_eb73d8de3bba02f37d8cab6efb645424}
+
+
+Creates an empty \hyperlink{class_rule}{Rule}. After this constructer the \hyperlink{class_rule}{Rule} will have no attributes to fire on. \hypertarget{class_rule_ccef6b90dd977e8d73956964dcb75b7c}{
+\index{Rule@{Rule}!Rule@{Rule}}
+\index{Rule@{Rule}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Rule::Rule (int {\em attribute}, \/  int {\em value}, \/  {\bf Data} $\ast$ {\em d}, \/  RULE\_\-TYPE {\em type}, \/  float($\ast$)({\bf Rule} $\ast$) {\em scoreFnc} = {\tt NULL})}}
+\label{class_rule_ccef6b90dd977e8d73956964dcb75b7c}
+
+
+Creates a \hyperlink{class_rule}{Rule} with one conjunction.( if attribute = attributeValue then... ) \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attribute}]The numerical index of the attribute in the data set. \item[{\em value}]The numerical index of the attribute's value in the data set. \item[{\em d}]A pointer to the data set to score this \hyperlink{class_rule}{Rule} with. \item[{\em type}]The type of \hyperlink{class_rule}{Rule} this is. \item[{\em the}]method to use to score this rule. Only needed for type = SPECIAL \end{description}
+\end{Desc}
+\hypertarget{class_rule_92760fc705b3da696f86e42b77943c21}{
+\index{Rule@{Rule}!$\sim$Rule@{$\sim$Rule}}
+\index{$\sim$Rule@{$\sim$Rule}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Rule::$\sim$Rule ()}}
+\label{class_rule_92760fc705b3da696f86e42b77943c21}
+
+
+Destructor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rule_c8a17afe63c4fa041ef6891439c9baee}{
+\index{Rule@{Rule}!getComponent@{getComponent}}
+\index{getComponent@{getComponent}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ Rule::getComponent ()}}
+\label{class_rule_c8a17afe63c4fa041ef6891439c9baee}
+
+
+Returns a pointer to the user defined component. \begin{Desc}
+\item[Returns:]The pointer. \end{Desc}
+\hypertarget{class_rule_8d1f33bbdc154ae34a126af0368163e0}{
+\index{Rule@{Rule}!setComponent@{setComponent}}
+\index{setComponent@{setComponent}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::setComponent (void $\ast$ {\em com})}}
+\label{class_rule_8d1f33bbdc154ae34a126af0368163e0}
+
+
+Allows the user to create a class or struct that gets coupled with a \hyperlink{class_rule}{Rule}. Using this method allows the user to set a component of the \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em com}]A pointer to the component in memory. \end{description}
+\end{Desc}
+\hypertarget{class_rule_e16ddd7187505cea81c141c0fba02fb1}{
+\index{Rule@{Rule}!getRuleSet@{getRuleSet}}
+\index{getRuleSet@{getRuleSet}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf DisjunctionSet} $\ast$ $>$ $\ast$ Rule::getRuleSet ()}}
+\label{class_rule_e16ddd7187505cea81c141c0fba02fb1}
+
+
+Returns the \hyperlink{class_rule}{Rule} in toe form of a jagged array of integers. See DisjuctionSet to see how to use this array. \begin{Desc}
+\item[Returns:]A pointer to the \hyperlink{class_rule}{Rule} in a jagged array from. \end{Desc}
+\hypertarget{class_rule_43ff682a341a03a3c3e27e2b598580ae}{
+\index{Rule@{Rule}!setData@{setData}}
+\index{setData@{setData}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::setData ({\bf Data} $\ast$ {\em d})}}
+\label{class_rule_43ff682a341a03a3c3e27e2b598580ae}
+
+
+Allows the user to dynamically change the \hyperlink{class_data}{Data} this \hyperlink{class_rule}{Rule} is evaluated on. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em d}]The new \hyperlink{class_data}{Data}. \end{description}
+\end{Desc}
+\hypertarget{class_rule_37a7cb42d14cb3a5f138f68a9873c762}{
+\index{Rule@{Rule}!setWeights@{setWeights}}
+\index{setWeights@{setWeights}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::setWeights (float {\em alpha}, \/  float {\em beta}, \/  float {\em gamma})}}
+\label{class_rule_37a7cb42d14cb3a5f138f68a9873c762}
+
+
+Allows the user to alter how the standard metrics of PD, PF, and Effort are weighted in any pre-defined scoring method that uses the above metrics. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em alpha}]The weight of PD. \item[{\em beta}]The weight of PF. \item[{\em gamma}]The weight of Effort. \end{description}
+\end{Desc}
+\hypertarget{class_rule_2148ab729c7b70110dca6014e990134b}{
+\index{Rule@{Rule}!getScore@{getScore}}
+\index{getScore@{getScore}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::getScore ()}}
+\label{class_rule_2148ab729c7b70110dca6014e990134b}
+
+
+Gets the current score of a \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Returns:]The score. \end{Desc}
+\hypertarget{class_rule_33f3e06bd36631338070130c4ac8f326}{
+\index{Rule@{Rule}!getSupport@{getSupport}}
+\index{getSupport@{getSupport}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::getSupport ()}}
+\label{class_rule_33f3e06bd36631338070130c4ac8f326}
+
+
+Gets the current support of a \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Returns:]The support. \end{Desc}
+\hypertarget{class_rule_4b1d1b50f81c7533bb078329f2ad8c6b}{
+\index{Rule@{Rule}!getPD@{getPD}}
+\index{getPD@{getPD}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::getPD ()}}
+\label{class_rule_4b1d1b50f81c7533bb078329f2ad8c6b}
+
+
+Gets the PD of a \hyperlink{class_rule}{Rule}. This value is defined for all pre-defined scoring types. \begin{Desc}
+\item[Returns:]The PD. \end{Desc}
+\hypertarget{class_rule_cf7353621f4237b0ef0cbc2817defe27}{
+\index{Rule@{Rule}!getPF@{getPF}}
+\index{getPF@{getPF}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::getPF ()}}
+\label{class_rule_cf7353621f4237b0ef0cbc2817defe27}
+
+
+Gets the PF of a \hyperlink{class_rule}{Rule}. This value is defined for all pre-defined scoring types. \begin{Desc}
+\item[Returns:]The PF. \end{Desc}
+\hypertarget{class_rule_de31f4e816e9c1c6c5272d0140a5ac6e}{
+\index{Rule@{Rule}!getEffort@{getEffort}}
+\index{getEffort@{getEffort}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::getEffort ()}}
+\label{class_rule_de31f4e816e9c1c6c5272d0140a5ac6e}
+
+
+Gets the effort of a \hyperlink{class_rule}{Rule}. This value is defined for all pre-defined scoring types. \begin{Desc}
+\item[Returns:]The effort. \end{Desc}
+\hypertarget{class_rule_5bd116e9c9bc5161475710e2304df75e}{
+\index{Rule@{Rule}!getSize@{getSize}}
+\index{getSize@{getSize}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Rule::getSize ()}}
+\label{class_rule_5bd116e9c9bc5161475710e2304df75e}
+
+
+Gets the size of the \hyperlink{class_rule}{Rule} in terms of the sum of conjunctions and disjunctions. For instance: a=\mbox{[}1 OR 4 OR 5\mbox{]} AND b = \mbox{[}2 OR 5\mbox{]} has a size of 5 \begin{Desc}
+\item[Returns:]The size. \end{Desc}
+\hypertarget{class_rule_c67eceef74c6cdc7cd098bbc65acdead}{
+\index{Rule@{Rule}!clone@{clone}}
+\index{clone@{clone}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rule} $\ast$ Rule::clone ()}}
+\label{class_rule_c67eceef74c6cdc7cd098bbc65acdead}
+
+
+Creates a cloned version of this \hyperlink{class_rule}{Rule}. The new \hyperlink{class_rule}{Rule} is completely seperate of this \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Returns:]The newly cloned \hyperlink{class_rule}{Rule}. \end{Desc}
+\hypertarget{class_rule_1b76f4ec5aec7b8afda63728e47ead6c}{
+\index{Rule@{Rule}!createFromFile@{createFromFile}}
+\index{createFromFile@{createFromFile}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Rule::createFromFile (std::string {\em fName}, \/  {\bf Data} $\ast$ {\em d}, \/  RULE\_\-TYPE {\em type}, \/  float($\ast$)({\bf Rule} $\ast$) {\em scoreFcn} = {\tt NULL})}}
+\label{class_rule_1b76f4ec5aec7b8afda63728e47ead6c}
+
+
+Creates a \hyperlink{class_rule}{Rule} from reading in a file. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fName}]The name of the file. \item[{\em \hyperlink{class_data}{Data}}]The data set to score and create this \hyperlink{class_rule}{Rule} with. \item[{\em type}]The type of \hyperlink{class_rule}{Rule} this is. \item[{\em the}]method to use to score this rule. Only needed for type = SPECIAL Returns false if no \hyperlink{class_rule}{Rule} was created. True otherwise. \end{description}
+\end{Desc}
+\hypertarget{class_rule_9f69084a7d9fde37af84024310d061b2}{
+\index{Rule@{Rule}!compare@{compare}}
+\index{compare@{compare}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Rule::compare ({\bf Rule} $\ast$ {\em r})}}
+\label{class_rule_9f69084a7d9fde37af84024310d061b2}
+
+
+Compares two Rules' scores. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em r}]The \hyperlink{class_rule}{Rule} to compare to this one. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]$>$0 if r is greater than this \hyperlink{class_rule}{Rule}, 0 if r is equal to this \hyperlink{class_rule}{Rule}, $<$0 if r is less than this \hyperlink{class_rule}{Rule}. \end{Desc}
+\hypertarget{class_rule_27b5854b5e5ab821fe06fc8f4472a771}{
+\index{Rule@{Rule}!isSatisfied@{isSatisfied}}
+\index{isSatisfied@{isSatisfied}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Rule::isSatisfied (std::vector$<$ InstanceElement $\ast$ $>$ $\ast$ {\em instance})}}
+\label{class_rule_27b5854b5e5ab821fe06fc8f4472a771}
+
+
+Checks to see if an instance of data is satisfied by this \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em instance}]The instance of data. \end{description}
+\end{Desc}
+\hypertarget{class_rule_3c2cbee4556a09fc797d0973bd57e3b4}{
+\index{Rule@{Rule}!score@{score}}
+\index{score@{score}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::score ()}}
+\label{class_rule_3c2cbee4556a09fc797d0973bd57e3b4}
+
+
+Scores the \hyperlink{class_rule}{Rule} based on which type of \hyperlink{class_rule}{Rule} it is. \hypertarget{class_rule_dc1c7829d6e1c60f709b6395a5312fd1}{
+\index{Rule@{Rule}!findAttribute@{findAttribute}}
+\index{findAttribute@{findAttribute}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Rule::findAttribute (int {\em attribute})}}
+\label{class_rule_dc1c7829d6e1c60f709b6395a5312fd1}
+
+
+Checks to see if an attribute index is already in the \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attribute}]The attribute index to search for. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]-1 if the attribute does not exist, the index of the attribute otherwise. \end{Desc}
+\hypertarget{class_rule_4381c920d53d2059fd94361e69a8e616}{
+\index{Rule@{Rule}!findAttributeValue@{findAttributeValue}}
+\index{findAttributeValue@{findAttributeValue}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Rule::findAttributeValue (int {\em attribute}, \/  int {\em value})}}
+\label{class_rule_4381c920d53d2059fd94361e69a8e616}
+
+
+Checks to see if an attribute value is already in the \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attribute}]The attribute whose value is to be searched for. \item[{\em value}]The value of the attribute to search. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]-1 if the value is not found, the index of the value otherwise. \end{Desc}
+\hypertarget{class_rule_4d9d97bc63ca3eb3737252a8e5be2b79}{
+\index{Rule@{Rule}!hasComponent@{hasComponent}}
+\index{hasComponent@{hasComponent}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Rule::hasComponent (int {\em attribute}, \/  int {\em value})}}
+\label{class_rule_4d9d97bc63ca3eb3737252a8e5be2b79}
+
+
+Checks to see if a certain attribute value is in the \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attribute}]The attribute index to check the value of. \item[{\em value}]The value index of the attribute. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]True if it attribute = value is in this \hyperlink{class_rule}{Rule}, false otherwise. \end{Desc}
+\hypertarget{class_rule_ecabab59e8538a4bc85b6f7f1d59adaf}{
+\index{Rule@{Rule}!isEqualTo@{isEqualTo}}
+\index{isEqualTo@{isEqualTo}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Rule::isEqualTo ({\bf Rule} $\ast$ {\em r})}}
+\label{class_rule_ecabab59e8538a4bc85b6f7f1d59adaf}
+
+
+Checks to see if two Rules have the same component sets. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em r}]The \hyperlink{class_rule}{Rule} to compare to this one. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]True if r == this, false otherwise. \end{Desc}
+\hypertarget{class_rule_a66ac3f68047f34658758abcf838ce28}{
+\index{Rule@{Rule}!addComponent@{addComponent}}
+\index{addComponent@{addComponent}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Rule::addComponent (int {\em attribute}, \/  int {\em value})}}
+\label{class_rule_a66ac3f68047f34658758abcf838ce28}
+
+
+Adds a new component to the \hyperlink{class_rule}{Rule}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em atribute}]The attribute to add. \item[{\em vale}]The value of the attribute to add. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]True if it was added, false if it already was in the rule. \end{Desc}
+\hypertarget{class_rule_e6c4e5c295f28d0aa12e94cb2c55e918}{
+\index{Rule@{Rule}!combine@{combine}}
+\index{combine@{combine}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rule} $\ast$ Rule::combine ({\bf Rule} $\ast$ {\em r})}}
+\label{class_rule_e6c4e5c295f28d0aa12e94cb2c55e918}
+
+
+Combines two Rules by adding together their disjunctions and conjunctions. If this \hyperlink{class_rule}{Rule} and r are equivalent, the new \hyperlink{class_rule}{Rule} is just a clone of the first rule. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em r}]The \hyperlink{class_rule}{Rule} to add to this one. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]A pointer to a new \hyperlink{class_rule}{Rule} that is created from this one. \end{Desc}
+\hypertarget{class_rule_441614c0a987b05955bf08101a9e5a34}{
+\index{Rule@{Rule}!backSelect@{backSelect}}
+\index{backSelect@{backSelect}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Rule} $\ast$ Rule::backSelect ()}}
+\label{class_rule_441614c0a987b05955bf08101a9e5a34}
+
+
+Attempts to create a better, smaller rule. \begin{Desc}
+\item[Returns:]The smaller rule. \end{Desc}
+\hypertarget{class_rule_446c9ec5708ea0f0d893eca650d93f0c}{
+\index{Rule@{Rule}!printGotWant@{printGotWant}}
+\index{printGotWant@{printGotWant}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::printGotWant (std::ostream \& {\em stream}, \/  {\bf Data} $\ast$ {\em eData})}}
+\label{class_rule_446c9ec5708ea0f0d893eca650d93f0c}
+
+
+Prints a Weka-like got want matrix to allow for evaluation alongside the Weka. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print o. \item[{\em eData}]The data containing the proper line of code information. \end{description}
+\end{Desc}
+\hypertarget{class_rule_5f02ab857782c2a31fa8b8199c0f12d5}{
+\index{Rule@{Rule}!print@{print}}
+\index{print@{print}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::print (std::ostream \& {\em stream})}}
+\label{class_rule_5f02ab857782c2a31fa8b8199c0f12d5}
+
+
+Prints the \hyperlink{class_rule}{Rule} in the format: A = \mbox{[} 1 OR 2 \mbox{]} AND B = \mbox{[} 2 \mbox{]} AND C = \mbox{[} 1 OR 4 \mbox{]} Score: \#\#\# $<$optional scoring=\char`\"{}\char`\"{} metrics$>$=\char`\"{}\char`\"{}$>$ \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print the \hyperlink{class_rule}{Rule} to. \end{description}
+\end{Desc}
+\hypertarget{class_rule_5a80e9996896ef50d762dc7277637635}{
+\index{Rule@{Rule}!printRule@{printRule}}
+\index{printRule@{printRule}!Rule@{Rule}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Rule::printRule (std::ostream \& {\em stream})}}
+\label{class_rule_5a80e9996896ef50d762dc7277637635}
+
+
+Prints just the \hyperlink{class_rule}{Rule} portion in the format. A = \mbox{[} 1 OR 2 \mbox{]} AND B = \mbox{[} 2 \mbox{]} AND C = \mbox{[} 1 OR 4 \mbox{]} =$>$ class \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print tte \hyperlink{class_rule}{Rule} to. \end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+My Documents/Zach/School/Research/Which/which/Rule.h\item 
+My Documents/Zach/School/Research/Which/which/Rule.cpp\end{CompactItemize}

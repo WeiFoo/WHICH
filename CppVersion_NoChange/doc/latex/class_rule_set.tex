@@ -1,0 +1,88 @@
+\hypertarget{class_rule_set}{
+\section{RuleSet Class Reference}
+\label{class_rule_set}\index{RuleSet@{RuleSet}}
+}
+{\tt \#include $<$RuleSet.h$>$}
+
+Collaboration diagram for RuleSet:\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{class_rule_set_db76582d86e9454d1918dba7dde54278}{RuleSet} ()
+\item 
+\hyperlink{class_rule_set_ade3c40c3566785015423b68ec231610}{RuleSet} (\hyperlink{class_data}{Data} $\ast$train, \hyperlink{class_data}{Data} $\ast$test, RULE\_\-TYPE type)
+\item 
+\hyperlink{class_rule_set_65703491de0805010c2deda1ee12cd4f}{$\sim$RuleSet} ()
+\item 
+void \hyperlink{class_rule_set_a97d52f89a230fe24426c264daf28e9a}{create} ()
+\item 
+void \hyperlink{class_rule_set_303fc2e6ff151614cf3b3695bab76cf3}{score} ()
+\item 
+void \hyperlink{class_rule_set_f2924a75e022901e54f248d380c97944}{print} (std::ostream \&stream)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents a collection of Rules that are meant to cover an entire data set. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rule_set_db76582d86e9454d1918dba7dde54278}{
+\index{RuleSet@{RuleSet}!RuleSet@{RuleSet}}
+\index{RuleSet@{RuleSet}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RuleSet::RuleSet ()}}
+\label{class_rule_set_db76582d86e9454d1918dba7dde54278}
+
+
+Empty Constructor. \hypertarget{class_rule_set_ade3c40c3566785015423b68ec231610}{
+\index{RuleSet@{RuleSet}!RuleSet@{RuleSet}}
+\index{RuleSet@{RuleSet}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RuleSet::RuleSet ({\bf Data} $\ast$ {\em train}, \/  {\bf Data} $\ast$ {\em test}, \/  RULE\_\-TYPE {\em type})}}
+\label{class_rule_set_ade3c40c3566785015423b68ec231610}
+
+
+Creates a basic \hyperlink{class_rule_set}{RuleSet}. train and test MUST be discrete already. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em train}]The data set this \hyperlink{class_rule_set}{RuleSet} will train on. \item[{\em test}]The data set this \hyperlink{class_rule_set}{RuleSet} will evaulate on. Passing NULL will result in the \hyperlink{class_rule_set}{RuleSet} being evaulated on the test data. \item[{\em type}]The type of Rules this \hyperlink{class_rule_set}{RuleSet} contains. \end{description}
+\end{Desc}
+\hypertarget{class_rule_set_65703491de0805010c2deda1ee12cd4f}{
+\index{RuleSet@{RuleSet}!$\sim$RuleSet@{$\sim$RuleSet}}
+\index{$\sim$RuleSet@{$\sim$RuleSet}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}RuleSet::$\sim$RuleSet ()}}
+\label{class_rule_set_65703491de0805010c2deda1ee12cd4f}
+
+
+Destructor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rule_set_a97d52f89a230fe24426c264daf28e9a}{
+\index{RuleSet@{RuleSet}!create@{create}}
+\index{create@{create}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void RuleSet::create ()}}
+\label{class_rule_set_a97d52f89a230fe24426c264daf28e9a}
+
+
+Creates a series of Rules that attempt to best cover the \hyperlink{class_data}{Data}. \hypertarget{class_rule_set_303fc2e6ff151614cf3b3695bab76cf3}{
+\index{RuleSet@{RuleSet}!score@{score}}
+\index{score@{score}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void RuleSet::score ()}}
+\label{class_rule_set_303fc2e6ff151614cf3b3695bab76cf3}
+
+
+Scores the \hyperlink{class_rule_set}{RuleSet}. \hypertarget{class_rule_set_f2924a75e022901e54f248d380c97944}{
+\index{RuleSet@{RuleSet}!print@{print}}
+\index{print@{print}!RuleSet@{RuleSet}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void RuleSet::print (std::ostream \& {\em stream})}}
+\label{class_rule_set_f2924a75e022901e54f248d380c97944}
+
+
+Prints the \hyperlink{class_rule_set}{RuleSet}. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print to. \end{description}
+\end{Desc}
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+My Documents/Zach/School/Research/Which/which/RuleSet.h\item 
+My Documents/Zach/School/Research/Which/which/RuleSet.cpp\end{CompactItemize}

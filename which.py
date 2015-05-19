@@ -288,7 +288,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
         result += [readcpp(f="./CppVersion1.0/cpp/Rule111.csv")]
         mypercentage = postCalculation(result)
         if len(mypercentage) == 0: continue  #this is the case, where the best is 0
-        if first_Time:
+        if first_Time: # initialize: for each data set, stats contains all the results of methods for that data set.
           for t, each in enumerate(mypercentage):
             stats[t] = stats.get(t, []) + [each]
           combine[j] = [stats]

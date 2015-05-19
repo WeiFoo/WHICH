@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3884"
+   name=""
+   committed-date="2008-02-20T19:16:18.280018Z"
+   url="http://unbox.org/wisp/tags/which/1.0/cpp"
+   last-author="zmilton"
+   kind="dir"
+   repos="http://unbox.org/wisp"
+   revision="4099"/>
+<entry
+   committed-rev="3884"
+   name="Data.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="869d9e0a46d1ac1c1cfdd0f11ccbece8"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="0"
+   text-time="2008-02-20T14:13:04.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="b7c34e9885da793abab552934894d774"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="which"
+   text-time="2008-02-20T14:13:10.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="d110bc75a0be15a30cb8b525ca50867f"
+   last-author="zmilton"
+   kind="file"
+   prop-time="2008-02-20T14:14:10.000000Z"/>
+<entry
+   committed-rev="3884"
+   name="defines.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="15f78062490365ea2e6e8491fa801a35"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="tool.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="823a0cca2f853fc0f1b23df1ff23e5f9"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   name="which.cpp"
+   kind="file"
+   deleted="true"
+   revision="4523"/>
+<entry
+   committed-rev="3884"
+   name="RuleSet.cpp"
+   text-time="2008-02-20T14:11:47.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="d2059cfda193109ef5f333e234df8afc"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="main.cpp"
+   text-time="2008-02-20T14:11:47.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="be0c1a911dcc0f626e54aa22fa3947f2"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="Rule.cpp"
+   text-time="2008-02-20T14:12:48.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="3f8a88a8f7be85b2ce36b62009f3f034"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="RuleSet.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="878e8baef55e1ddbad133ef07046c52c"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="WhichStack.cpp"
+   text-time="2008-02-20T14:11:47.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="5e3360ad6158ef3aca34124b6781c500"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="Data.cpp"
+   text-time="2008-02-20T14:11:47.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="be71c0313769749630d47839e07810e5"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="Rule.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="6213cfcbe2ebe5ef8248b30b5fd76f30"
+   last-author="zmilton"
+   kind="file"/>
+<entry
+   committed-rev="3884"
+   name="WhichStack.h"
+   text-time="2008-02-20T14:11:45.000000Z"
+   committed-date="2008-02-20T19:16:18.280018Z"
+   checksum="da59cd45a871cc83a87398795a309db0"
+   last-author="zmilton"
+   kind="file"/>
+</wc-entries>

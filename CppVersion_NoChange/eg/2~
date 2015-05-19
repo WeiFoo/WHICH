@@ -1,0 +1,11 @@
+#!/bin/bash
+
+train=../data/cm1Train.arff
+test=../data/cm1Test.arff
+loc=1;
+
+# This run will cause which to output a list of modules to look at in order of smallest
+# size first.
+./which -score pdpf -ssize -1 -loc $loc -bins 2 -p -t $train -T $test
+
+

@@ -1,0 +1,525 @@
+\hypertarget{class_data}{
+\section{Data Class Reference}
+\label{class_data}\index{Data@{Data}}
+}
+{\tt \#include $<$Data.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+\hyperlink{class_data_f11f741cb7f587e2e495452a8905a22a}{Data} ()
+\item 
+\hyperlink{class_data_ab31956423290f0d62dcca47ab4d16dd}{$\sim$Data} ()
+\item 
+void \hyperlink{class_data_d83d492da80cf1fc3d22dbae2923dd84}{read} (std::string fName)
+\item 
+void \hyperlink{class_data_d05ef151bf6bfd12ec2acdc37497bba3}{discretizeEqInt} (int bins, \hyperlink{class_data}{Data} $\ast$combine)
+\item 
+void \hyperlink{class_data_63561e5d8d2c8721ac89ce032141f532}{discretizeEqFreq} (int bins, \hyperlink{class_data}{Data} $\ast$combine=NULL)
+\item 
+bool \hyperlink{class_data_e45f3fe7f06ae0d41c560daae28ed938}{subsample} (unsigned int desClass, float per)
+\item 
+unsigned int \hyperlink{class_data_6df6c00f0b38e04d79fb86dadaf5d27a}{microsample} (unsigned int amount)
+\item 
+void \hyperlink{class_data_5c27562388d367bb6bacf975d2b3bcce}{normalizeAttribute} (int attIndex)
+\item 
+\hyperlink{class_data}{Data} $\ast$ \hyperlink{class_data_cd7cae52fb960e8445bb33a333c6a62f}{clone} ()
+\item 
+bool \hyperlink{class_data_0742c6d4a6451da11648f8b09c18e2f3}{cover} (\hyperlink{class_rule}{Rule} $\ast$rule)
+\item 
+int \hyperlink{class_data_13513bc0905f86548108501550e8d2b8}{compareListItems} (ListItem l1, ListItem l2)
+\item 
+void \hyperlink{class_data_68fa1bfad389ab3289c7e35953b56f9a}{calcLift} ()
+\item 
+void \hyperlink{class_data_f183f387ec43b39bba8f88239d4d57d0}{calcPDPFEst} (unsigned int LOC)
+\item 
+void \hyperlink{class_data_01e246c9fcaa5ca8ba0088bb71e73b07}{calcProbSupt} ()
+\item 
+float \hyperlink{class_data_4851266df3faf8b05e81a6f0cd9b2d61}{getLift} ()
+\item 
+int \hyperlink{class_data_3bdab2ffd9ff499885c401b28e858d41}{getTotLOC} ()
+\item 
+std::vector$<$ int $>$ \hyperlink{class_data_b3aae47bac48fdbe906282cfb43696f6}{getLOCs} ()
+\item 
+std::vector$<$ std::vector$<$ InstanceElement $\ast$ $>$ $\ast$ $>$ \hyperlink{class_data_d5ddb92219f2cb1ef51669d93db0d058}{getInstanceSet} ()
+\item 
+unsigned int \hyperlink{class_data_0fa282bf553626ad2f077fa8e6b768de}{getNumAtts} ()
+\item 
+unsigned int \hyperlink{class_data_78d2cc8282d29d0232e5786529a7b3f5}{getNumClasses} ()
+\item 
+unsigned int \hyperlink{class_data_0612067778e93602ce785f752d26769e}{getClassIndex} (std::vector$<$ InstanceElement $\ast$ $>$ $\ast$instance)
+\item 
+unsigned int \hyperlink{class_data_44a22ec03abebdf4e8cd8aa80172597b}{getNumAttVals} (std::string att)
+\item 
+std::string \hyperlink{class_data_622849ce050947b293602cdf2188e95c}{getAttName} (int index)
+\item 
+unsigned int \hyperlink{class_data_bc3a0487e21e226a6f819f3035c53b6e}{getAttIndex} (std::string name)
+\item 
+unsigned int \hyperlink{class_data_cdf39c2a57e36f84a0b7b38c80b26369}{getAttValIndex} (std::string attName, std::string valName)
+\item 
+std::string \hyperlink{class_data_ab45450454abdf71d9453857d6796073}{getAttValName} (std::string att, int index)
+\item 
+std::string \hyperlink{class_data_95f47d8047987fca54c42b05841a590e}{getClassName} (int index)
+\item 
+std::vector$<$ int $>$ \hyperlink{class_data_667cd56b39189f57600561d0c6443c07}{getClassFreqs} ()
+\item 
+const std::vector$<$ std::vector$<$ int $\ast$ $>$ $>$ $\ast$ \hyperlink{class_data_547ec530150603748c5cd22bc4d5112d}{getFrequencyTable} ()
+\item 
+void \hyperlink{class_data_10700625afba65240b0080a26eadc3e7}{printAttributes} ()
+\item 
+void \hyperlink{class_data_4c1d8bb0ddb468365ff4e938c3cf89e0}{printDataSet} (std::ostream \&stream)
+\item 
+void \hyperlink{class_data_fd1b2126292b8c062b60cf52f97c9a6e}{printClassDist} ()
+\item 
+void \hyperlink{class_data_e3e4aba44c9e6fa80cf0c3894e7fd443}{printInstance} (int inst)
+\item 
+void \hyperlink{class_data_9059dd94694692e4355d3e0c26ebe7ba}{printFrequencyTable} (std::ostream \&stream)
+\end{CompactItemize}
+\subsection*{Protected Member Functions}
+\begin{CompactItemize}
+\item 
+void \hyperlink{class_data_a6ab709b9c2aa6ee2e895a98d60335fd}{processAttribute} (std::string line)
+\item 
+void \hyperlink{class_data_58429b2b3a4b057eefa5dd8bb48190ef}{processInstance} (std::string line)
+\item 
+std::string \hyperlink{class_data_875a59c5b213e11ab828d83f53d6b4c7}{preprocessString} (std::string line)
+\item 
+int \hyperlink{class_data_8b1e37093a4c8b712ab27a1b94ff90f7}{find} (std::string att, std::vector$<$ std::string $>$ \&l)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This class represents a data file. It facilitates the structures necessary to easily get infomormation from the data. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_data_f11f741cb7f587e2e495452a8905a22a}{
+\index{Data@{Data}!Data@{Data}}
+\index{Data@{Data}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Data::Data ()}}
+\label{class_data_f11f741cb7f587e2e495452a8905a22a}
+
+
+Empty Constructor. \hypertarget{class_data_ab31956423290f0d62dcca47ab4d16dd}{
+\index{Data@{Data}!$\sim$Data@{$\sim$Data}}
+\index{$\sim$Data@{$\sim$Data}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}Data::$\sim$Data ()}}
+\label{class_data_ab31956423290f0d62dcca47ab4d16dd}
+
+
+Destructor. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_data_d83d492da80cf1fc3d22dbae2923dd84}{
+\index{Data@{Data}!read@{read}}
+\index{read@{read}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::read (std::string {\em fName})}}
+\label{class_data_d83d492da80cf1fc3d22dbae2923dd84}
+
+
+Reads in the training ARFF file and creates the \hyperlink{class_data}{Data} instance. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em fName}]The name of the file to read in. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The file stream. \end{Desc}
+\hypertarget{class_data_d05ef151bf6bfd12ec2acdc37497bba3}{
+\index{Data@{Data}!discretizeEqInt@{discretizeEqInt}}
+\index{discretizeEqInt@{discretizeEqInt}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::discretizeEqInt (int {\em bins}, \/  {\bf Data} $\ast$ {\em combine})}}
+\label{class_data_d05ef151bf6bfd12ec2acdc37497bba3}
+
+
+This method will discretize the attributes that are continuous using an equal interval discretization method. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em bins}]The number of bins to use. \item[{\em combine}]Another data set to combine with this one in the discretization. \end{description}
+\end{Desc}
+\hypertarget{class_data_63561e5d8d2c8721ac89ce032141f532}{
+\index{Data@{Data}!discretizeEqFreq@{discretizeEqFreq}}
+\index{discretizeEqFreq@{discretizeEqFreq}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::discretizeEqFreq (int {\em bins}, \/  {\bf Data} $\ast$ {\em combine} = {\tt NULL})}}
+\label{class_data_63561e5d8d2c8721ac89ce032141f532}
+
+
+This method will discretize the attribtues that are continous using an equal frequency discretization method. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em bins}]The number of bins to use. \item[{\em combine}]Another data set to combine with this one in the discretization. If this is null, this is ignored. \end{description}
+\end{Desc}
+\hypertarget{class_data_e45f3fe7f06ae0d41c560daae28ed938}{
+\index{Data@{Data}!subsample@{subsample}}
+\index{subsample@{subsample}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Data::subsample (unsigned int {\em desClass}, \/  float {\em per})}}
+\label{class_data_e45f3fe7f06ae0d41c560daae28ed938}
+
+
+This method will subsample the data. That is, remove instances of data that are not the desired class until the percentage of the desired class in the entire data set is met. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em desClass}]The index of the desired class. \item[{\em per}]The desired percent. If this is smaller than the percent makeup already, this method does nothing. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]true if the set has been altered, false otherwise. \end{Desc}
+\hypertarget{class_data_6df6c00f0b38e04d79fb86dadaf5d27a}{
+\index{Data@{Data}!microsample@{microsample}}
+\index{microsample@{microsample}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::microsample (unsigned int {\em amount})}}
+\label{class_data_6df6c00f0b38e04d79fb86dadaf5d27a}
+
+
+This method will microsample that data. This involves having an equal distribution of all classes and a total number of each class being equal to amount. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em amount}]The number of each class to be left in the data set. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The actual number of each class left in the data set. If amount $>$ size( class ) than it will only remove from other classes. \end{Desc}
+\hypertarget{class_data_5c27562388d367bb6bacf975d2b3bcce}{
+\index{Data@{Data}!normalizeAttribute@{normalizeAttribute}}
+\index{normalizeAttribute@{normalizeAttribute}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::normalizeAttribute (int {\em attIndex})}}
+\label{class_data_5c27562388d367bb6bacf975d2b3bcce}
+
+
+This method will normalize an attribute so that each value is between 0 and 1 and the greatest attribute is equal to 1. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attIndex}]The index of the attribute to normalize. \end{description}
+\end{Desc}
+\hypertarget{class_data_cd7cae52fb960e8445bb33a333c6a62f}{
+\index{Data@{Data}!clone@{clone}}
+\index{clone@{clone}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf Data} $\ast$ Data::clone ()}}
+\label{class_data_cd7cae52fb960e8445bb33a333c6a62f}
+
+
+Creates a copy of the \hyperlink{class_data}{Data} with the attributes and instance information. \begin{Desc}
+\item[Returns:]The copied \hyperlink{class_data}{Data}. \end{Desc}
+\hypertarget{class_data_0742c6d4a6451da11648f8b09c18e2f3}{
+\index{Data@{Data}!cover@{cover}}
+\index{cover@{cover}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool Data::cover ({\bf Rule} $\ast$ {\em rule})}}
+\label{class_data_0742c6d4a6451da11648f8b09c18e2f3}
+
+
+This method will remove all instances of data from the data set that are covered by a given rule. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em rule}]The rule to check coverage. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]true if the set was altered, false otherwise. \end{Desc}
+\hypertarget{class_data_13513bc0905f86548108501550e8d2b8}{
+\index{Data@{Data}!compareListItems@{compareListItems}}
+\index{compareListItems@{compareListItems}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Data::compareListItems (ListItem {\em l1}, \/  ListItem {\em l2})}}
+\label{class_data_13513bc0905f86548108501550e8d2b8}
+
+
+Compares two ListItems. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em l1}]The first ListItem. \item[{\em l2}]The second Listitem. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]0 if l1 = l2, -1 if l1 $<$ l2, or 1 if l1 $>$ l2. \end{Desc}
+\hypertarget{class_data_68fa1bfad389ab3289c7e35953b56f9a}{
+\index{Data@{Data}!calcLift@{calcLift}}
+\index{calcLift@{calcLift}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::calcLift ()}}
+\label{class_data_68fa1bfad389ab3289c7e35953b56f9a}
+
+
+Calculates the base lift of the data. \hypertarget{class_data_f183f387ec43b39bba8f88239d4d57d0}{
+\index{Data@{Data}!calcPDPFEst@{calcPDPFEst}}
+\index{calcPDPFEst@{calcPDPFEst}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::calcPDPFEst (unsigned int {\em LOC})}}
+\label{class_data_f183f387ec43b39bba8f88239d4d57d0}
+
+
+Calulates the base infomation needed for Effort scoring. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em LOC}]The attribue that is the lines of code. \end{description}
+\end{Desc}
+\hypertarget{class_data_01e246c9fcaa5ca8ba0088bb71e73b07}{
+\index{Data@{Data}!calcProbSupt@{calcProbSupt}}
+\index{calcProbSupt@{calcProbSupt}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::calcProbSupt ()}}
+\label{class_data_01e246c9fcaa5ca8ba0088bb71e73b07}
+
+
+Calculates the frequency counts of each attribute-value pair. Assumes all data is discrete. Assumes only 2 ordered classes.( Best is second class ) \hypertarget{class_data_4851266df3faf8b05e81a6f0cd9b2d61}{
+\index{Data@{Data}!getLift@{getLift}}
+\index{getLift@{getLift}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}float Data::getLift ()}}
+\label{class_data_4851266df3faf8b05e81a6f0cd9b2d61}
+
+
+Gets the base lift of the data. \begin{Desc}
+\item[Returns:]The base lift. \end{Desc}
+\hypertarget{class_data_3bdab2ffd9ff499885c401b28e858d41}{
+\index{Data@{Data}!getTotLOC@{getTotLOC}}
+\index{getTotLOC@{getTotLOC}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Data::getTotLOC ()}}
+\label{class_data_3bdab2ffd9ff499885c401b28e858d41}
+
+
+Gets the total lines of code in this data instance. \begin{Desc}
+\item[Returns:]The total lines of code. \end{Desc}
+\hypertarget{class_data_b3aae47bac48fdbe906282cfb43696f6}{
+\index{Data@{Data}!getLOCs@{getLOCs}}
+\index{getLOCs@{getLOCs}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}vector$<$ int $>$ Data::getLOCs ()}}
+\label{class_data_b3aae47bac48fdbe906282cfb43696f6}
+
+
+Gets the lines of code per instance. \begin{Desc}
+\item[Returns:]A vector containing the lines of code per instance. \end{Desc}
+\hypertarget{class_data_d5ddb92219f2cb1ef51669d93db0d058}{
+\index{Data@{Data}!getInstanceSet@{getInstanceSet}}
+\index{getInstanceSet@{getInstanceSet}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}vector$<$ vector$<$ InstanceElement $\ast$ $>$ $\ast$ $>$ Data::getInstanceSet ()}}
+\label{class_data_d5ddb92219f2cb1ef51669d93db0d058}
+
+
+Gets the instance set. \begin{Desc}
+\item[Returns:]The instance set. \end{Desc}
+\hypertarget{class_data_0fa282bf553626ad2f077fa8e6b768de}{
+\index{Data@{Data}!getNumAtts@{getNumAtts}}
+\index{getNumAtts@{getNumAtts}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getNumAtts ()}}
+\label{class_data_0fa282bf553626ad2f077fa8e6b768de}
+
+
+Gets the number of attributes. \begin{Desc}
+\item[Returns:]The number of attributes. \end{Desc}
+\hypertarget{class_data_78d2cc8282d29d0232e5786529a7b3f5}{
+\index{Data@{Data}!getNumClasses@{getNumClasses}}
+\index{getNumClasses@{getNumClasses}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getNumClasses ()}}
+\label{class_data_78d2cc8282d29d0232e5786529a7b3f5}
+
+
+Gets the number of class values. \begin{Desc}
+\item[Returns:]The number of class values. \end{Desc}
+\hypertarget{class_data_0612067778e93602ce785f752d26769e}{
+\index{Data@{Data}!getClassIndex@{getClassIndex}}
+\index{getClassIndex@{getClassIndex}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getClassIndex (std::vector$<$ InstanceElement $\ast$ $>$ $\ast$ {\em instance})}}
+\label{class_data_0612067778e93602ce785f752d26769e}
+
+
+Gets the class index for a given instance. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em An}]instance of data. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The class index. \end{Desc}
+\hypertarget{class_data_44a22ec03abebdf4e8cd8aa80172597b}{
+\index{Data@{Data}!getNumAttVals@{getNumAttVals}}
+\index{getNumAttVals@{getNumAttVals}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getNumAttVals (std::string {\em att})}}
+\label{class_data_44a22ec03abebdf4e8cd8aa80172597b}
+
+
+Gets the number of values for a given attribute. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em att}]The attribute. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]the number of values for att. \end{Desc}
+\hypertarget{class_data_622849ce050947b293602cdf2188e95c}{
+\index{Data@{Data}!getAttName@{getAttName}}
+\index{getAttName@{getAttName}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string Data::getAttName (int {\em index})}}
+\label{class_data_622849ce050947b293602cdf2188e95c}
+
+
+Gets the attribute name of the index'th attribute. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em index}]The name to return. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The name of the attribute at index. \end{Desc}
+\hypertarget{class_data_bc3a0487e21e226a6f819f3035c53b6e}{
+\index{Data@{Data}!getAttIndex@{getAttIndex}}
+\index{getAttIndex@{getAttIndex}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getAttIndex (std::string {\em name})}}
+\label{class_data_bc3a0487e21e226a6f819f3035c53b6e}
+
+
+Gets the index of an attribute if the string sent in matches it. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em name}]The name of the attribute to find the index of. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index if found, number of attributes + 1 otherwise. \end{Desc}
+\hypertarget{class_data_cdf39c2a57e36f84a0b7b38c80b26369}{
+\index{Data@{Data}!getAttValIndex@{getAttValIndex}}
+\index{getAttValIndex@{getAttValIndex}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int Data::getAttValIndex (std::string {\em attName}, \/  std::string {\em valName})}}
+\label{class_data_cdf39c2a57e36f84a0b7b38c80b26369}
+
+
+Gets the index of an attribute value if the string sent in matches it. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em attName}]The name of the attribute. \item[{\em valName}]The name of the attribute value to match. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index if found, number of attribute values + 1 otherwise. \end{Desc}
+\hypertarget{class_data_ab45450454abdf71d9453857d6796073}{
+\index{Data@{Data}!getAttValName@{getAttValName}}
+\index{getAttValName@{getAttValName}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::string Data::getAttValName (std::string {\em att}, \/  int {\em index})}}
+\label{class_data_ab45450454abdf71d9453857d6796073}
+
+
+Gets the name of the attribute value at the index'th value. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em att}]The name of the attribute. \item[{\em index}]the value to get. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The name of the attribute value at the index. \end{Desc}
+\hypertarget{class_data_95f47d8047987fca54c42b05841a590e}{
+\index{Data@{Data}!getClassName@{getClassName}}
+\index{getClassName@{getClassName}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}string Data::getClassName (int {\em index})}}
+\label{class_data_95f47d8047987fca54c42b05841a590e}
+
+
+Gets the class name at the index'th location. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em index}]The index of the class to get. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The class name in string form. \end{Desc}
+\hypertarget{class_data_667cd56b39189f57600561d0c6443c07}{
+\index{Data@{Data}!getClassFreqs@{getClassFreqs}}
+\index{getClassFreqs@{getClassFreqs}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}vector$<$ int $>$ Data::getClassFreqs ()}}
+\label{class_data_667cd56b39189f57600561d0c6443c07}
+
+
+Gets the class frequency vector. \begin{Desc}
+\item[Returns:]The class frequency vector. \end{Desc}
+\hypertarget{class_data_547ec530150603748c5cd22bc4d5112d}{
+\index{Data@{Data}!getFrequencyTable@{getFrequencyTable}}
+\index{getFrequencyTable@{getFrequencyTable}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const vector$<$ vector$<$ int $\ast$ $>$ $>$ $\ast$ Data::getFrequencyTable ()}}
+\label{class_data_547ec530150603748c5cd22bc4d5112d}
+
+
+Gets the frequency count table for best$^\wedge$2/(best+rest) \begin{Desc}
+\item[Returns:]A jagged array with each 2-dimensinal access containing a length two array with the first element being the rest count and the second element being the best count of this attribute-value pair. \end{Desc}
+\hypertarget{class_data_10700625afba65240b0080a26eadc3e7}{
+\index{Data@{Data}!printAttributes@{printAttributes}}
+\index{printAttributes@{printAttributes}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::printAttributes ()}}
+\label{class_data_10700625afba65240b0080a26eadc3e7}
+
+
+This method will print the attributes. \hypertarget{class_data_4c1d8bb0ddb468365ff4e938c3cf89e0}{
+\index{Data@{Data}!printDataSet@{printDataSet}}
+\index{printDataSet@{printDataSet}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::printDataSet (std::ostream \& {\em stream})}}
+\label{class_data_4c1d8bb0ddb468365ff4e938c3cf89e0}
+
+
+This method will print the data set. \hypertarget{class_data_fd1b2126292b8c062b60cf52f97c9a6e}{
+\index{Data@{Data}!printClassDist@{printClassDist}}
+\index{printClassDist@{printClassDist}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::printClassDist ()}}
+\label{class_data_fd1b2126292b8c062b60cf52f97c9a6e}
+
+
+This method prints the class names and frequencies. \hypertarget{class_data_e3e4aba44c9e6fa80cf0c3894e7fd443}{
+\index{Data@{Data}!printInstance@{printInstance}}
+\index{printInstance@{printInstance}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::printInstance (int {\em inst})}}
+\label{class_data_e3e4aba44c9e6fa80cf0c3894e7fd443}
+
+
+This method will print one instance of the data set. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em inst}]The instance number to print. \end{description}
+\end{Desc}
+\hypertarget{class_data_9059dd94694692e4355d3e0c26ebe7ba}{
+\index{Data@{Data}!printFrequencyTable@{printFrequencyTable}}
+\index{printFrequencyTable@{printFrequencyTable}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::printFrequencyTable (std::ostream \& {\em stream})}}
+\label{class_data_9059dd94694692e4355d3e0c26ebe7ba}
+
+
+This method will print all of the attribute value best and rest frequencies. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em stream}]The stream to print to. \end{description}
+\end{Desc}
+\hypertarget{class_data_a6ab709b9c2aa6ee2e895a98d60335fd}{
+\index{Data@{Data}!processAttribute@{processAttribute}}
+\index{processAttribute@{processAttribute}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::processAttribute (std::string {\em line})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_data_a6ab709b9c2aa6ee2e895a98d60335fd}
+
+
+Processes a string of text and converts that to a new attribute with values in the mAtts and mAttVals lists. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em line}]The line of text to process. \end{description}
+\end{Desc}
+\hypertarget{class_data_58429b2b3a4b057eefa5dd8bb48190ef}{
+\index{Data@{Data}!processInstance@{processInstance}}
+\index{processInstance@{processInstance}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void Data::processInstance (std::string {\em line})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_data_58429b2b3a4b057eefa5dd8bb48190ef}
+
+
+Processes a string of text and converts that to a new instance of a data set. Inserts that instance into the mInstances list. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em line}]The line of text to convert. \end{description}
+\end{Desc}
+\hypertarget{class_data_875a59c5b213e11ab828d83f53d6b4c7}{
+\index{Data@{Data}!preprocessString@{preprocessString}}
+\index{preprocessString@{preprocessString}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}std::string Data::preprocessString (std::string {\em line})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_data_875a59c5b213e11ab828d83f53d6b4c7}
+
+
+Removes any trailing whitespace from a line. Makes every letter lower case. This allows for easier matching in later stages of the program. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em line}]A line of text. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]A processed line of text. \end{Desc}
+\hypertarget{class_data_8b1e37093a4c8b712ab27a1b94ff90f7}{
+\index{Data@{Data}!find@{find}}
+\index{find@{find}!Data@{Data}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int Data::find (std::string {\em att}, \/  std::vector$<$ std::string $>$ \& {\em l})\hspace{0.3cm}{\tt  \mbox{[}protected\mbox{]}}}}
+\label{class_data_8b1e37093a4c8b712ab27a1b94ff90f7}
+
+
+Attempts to find a string in a list of strings. \begin{Desc}
+\item[Parameters:]
+\begin{description}
+\item[{\em att}]The string to find. \item[{\em l}]The list to search. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns:]The index of att in l. If it is not found, returns -1. \end{Desc}
+
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+My Documents/Zach/School/Research/Which/which/Data.h\item 
+My Documents/Zach/School/Research/Which/which/Data.cpp\end{CompactItemize}

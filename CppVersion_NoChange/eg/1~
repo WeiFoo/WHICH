@@ -1,0 +1,9 @@
+#!/bin/bash
+
+train=../data/cm1Train.arff
+test=../data/cm1Test.arff
+loc=1;
+
+./which -score pdpf -ssize -1 -loc $loc -bins 2 -p -t $train -T $test
+
+

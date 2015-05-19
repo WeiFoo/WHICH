@@ -757,7 +757,7 @@
                   moduleName = "WHICH"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/WhichStack.cpp"
-                  timestampString = "452897993.433075"
+                  timestampString = "453676510.667151"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -772,7 +772,7 @@
                   moduleName = "WHICH"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/WhichStack.cpp"
-                  timestampString = "452897993.433318"
+                  timestampString = "453676510.667351"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -1119,7 +1119,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cpp/Data.cpp"
@@ -1295,7 +1295,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cpp/Data.cpp"
@@ -1343,7 +1343,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cpp/Data.cpp"
@@ -1370,6 +1370,22 @@
             endingLineNumber = "99"
             landmarkName = "main( int argc, char **argv )"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cpp/Data.cpp"
+            timestampString = "453409437.202707"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "816"
+            endingLineNumber = "816"
+            landmarkName = "Data::processInstance( std::string line )"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
