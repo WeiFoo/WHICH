@@ -88,7 +88,11 @@ def gbest(t):
 
 
 def readcpp(f):
-  ff = open(f, "r")
+  try:
+    ff = open(f, "r")
+  except IOError:
+    print("Can't open file!")
+    return # if we can't open the file, then return None. When processing, we need to take care of None
   X = map(float, ff.readline().split(",")[:-1])  # this line is X
   Pd = map(float, ff.readline().split(",")[:-1])  # this line is Pd
   return [np.array(X), np.array(Pd)]
@@ -222,6 +226,8 @@ def main():
 def postCalculation(result):
   areaLst = []
   for data in result:
+    if data == None:
+      continue # ignore the none.
     areaLst += [area(data)]
   return percentage(areaLst)
 
@@ -249,12 +255,12 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
   combine = {}
   files_name = ["ar3", "ar4", "ar5", "cm1", "kc1", "kc2", "kc3", "wm1", "pc"]
   first_Time = True
-  for k in range(1):
+  for k in range(10):
     All(src, folds)
     folders = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
     for j in range(len(folders)):
       stats = {}
-      for i in range(1):
+      for i in range(folds):
         print(folders[j])
         result = []
         csvtrain = readcsv(folders[j] + '/csv/train' + str(i) + '.csv')
