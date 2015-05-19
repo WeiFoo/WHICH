@@ -233,7 +233,7 @@ def postCalculation(result):
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "CART","C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8"]
+  names = ["manualUp", "manualDown", "C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
