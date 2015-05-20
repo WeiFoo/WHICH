@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B697F0A81B0A844000411C9D"
-               BuildableName = "WHICHCPP"
-               BlueprintName = "WHICHCPP"
+               BlueprintIdentifier = "5D4994211AE5D61A0067891D"
+               BuildableName = "WHICHCpp"
+               BlueprintName = "WHICHCpp"
                ReferencedContainer = "container:WHICHCPP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B697F0A81B0A844000411C9D"
-            BuildableName = "WHICHCPP"
-            BlueprintName = "WHICHCPP"
+            BlueprintIdentifier = "5D4994211AE5D61A0067891D"
+            BuildableName = "WHICHCpp"
+            BlueprintName = "WHICHCpp"
             ReferencedContainer = "container:WHICHCPP.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B697F0A81B0A844000411C9D"
-            BuildableName = "WHICHCPP"
-            BlueprintName = "WHICHCPP"
+            BlueprintIdentifier = "5D4994211AE5D61A0067891D"
+            BuildableName = "WHICHCpp"
+            BlueprintName = "WHICHCpp"
             ReferencedContainer = "container:WHICHCPP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B697F0A81B0A844000411C9D"
-            BuildableName = "WHICHCPP"
-            BlueprintName = "WHICHCPP"
+            BlueprintIdentifier = "5D4994211AE5D61A0067891D"
+            BuildableName = "WHICHCpp"
+            BlueprintName = "WHICHCpp"
             ReferencedContainer = "container:WHICHCPP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
