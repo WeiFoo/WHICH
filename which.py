@@ -275,7 +275,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
         result += [RIPPER(arfftrain,arfftest)]
         result += [NaiveBayes(arfftrain,arfftest)]
         deletelog()
-        cppWhich(arfftrain, arfftest, " -micro 20")
+        cppWhich(arfftrain, arfftest, " -micro 20 -bins 2")
         result += [readcpp(f="./cppresults.csv")]
         deletelog()
         cppWhich(arfftrain, arfftest, " -bins 2")
