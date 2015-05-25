@@ -115,8 +115,6 @@ def cart(train, test, tuning=True):
   predictresult = [i for i in clf.predict(data[2])]  # to change the format from ndarray to list
   predicted = [test.data[j] for j, p in enumerate(predictresult) if
                p == 1]  # all these data are predicted to be defective
-  # predicted_sorted = sorted(predicted, key=lambda z: z.cells[the.DATA.loc])
-  # pdb.set_trace()
   return XY(predicted)
 
 
@@ -243,8 +241,6 @@ def preSK(stats):
 def area(result):
   X = result[0]
   Y = result[1]
-  # X = np.array([0,50,100])
-  # Y = np.array([0,50,0])
   if len(X)== 0 or len(Y) == 0: return 0
   if 100 not in X:
     X = np.append(X,[100]) # if this curve does not reach top right, we need to add it
@@ -258,7 +254,6 @@ def percentage(lst): # lst[0] is the best which is the base.
     val +=[lst[i]/lst[0]]
   return val
 
-
 def crossEval(repeats=10, folds=3, src="../DATASET"):
   def deletelog():
     cppresult = "./cppresults.csv"
@@ -269,49 +264,48 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
     cpp = "././which -t " + arfftrain + " -T " + arfftest + " -score effort -alpha 1 -beta 1000 -gamma 0" + options
     os.system(cpp)
 
+  def process(result):
+    mypercentage = postCalculation(result)
+    if len(mypercentage) == 0: return  # this is the case, where the best is 0
+    if first_Time:  # initialize: for each data set, stats contains all the results of methods for that data set.
+      for t, each in enumerate(mypercentage):
+        stats[t] = stats.get(t, []) + [each]
+      combine[j] = [stats]
+    else:
+      for t, each in enumerate(mypercentage):
+        combine[j][0][t] = combine.get(j)[0][t] + [each]
+
+  def learner(csvtest, csvtrain, arfftest, arfftrain):
+    result = []  # keep all learners' results for one evaluation
+    result += [gbest(csvtest)]
+    result += [manual(csvtest, False)]  # up : ascending order
+    result += [manual(csvtest, True)]  # down: descending order
+    # result += [cart(csvtrain, csvtest, False)]  # default cart
+    result += [C45(arfftrain, arfftest)]
+    result += [RIPPER(arfftrain, arfftest)]
+    result += [NaiveBayes(arfftrain, arfftest)]
+    for para in which_settings:
+      deletelog()
+      cppWhich(arfftrain, arfftest, para)
+      result += [readcpp(f="./cppresults.csv")]
+    return result
+
   combine = {}
-  files_name = ["ar3", "ar4", "ar5", "cm1", "kc1", "kc2", "kc3", "wm1", "pc"]
   first_Time = True
+  files_name = ["ar3", "ar4", "ar5", "cm1", "kc1", "kc2", "kc3", "wm1", "pc"]
+  which_settings = [" -micro 20 -bins 2", " -bins 2", " -bins 4",
+                    " -bins 8"]  # cmd for micro-20, which-2, which-4, which-8
   for k in range(10):
-    All(src, folds)
+    All(src, folds)  # prepare 3 cross-way evaluation data sets
     folders = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
     for j in range(len(folders)):
-      stats = {}
+      stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
-        print(folders[j])
-        result = []
         csvtrain = readcsv(folders[j] + '/csv/train' + str(i) + '.csv')
         csvtest = readcsv(folders[j] + '/csv/test' + str(i) + '.csv')
         arfftrain = folders[j] + '/arff/train' + str(i) + '.arff'
         arfftest = folders[j] + '/arff/test' + str(i) + '.arff'
-        result += [gbest(csvtest)]
-        result += [manual(csvtest, False)]  # up : ascending order
-        result += [manual(csvtest, True)]  # down: descending order
-        # result += [cart(csvtrain, csvtest, False)]  # default cart
-        result += [C45(arfftrain,arfftest)]
-        result += [RIPPER(arfftrain,arfftest)]
-        result += [NaiveBayes(arfftrain,arfftest)]
-        deletelog()
-        cppWhich(arfftrain, arfftest, " -micro 20 -bins 2")
-        result += [readcpp(f="./cppresults.csv")]
-        deletelog()
-        cppWhich(arfftrain, arfftest, " -bins 2")
-        result += [readcpp(f="./cppresults.csv")]
-        deletelog()
-        cppWhich(arfftrain, arfftest, " -bins 4")
-        result += [readcpp(f="./cppresults.csv")]
-        deletelog()
-        cppWhich(arfftrain, arfftest, " -bins 8")
-        result += [readcpp(f="./cppresults.csv")]
-        mypercentage = postCalculation(result)
-        if len(mypercentage) == 0: continue  #this is the case, where the best is 0
-        if first_Time: # initialize: for each data set, stats contains all the results of methods for that data set.
-          for t, each in enumerate(mypercentage):
-            stats[t] = stats.get(t, []) + [each]
-          combine[j] = [stats]
-        else:
-          for t, each in enumerate(mypercentage):
-            combine[j][0][t] = combine.get(j)[0][t] + [each]
+        process(learner(csvtest, csvtrain, arfftest, arfftrain))  # calculate percentage and others.
     first_Time = False
   for key, stats in combine.iteritems():  # print results for each data set
     print("*" * 15 + files_name[key] + "*" * 15)
