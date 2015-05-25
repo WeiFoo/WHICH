@@ -91,7 +91,7 @@ class DeBase(object):
         i.life -=1
       changed = False
     i.assign(i.tobetuned,i.bestconf)
-    print "DONE !!!!"
+    print "DE DONE !!!!"
     # pdb.set_trace()
     Settings.tunner.isTuning = False
 
@@ -127,6 +127,50 @@ class Which(DeBase):
     else:
       return max(0.0001, min(round(x,2), i.limit[n]))
   def treat(i, x): return x
+
+
+class WHICHCPP(DeBase):
+  def __init__(i,  arfftrain, arfftune, csvtest):
+    Settings.tunner.isTuning = True
+    i.tobetuned = collections.OrderedDict((
+        ("the.cppWHICH.bins",the.cppWHICH.bins),
+        ("the.cppWHICH.improvements",the.cppWHICH.improvements),
+        ("the.cppWHICH.alpha",the.cppWHICH.alpha),
+        ("the.cppWHICH.beta", the.cppWHICH.beta),
+        ("the.cppWHICH.gamma", the.cppWHICH.gamma))
+        )
+    i.limit = Settings.cppwhich.limit
+    i.tune = arfftune
+    i.train = arfftrain
+    i.csvtest = csvtest
+    super(WHICHCPP,i).__init__()
+  def genFloat(i,l): return round(random.uniform(0.0001,l) ,2)
+  def genInt(i,l): return int(random.uniform(1,l))
+  def generate(i):
+    i.candidates = [i.genFloat(l) if j not in Settings.cppwhich.which_int_index else\
+                    i.genInt(l) for j, l in enumerate(i.limit)]
+    return i.candidates
+  def callModel(i):
+    result = []
+    para = " -bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) + " -beta " +str(the.cppWHICH.beta)\
+           +" -gamma "+str(the.cppWHICH.gamma) +" -imp" + str(the.cppWHICH.improvements)
+    result +=[gbest(i.csvtest)]
+    cppWhich(i.train, i.tune,para)
+    result += [readcpp(f="./cppresults.csv")]
+    mypercentage = postCalculation(result)
+    return mypercentage # the AUC percentage of the best one will be the score.
+  def evaluate(i):
+    for n, arglst in enumerate(i.frontier):
+      i.assign(i.tobetuned,arglst)
+      i.scores[n] = i.callModel()
+    print i.scores
+  def trim(i, n,x):
+    if n in Settings.cppwhich.which_int_index:
+      return max(1, min(int(x),i.limit[n]))
+    else:
+      return max(0.0001, min(round(x,2), i.limit[n]))
+  def treat(i, x): return x
+
 
 class Cart(DeBase):
   def __init__(i):

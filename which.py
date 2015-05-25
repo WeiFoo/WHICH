@@ -26,6 +26,20 @@ def cart(**d):
     min_samples_leaf=1
   ).update(**d)
 
+@setting
+def cppWHICH(**d):
+  """
+  this is for tuning cppwhch
+  """
+  return o(
+    alpha = 1,
+    beta = 1000,
+    gamma = 0,
+    bins = 2,
+    improvements = 0.2
+
+  ).update(**d)
+
 
 def readcsv(f="./data/ant/ant-1.7copy.csv"):
   ff = open(f, "r")
@@ -149,6 +163,20 @@ def wekaCALL(train, test, learner):
   ss = data(names=name, data=predicted)
   return XY(ss.data)
 
+def cppWhich(arfftrain, arfftest, options=""):
+  deletelog()
+  cpp = "././which -t " + arfftrain + " -T " + arfftest + " -score effort -alpha 1 -beta 1000 -gamma 0" + options
+  os.system(cpp)
+
+def tunedwhich(arfftrain, arfftune, arfftest, csvtest):
+  pdb.set_trace()
+  tunner = WHICHCPP(arfftrain, arfftune, csvtest)
+  tunner.DE()
+  para = " -bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) + " -beta " +str(the.cppWHICH.beta)\
+           +" -gamma "+ str(the.cppWHICH.gamma) +" -imp" + str(the.cppWHICH.improvements)
+  cppWhich(arfftrain, arfftest, para)
+  return readcpp(f="./cppresults.csv")
+
 
 def plot(result):
   # color = ['r-','k-','b-','b^','g-','y-','c-','m-']
@@ -230,7 +258,7 @@ def postCalculation(result):
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8"]
+  names = ["manualUp", "manualDown", "C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8","WHICH-Tuned"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
@@ -254,15 +282,12 @@ def percentage(lst): # lst[0] is the best which is the base.
     val +=[lst[i]/lst[0]]
   return val
 
-def crossEval(repeats=10, folds=3, src="../DATASET"):
-  def deletelog():
-    cppresult = "./cppresults.csv"
-    if os.path.exists(cppresult):
-      os.remove(cppresult)
+def deletelog():
+  cppresult = "./cppresults.csv"
+  if os.path.exists(cppresult):
+    os.remove(cppresult)
 
-  def cppWhich(arfftrain, arfftest, options=""):
-    cpp = "././which -t " + arfftrain + " -T " + arfftest + " -score effort -alpha 1 -beta 1000 -gamma 0" + options
-    os.system(cpp)
+def crossEval(repeats=1, folds=3, src="../DATASET"):
 
   def process(result):
     mypercentage = postCalculation(result)
@@ -275,7 +300,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
       for t, each in enumerate(mypercentage):
         combine[j][0][t] = combine.get(j)[0][t] + [each]
 
-  def learner(csvtest, csvtrain, arfftest, arfftrain):
+  def learner(csvtest, csvtrain, arfftest, arfftrain, arfftune):
     result = []  # keep all learners' results for one evaluation
     result += [gbest(csvtest)]
     result += [manual(csvtest, False)]  # up : ascending order
@@ -285,9 +310,9 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
     result += [RIPPER(arfftrain, arfftest)]
     result += [NaiveBayes(arfftrain, arfftest)]
     for para in which_settings:
-      deletelog()
       cppWhich(arfftrain, arfftest, para)
       result += [readcpp(f="./cppresults.csv")]
+    result += [tunedwhich(arfftrain,arfftune,arfftest,csvtest)]
     return result
 
   combine = {}
@@ -297,15 +322,17 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
                     " -bins 8"]  # cmd for micro-20, which-2, which-4, which-8
   for k in range(repeats):
     All(src, folds)  # prepare 3 cross-way evaluation data sets
+    pdb.set_trace()
     datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
-    for j in range(len(datasets)):
+    for j in range(2,3):
       stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
         csvtrain = readcsv(datasets[j] + '/csv/train' + str(i) + '.csv')
         csvtest = readcsv(datasets[j] + '/csv/test' + str(i) + '.csv')
         arfftrain = datasets[j] + '/arff/train' + str(i) + '.arff'
         arfftest = datasets[j] + '/arff/test' + str(i) + '.arff'
-        process(learner(csvtest, csvtrain, arfftest, arfftrain))  # calculate percentage and others.
+        arfftune = datasets[j] + '/arff/tune' + str(i) + '.arff'
+        process(learner(csvtest, csvtrain, arfftest, arfftrain, arfftune))  # calculate percentage and others.
     first_Time = False
   for key, stats in combine.iteritems():  # print results for each data set
     print("*" * 15 + files_name[key] + "*" * 15)

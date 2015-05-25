@@ -22,12 +22,22 @@ def All(src= "../DATASET",folds = 3):
     # out.extend(data[z] for z in range(folds) if z!=k)
     return out
 
+  def tuning(data, k=3):
+    dist = len(data)
+    random.shuffle(data)
+    cut = int(dist/k)
+    tune = data[-cut:]
+    train = data[:-cut]
+    return (tune,train)
+
+
   def generate(srcs, dealKC3 = False):
     def writefile(newfile,newcontent,arff = True):
       f = open(newfile,"w")
       content = newcontent if not arff else "@relation "+ newcontent
       f.write(content)
       f.close()
+
 
     if(dealKC3):
       # this code is for process kc3 and wm1 data. only use once
@@ -56,7 +66,9 @@ def All(src= "../DATASET",folds = 3):
     for k in range(folds):
       writefile(srcs+"/arff/test"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(arffout[k]))
       arfftrain = mergeall(arffout,k)
-      writefile(srcs+"/arff/train"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(arfftrain))
+      newtune, newtrain = tuning(arfftrain)
+      writefile(srcs+"/arff/train"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newtrain))
+      writefile(srcs+"/arff/tune"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newtune))
       writefile(srcs+"/csv/test"+str(k)+".csv",",".join(csvheader) +"".join(csvout[k]))
       csvtrain = mergeall(csvout,k)
       writefile(srcs+"/csv/train"+str(k)+".csv",",".join(csvheader) +"".join(csvtrain))
