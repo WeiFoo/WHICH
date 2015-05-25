@@ -1,6 +1,6 @@
 # __author__ = 'WeiFu'
 from __future__ import print_function, division
-import sys, pdb, csv, random
+import sys, pdb, random
 from ruler import *
 from Abcd import *
 import numpy as np
@@ -8,12 +8,11 @@ import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeRegressor
 from tuner import *
 from processarff import *
-from callCpp import *
 from sk import rdivDemo
 import weka.core.jvm as jvm
 from weka.core.converters import Loader
 from weka.classifiers import Classifier
-
+from scipy.integrate import simps,trapz
 
 @setting
 def cart(**d):
@@ -127,12 +126,14 @@ def C45(train, test):
 
 def RIPPER(train, test):
   return wekaCALL(train, test, "weka.classifiers.rules.JRip")
+
+
 def NaiveBayes(train, test):
-  return wekaCALL(train,test,"weka.classifiers.bayes.NaiveBayes")
+  return wekaCALL(train, test, "weka.classifiers.bayes.NaiveBayes")
 
 
 def wekaCALL(train, test, learner):
-  if not jvm.started:jvm.start()
+  if not jvm.started: jvm.start()
   loader = Loader(classname="weka.core.converters.ArffLoader")
   train_data = loader.load_file(train)
   test_data = loader.load_file(test)
@@ -144,9 +145,10 @@ def wekaCALL(train, test, learner):
   for index, inst in enumerate(test_data):
     pred = cls.classify_instance(inst)
     if pred != 0:
-      predicted += [[inst.values[i]for i in range(inst.num_attributes)]] # this API changes "false" to 0, and "true" to 1
-      name +=["0"] # this is a fake name for each column, which is made to use data() function in readdata.
-  ss = data(names = name,data =predicted)
+      predicted += [
+        [inst.values[i] for i in range(inst.num_attributes)]]  # this API changes "false" to 0, and "true" to 1
+      name += ["0"]  # this is a fake name for each column, which is made to use data() function in readdata.
+  ss = data(names=name, data=predicted)
   return XY(ss.data)
 
 
@@ -156,7 +158,6 @@ def plot(result):
   color = ['r-', 'k-', 'b-', 'g-', 'y-', 'c-','m-']
   labels = ['WHICH', 'manualUp', 'manualDown', 'minimum', 'best', 'CART','C4.5']
   plt.figure(1)
-  # plt.figure(figsize=(8,4))
   for j, x in enumerate(result):
     plt.plot(x[0], x[1], color[j], label=labels[j])
   plt.xlabel("Effort(% LOC inspected)")
@@ -164,8 +165,6 @@ def plot(result):
   plt.title("Effort-vs-PD")
   plt.ylim(0, 100)
   plt.legend(loc='best')
-  # plt.text(60,20,'manualDown')
-  # plt.text(35,70,'manualUp')
   plt.show()
 
 
@@ -240,6 +239,24 @@ def preSK(stats):
     ordered.insert(0, names[key])
     out += [ordered]
   return out
+
+def area(result):
+  X = result[0]
+  Y = result[1]
+  # X = np.array([0,50,100])
+  # Y = np.array([0,50,0])
+  if len(X)== 0 or len(Y) == 0: return 0
+  if 100 not in X:
+    X = np.append(X,[100]) # if this curve does not reach top right, we need to add it
+    Y = np.append(Y,Y[-1]) # just repeat last value in Y
+  return trapz(Y,X)
+
+def percentage(lst): # lst[0] is the best which is the base.
+  val = []
+  if lst[0] == 0 or len(lst) == 0: return val # return empty list
+  for i in range(1,len(lst)):
+    val +=[lst[i]/lst[0]]
+  return val
 
 
 def crossEval(repeats=10, folds=3, src="../DATASET"):
