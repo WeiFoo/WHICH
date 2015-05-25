@@ -295,16 +295,16 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
   files_name = ["ar3", "ar4", "ar5", "cm1", "kc1", "kc2", "kc3", "wm1", "pc"]
   which_settings = [" -micro 20 -bins 2", " -bins 2", " -bins 4",
                     " -bins 8"]  # cmd for micro-20, which-2, which-4, which-8
-  for k in range(10):
+  for k in range(repeats):
     All(src, folds)  # prepare 3 cross-way evaluation data sets
-    folders = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
-    for j in range(len(folders)):
+    datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
+    for j in range(len(datasets)):
       stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
-        csvtrain = readcsv(folders[j] + '/csv/train' + str(i) + '.csv')
-        csvtest = readcsv(folders[j] + '/csv/test' + str(i) + '.csv')
-        arfftrain = folders[j] + '/arff/train' + str(i) + '.arff'
-        arfftest = folders[j] + '/arff/test' + str(i) + '.arff'
+        csvtrain = readcsv(datasets[j] + '/csv/train' + str(i) + '.csv')
+        csvtest = readcsv(datasets[j] + '/csv/test' + str(i) + '.csv')
+        arfftrain = datasets[j] + '/arff/train' + str(i) + '.arff'
+        arfftest = datasets[j] + '/arff/test' + str(i) + '.arff'
         process(learner(csvtest, csvtrain, arfftest, arfftrain))  # calculate percentage and others.
     first_Time = False
   for key, stats in combine.iteritems():  # print results for each data set
