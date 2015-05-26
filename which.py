@@ -12,31 +12,24 @@ from sk import rdivDemo
 import weka.core.jvm as jvm
 from weka.core.converters import Loader
 from weka.classifiers import Classifier
-from scipy.integrate import simps,trapz
+from scipy.integrate import trapz
+import subprocess
+
 
 @setting
 def cart(**d):
   """
   this is for tuning cart.
   """
-  return o(
-    max_features=None,
-    max_depth=None,
-    min_samples_split=2,
-    min_samples_leaf=1
-  ).update(**d)
+  return o(max_features=None, max_depth=None, min_samples_split=2, min_samples_leaf=1).update(**d)
+
 
 @setting
 def cppWHICH(**d):
   """
   this is for tuning cppwhch
   """
-  return o(
-    alpha = 1,
-    beta = 1000,
-    gamma = 0,
-    bins = 2,
-    improvements = 0.2
+  return o(alpha=1, beta=1000, gamma=0, bins=2, improvements=0.2
 
   ).update(**d)
 
@@ -68,9 +61,10 @@ def _Abcd(predicted, actual):
   score = abcd.ask()
 
 
-def XY(mydata, flag = False):
+def XY(mydata, flag=False):
   '''generate X, Y coordinates for plotting'''
-  data = sorted(mydata, key=lambda z: z[the.DATA.loc], reverse = flag )
+  if len(mydata) == 0: return[np.array([]),np.array([])]
+  data = sorted(mydata, key=lambda z: z[the.DATA.loc], reverse=flag)
   Loc, TP = 0, 0
   xx, pd = [], []
   for d in data:
@@ -98,17 +92,6 @@ def gbest(t):
   mydata = [d for d in t.data if d[-1] == 1]
   # data = sorted(data, key=lambda z: z[the.DATA.loc])
   return XY(mydata)
-
-
-def readcpp(f):
-  try:
-    ff = open(f, "r")
-  except IOError:
-    print("Can't open file!")
-    return # if we can't open the file, then return None. When processing, we need to take care of None
-  X = map(float, ff.readline().split(",")[:-1])  # this line is X
-  Pd = map(float, ff.readline().split(",")[:-1])  # this line is Pd
-  return [np.array(X), np.array(Pd)]
 
 
 def sklearn_data(train, test):
@@ -163,26 +146,31 @@ def wekaCALL(train, test, learner):
   ss = data(names=name, data=predicted)
   return XY(ss.data)
 
-def cppWhich(arfftrain, arfftest, options=""):
-  deletelog()
-  cpp = "././which -t " + arfftrain + " -T " + arfftest + " -score effort -alpha 1 -beta 1000 -gamma 0" + options
-  os.system(cpp)
+
+def cppWhich(arfftrain, arfftest, options=None):
+  cmd = ["././which", "-t", arfftrain, "-T", arfftest, "-score", "effort"]
+  if options:
+    temp = options.split(" ")
+    cmd.extend(temp)
+  printout = subprocess.check_output(cmd)
+  x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
+  pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
+  return [np.array(x), np.array(pd)]
+
 
 def tunedwhich(arfftrain, arfftune, arfftest, csvtest):
-  pdb.set_trace()
   tunner = WHICHCPP(arfftrain, arfftune, csvtest)
   tunner.DE()
-  para = " -bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) + " -beta " +str(the.cppWHICH.beta)\
-           +" -gamma "+ str(the.cppWHICH.gamma) +" -imp" + str(the.cppWHICH.improvements)
-  cppWhich(arfftrain, arfftest, para)
-  return readcpp(f="./cppresults.csv")
+  para = "-bins " + str(the.cppWHICH.bins) + " -alpha " + str(the.cppWHICH.alpha) + " -beta " + str(
+    1000) + " -gamma " + str(the.cppWHICH.gamma)
+  return cppWhich(arfftrain, arfftest, para)
 
 
 def plot(result):
   # color = ['r-','k-','b-','b^','g-','y-','c-','m-']
   # labels = ['WHICH','Tuned_WHICH','manualUp','manualDown','minimum','best','Tuned_CART','CART']
-  color = ['r-', 'k-', 'b-', 'g-', 'y-', 'c-','m-']
-  labels = ['WHICH', 'manualUp', 'manualDown', 'minimum', 'best', 'CART','C4.5']
+  color = ['r-', 'k-', 'b-', 'g-', 'y-', 'c-', 'm-']
+  labels = ['WHICH', 'manualUp', 'manualDown', 'minimum', 'best', 'CART', 'C4.5']
   plt.figure(1)
   for j, x in enumerate(result):
     plt.plot(x[0], x[1], color[j], label=labels[j])
@@ -196,7 +184,7 @@ def plot(result):
 
 def _rule(train):
   LIB(seed=1)
-  #RULER(tiny=4,better=gt) initialize
+  # RULER(tiny=4,better=gt) initialize
   # print(train.score, "baseline :",len(train.data))
   for z in ruler(train):
     print(z.score, z)
@@ -252,13 +240,14 @@ def postCalculation(result):
   areaLst = []
   for data in result:
     if data == None:
-      continue # ignore the none.
+      continue  # ignore the none.
     areaLst += [area(data)]
   return percentage(areaLst)
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "C4.5","RIPPER","NaiveBayes", "MICRO-20","WHICH-2", "WHICH-4", "WHICH-8","WHICH-Tuned"]
+  names = ["manualUp", "manualDown", "C4.5", "RIPPER", "NaiveBayes",\
+           "MICRO-20", "WHICH-2", "WHICH-4", "WHICH-8","WHICH-Tuned"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
@@ -266,29 +255,26 @@ def preSK(stats):
     out += [ordered]
   return out
 
+
 def area(result):
   X = result[0]
   Y = result[1]
-  if len(X)== 0 or len(Y) == 0: return 0
+  if len(X) == 0 or len(Y) == 0: return 0
   if 100 not in X:
-    X = np.append(X,[100]) # if this curve does not reach top right, we need to add it
-    Y = np.append(Y,Y[-1]) # just repeat last value in Y
-  return trapz(Y,X)
+    X = np.append(X, [100])  # if this curve does not reach top right, we need to add it
+    Y = np.append(Y, Y[-1])  # just repeat last value in Y
+  return trapz(Y, X)
 
-def percentage(lst): # lst[0] is the best which is the base.
+
+def percentage(lst):  # lst[0] is the best which is the base.
   val = []
-  if lst[0] == 0 or len(lst) == 0: return val # return empty list
-  for i in range(1,len(lst)):
-    val +=[lst[i]/lst[0]]
+  if lst[0] == 0 or len(lst) == 0: return val  # return empty list
+  for i in range(1, len(lst)):
+    val += [lst[i] / lst[0]]
   return val
 
-def deletelog():
-  cppresult = "./cppresults.csv"
-  if os.path.exists(cppresult):
-    os.remove(cppresult)
 
 def crossEval(repeats=1, folds=3, src="../DATASET"):
-
   def process(result):
     mypercentage = postCalculation(result)
     if len(mypercentage) == 0: return  # this is the case, where the best is 0
@@ -310,21 +296,20 @@ def crossEval(repeats=1, folds=3, src="../DATASET"):
     result += [RIPPER(arfftrain, arfftest)]
     result += [NaiveBayes(arfftrain, arfftest)]
     for para in which_settings:
-      cppWhich(arfftrain, arfftest, para)
-      result += [readcpp(f="./cppresults.csv")]
-    result += [tunedwhich(arfftrain,arfftune,arfftest,csvtest)]
+      result += [cppWhich(arfftrain, arfftest, para)]
+    result += [tunedwhich(arfftrain, arfftune, arfftest, csvtest)]
     return result
 
   combine = {}
   first_Time = True
   files_name = ["ar3", "ar4", "ar5", "cm1", "kc1", "kc2", "kc3", "wm1", "pc"]
-  which_settings = [" -micro 20 -bins 2", " -bins 2", " -bins 4",
-                    " -bins 8"]  # cmd for micro-20, which-2, which-4, which-8
+  which_settings = ["-micro 20 -bins 2", "-bins 2", "-bins 4", "-bins 8"]
+  # cmd for micro-20, which-2, which-4, which-8
   for k in range(repeats):
     All(src, folds)  # prepare 3 cross-way evaluation data sets
-    pdb.set_trace()
-    datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
-    for j in range(2,3):
+    datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f))\
+                and ".git" not in f and ".idea" not in f]
+    for j in range(3, 6):
       stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
         csvtrain = readcsv(datasets[j] + '/csv/train' + str(i) + '.csv')
@@ -341,6 +326,18 @@ def crossEval(repeats=1, folds=3, src="../DATASET"):
   print("DONE!")
 
 
+def subprocesstest(options=""):
+  arfftrain = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/cm1Train.arff"
+  arfftest = "/Users/WeiFu/Github/WHICH/CppVersion1.0/cpp/cm1Train.arff"
+  printout = subprocess.check_output(["././which", "-t", arfftrain, "-T", arfftest, "-score", "effort"])
+  x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
+  pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
+  Q = [np.array(x), np.array(pd)]
+  print(printout)
+  pdb.set_trace()
+
+
 if __name__ == "__main__":
   # run(main())
   crossEval()
+  # subprocesstest()
