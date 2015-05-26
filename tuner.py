@@ -142,22 +142,23 @@ class WHICHCPP(DeBase):
     i.limit = Settings.cppwhich.limit
     i.tune = arfftune
     i.train = arfftrain
-    i.csvtest = csvtest
+    i.csvdata = csvtest
     super(WHICHCPP,i).__init__()
   def genFloat(i,l): return round(random.uniform(0.0001,l) ,2)
-  def genInt(i,l): return int(random.uniform(1,l))
+  def genInt(i,l): return int(random.uniform(2,l))
   def generate(i):
     i.candidates = [i.genFloat(l) if j not in Settings.cppwhich.which_int_index else\
                     i.genInt(l) for j, l in enumerate(i.limit)]
     return i.candidates
   def callModel(i):
     result = []
-    para = " -bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) + " -beta " +str(the.cppWHICH.beta)\
-           +" -gamma "+str(the.cppWHICH.gamma) +" -imp" + str(the.cppWHICH.improvements)
-    result +=[gbest(i.csvtest)]
-    cppWhich(i.train, i.tune,para)
-    result += [readcpp(f="./cppresults.csv")]
+    para = "-bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) +" -beta 1000"\
+           +" -gamma "+str(the.cppWHICH.gamma)
+    result +=[gbest(i.csvdata)]
+    result += [cppWhich(i.train, i.tune,para)]
     mypercentage = postCalculation(result)
+    if mypercentage != [] and mypercentage[0] <0 : pdb.set_trace()
+    print(mypercentage)
     return mypercentage # the AUC percentage of the best one will be the score.
   def evaluate(i):
     for n, arglst in enumerate(i.frontier):
