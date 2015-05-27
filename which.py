@@ -61,9 +61,9 @@ def _Abcd(predicted, actual):
   score = abcd.ask()
 
 
-def XY(mydata, flag=False):
+def XY(t,mydata, flag=False):
   '''generate X, Y coordinates for plotting'''
-  if len(mydata) == 0: return[np.array([]),np.array([])]
+  if len(mydata) == 0 : return[np.array([]),np.array([])]
   data = sorted(mydata, key=lambda z: z[the.DATA.loc], reverse=flag)
   Loc, TP = 0, 0
   xx, pd = [], []
@@ -71,8 +71,8 @@ def XY(mydata, flag=False):
     if d.cells[-1] == 1:
       TP += d.cells[-1]
     Loc += d.cells[the.DATA.loc]
-    xx += [100 * Loc / the.DATA.total[the.DATA.loc]]
-    pd += [100 * TP / (the.DATA.defective + 0.00001)]
+    xx += [100 * Loc / t.total[the.DATA.loc]]
+    pd += [100 * TP / (t.defective + 0.00001)]
   x = np.array(xx)
   pd = np.array(pd)
   return [x, pd]
@@ -84,14 +84,14 @@ def manual(t, up=False):
   true : descending order ==> Down method
   """
   # data = sorted(t.data, key=lambda z: z[the.DATA.loc], reverse=up)
-  return XY(t.data, up)
+  return XY(t, t.data, up)
 
 
 def gbest(t):
   '''the best method which has highest score'''
   mydata = [d for d in t.data if d[-1] == 1]
   # data = sorted(data, key=lambda z: z[the.DATA.loc])
-  return XY(mydata)
+  return XY(t,mydata)
 
 
 def sklearn_data(train, test):
@@ -137,14 +137,17 @@ def wekaCALL(train, test, learner):
   cls = Classifier(classname=learner)
   cls.build_classifier(train_data)
   predicted, name = [], []
+  has_defects = False
   for index, inst in enumerate(test_data):
     pred = cls.classify_instance(inst)
+    if inst.values[-1] == 1: has_defects = True
     if pred != 0:
       predicted += [
         [inst.values[i] for i in range(inst.num_attributes)]]  # this API changes "false" to 0, and "true" to 1
       name += ["0"]  # this is a fake name for each column, which is made to use data() function in readdata.
+  if has_defects and len(predicted) == 0 : return [np.array([]), np.array([])]
   ss = data(names=name, data=predicted)
-  return XY(ss.data)
+  return XY(ss,ss.data)
 
 
 def cppWhich(arfftrain, arfftest, options=None):
@@ -152,10 +155,17 @@ def cppWhich(arfftrain, arfftest, options=None):
   if options:
     temp = options.split(" ")
     cmd.extend(temp)
-  printout = subprocess.check_output(cmd)
-  x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
-  pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
-  return [np.array(x), np.array(pd)]
+  try:
+    printout = subprocess.check_output(cmd)
+    x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
+    pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
+    return [np.array(x), np.array(pd)]
+  except:
+    pdb.set_trace()
+    return [np.array([]), np.array([])]
+  # p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
+  # printout = p.communicate()[0]
+
 
 
 def tunedwhich(arfftrain, arfftune, arfftest, csvtest):
@@ -274,7 +284,7 @@ def percentage(lst):  # lst[0] is the best which is the base.
   return val
 
 
-def crossEval(repeats=1, folds=3, src="../DATASET"):
+def crossEval(repeats=10, folds=3, src="../DATASET"):
   def process(result):
     mypercentage = postCalculation(result)
     if len(mypercentage) == 0: return  # this is the case, where the best is 0
@@ -309,7 +319,7 @@ def crossEval(repeats=1, folds=3, src="../DATASET"):
     All(src, folds)  # prepare 3 cross-way evaluation data sets
     datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f))\
                 and ".git" not in f and ".idea" not in f]
-    for j in range(3, 6):
+    for j in range(len(datasets)):
       stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
         csvtrain = readcsv(datasets[j] + '/csv/train' + str(i) + '.csv')
