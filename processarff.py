@@ -37,8 +37,7 @@ def All(src= "../DATASET",folds = 3):
       content = newcontent if not arff else "@relation "+ newcontent
       f.write(content)
       f.close()
-
-
+    arffcontent =[]
     if(dealKC3):
       # this code is for process kc3 and wm1 data. only use once
       newcontent = []
@@ -55,7 +54,10 @@ def All(src= "../DATASET",folds = 3):
     # clearFiles()
     for _ in range(10):
       random.shuffle(csvcontent) # each time shuffle the data
-      random.shuffle(arffcontent) # shuffle the order of data 10 times as the paper suggested.
+    for line in csvcontent:
+        if line[-2]=="1": line=line[:-2]+ "true\n" #'str' object does not support item assignment
+        if line[-2]=="0": line=line[:-2]+ "false\n"
+        arffcontent +=[line]
     last, dist, csvout, arffout = 0, int(math.ceil(len(csvcontent) / folds)), [], []
     cut = [(j + 1) * dist for j in range(folds) if (j + 1) * dist < len(csvcontent)]
     cut.extend([len(csvcontent)])
@@ -63,6 +65,8 @@ def All(src= "../DATASET",folds = 3):
       csvout.extend([csvcontent[last:k]])  # divide the data into N folds
       arffout.extend([arffcontent[last:k]])
       last = k
+    pdb.set_trace()
+
     for k in range(folds):
       writefile(srcs+"/arff/test"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(arffout[k]))
       arfftrain = mergeall(arffout,k)
@@ -75,7 +79,6 @@ def All(src= "../DATASET",folds = 3):
 
   files = [ join(src,f) for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
   folders = [f[:f.find(".")] for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
-  srcs = ""
   name = ""
   for j,one in enumerate(files[:]):
     srcs =src+'/'+folders[j]
@@ -110,13 +113,6 @@ def All(src= "../DATASET",folds = 3):
           continue
         if line[-1] !="\n":
           line+="\n"
-        if "yes" in line:
-          line = line.replace("yes","true")
-        if "no" in line:
-          line = line.replace("no","false")
-        if line[-2]=="1": line=line[:-2]+ "true\n" #'str' object does not support item assignment
-        if line[-2]=="0": line=line[:-2]+ "false\n"
-        arffcontent +=[line]
         if "false" in line:
           line = line.replace("false","0")
         if "no" in line:
