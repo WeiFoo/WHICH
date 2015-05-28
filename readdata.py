@@ -83,7 +83,7 @@ def data(**d):
      P += 1 #  num of defective modules
   N = len(data) - P # non defective modules
   DATA(Lo =lo, Hi= hi,total = total, defective= P, nondefective = N )
-  out = o(more=more,less=less,indep=indep,names=names,
-          data=map(lambda one: Row(one,ratio(one)), data))
+  out = o(more=more, less=less, indep=indep, names=names, Lo=lo, Hi=hi, total=total, defective=P, nondefetive=N,
+          data=map(lambda one: Row(one, 0), data))
   # out.score = sum(map(lambda z: z.score,out.data))/len(out.data)
   return out
