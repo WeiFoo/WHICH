@@ -160,16 +160,15 @@ def cppWhich(arfftrain, arfftest, options=None):
     x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
     pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
     return [np.array(x), np.array(pd)]
-  except:
-    pdb.set_trace()
+  except: # for some parameters, the cpp version can't return a valid results, showing returned exit status -8
     return [np.array([]), np.array([])]
   # p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
   # printout = p.communicate()[0]
 
 
 
-def tunedwhich(arfftrain, arfftune, arfftest, csvtest):
-  tunner = WHICHCPP(arfftrain, arfftune, csvtest)
+def tunedwhich(arfftrain, arfftune, arfftest, csvtune):
+  tunner = WHICHCPP(arfftrain, arfftune, csvtune)
   tunner.DE()
   para = "-bins " + str(the.cppWHICH.bins) + " -alpha " + str(the.cppWHICH.alpha) + " -beta " + str(
     1000) + " -gamma " + str(the.cppWHICH.gamma)
@@ -296,7 +295,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
       for t, each in enumerate(mypercentage):
         combine[j][0][t] = combine.get(j)[0][t] + [each]
 
-  def learner(csvtest, csvtrain, arfftest, arfftrain, arfftune):
+  def learner(csvtest, csvtrain, csvtune, arfftest, arfftrain, arfftune):
     result = []  # keep all learners' results for one evaluation
     result += [gbest(csvtest)]
     result += [manual(csvtest, False)]  # up : ascending order
@@ -307,7 +306,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
     result += [NaiveBayes(arfftrain, arfftest)]
     for para in which_settings:
       result += [cppWhich(arfftrain, arfftest, para)]
-    result += [tunedwhich(arfftrain, arfftune, arfftest, csvtest)]
+    result += [tunedwhich(arfftrain, arfftune, arfftest, csvtune)]
     return result
 
   combine = {}
@@ -324,10 +323,11 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
       for i in range(folds):
         csvtrain = readcsv(datasets[j] + '/csv/train' + str(i) + '.csv')
         csvtest = readcsv(datasets[j] + '/csv/test' + str(i) + '.csv')
+        csvtune = readcsv(datasets[j] + '/csv/tune' + str(i) + '.csv')
         arfftrain = datasets[j] + '/arff/train' + str(i) + '.arff'
         arfftest = datasets[j] + '/arff/test' + str(i) + '.arff'
         arfftune = datasets[j] + '/arff/tune' + str(i) + '.arff'
-        process(learner(csvtest, csvtrain, arfftest, arfftrain, arfftune))  # calculate percentage and others.
+        process(learner(csvtest, csvtrain, csvtune, arfftest, arfftrain, arfftune))  # calculate percentage and others.
     first_Time = False
   for key, stats in combine.iteritems():  # print results for each data set
     print("*" * 15 + files_name[key] + "*" * 15)
