@@ -82,8 +82,8 @@ class DeBase(object):
       i.frontier = nextgeneration[:]
       newbestconf, newbestscore = i.best()
       if isBetter(newbestscore, i.bestscore):
-        print "newbestscore %s:" % str(newbestscore)
-        print "bestconf %s :" % str(newbestconf)
+        # print "newbestscore %s:" % str(newbestscore)
+        # print "bestconf %s :" % str(newbestconf)
         i.bestscore = newbestscore
         i.bestconf = newbestconf[:]
         changed = True
@@ -91,7 +91,7 @@ class DeBase(object):
         i.life -=1
       changed = False
     i.assign(i.tobetuned,i.bestconf)
-    print "DE DONE !!!!"
+    # print "DE DONE !!!!"
     # pdb.set_trace()
     Settings.tunner.isTuning = False
 
@@ -120,7 +120,7 @@ class Which(DeBase):
     for n, arglst in enumerate(i.frontier):
       i.assign(i.tobetuned,arglst)
       i.scores[n] = i.callModel()
-    print i.scores
+    # print i.scores
   def trim(i, n,x):
     if n in Settings.de.which_int_index:
       return max(1, min(int(x),i.limit[n]))
@@ -158,13 +158,13 @@ class WHICHCPP(DeBase):
     result += [cppWhich(i.train, i.tune,para)]
     mypercentage = postCalculation(result)
     if mypercentage != [] and mypercentage[0] <0 : pdb.set_trace()
-    print(mypercentage)
+    # print(mypercentage)
     return mypercentage # the AUC percentage of the best one will be the score.
   def evaluate(i):
     for n, arglst in enumerate(i.frontier):
       i.assign(i.tobetuned,arglst)
       i.scores[n] = i.callModel()
-    print i.scores
+    # print i.scores
   def trim(i, n,x):
     if n in Settings.cppwhich.which_int_index:
       return max(2, min(int(x),i.limit[n]))
@@ -201,7 +201,7 @@ class Cart(DeBase):
     for n, arglst in enumerate(i.frontier):
       i.assign(i.tobetuned,arglst)
       i.scores[n] = i.callModel()
-    print i.scores
+    # print i.scores
   def trim(i, n,x):
     if n in Settings.de.cart_int_index:
       return max(i.Min[n], min(int(x),i.Max[n]))
@@ -245,7 +245,7 @@ class Where(DeBase):
     for n, arglst in enumerate(i.frontier):
       i.assign(i.tobetuned,arglst)
       i.scores[n] = i.callModel() # main return [[pd,pf,prec,f,g],[pd,pf,prec,f,g]], which are N-defective,Y-defecitve
-    print i.scores
+    # print i.scores
   def trim(i, n,x):
     if n in [1,4,5]:
       return max(1, min(int(x),i.limit[n]))
