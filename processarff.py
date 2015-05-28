@@ -30,52 +30,60 @@ def All(src= "../DATASET",folds = 3):
     train = data[:-cut]
     return (tune,train)
 
+  def writefile(newfile,newcontent,arff = True):
+    f = open(newfile,"w")
+    content = newcontent if not arff else "@relation "+ newcontent
+    f.write(content)
+    f.close()
 
   def generate(srcs, dealKC3 = False):
-    def writefile(newfile,newcontent,arff = True):
-      f = open(newfile,"w")
-      content = newcontent if not arff else "@relation "+ newcontent
-      f.write(content)
-      f.close()
-    arffcontent =[]
-    if(dealKC3):
-      # this code is for process kc3 and wm1 data. only use once
-      newcontent = []
-      for row in arffcontent:
-        if len(row)<20:
-          newcontent.extend(row)
-          continue
-        rowlst = row.split(",")
-        rowlst.insert(0,rowlst[-2]) # insert loc into #0 index
-        rowlst.pop(-2) #delete the old loc
-        newcontent.extend([",".join(rowlst)])
-      pdb.set_trace()
-      writefile(srcs+""+name+".arff",name+"\n\n"+"".join(arffheader)+"\n"+"".join(newcontent))
-    # clearFiles()
-    for _ in range(10):
-      random.shuffle(csvcontent) # each time shuffle the data
-    for line in csvcontent:
+    # def isSatisfied():
+    #   for fold in csvout:
+    #     has_Defective = False
+    #     for line in fold:
+    #       if line[-2] == "1":
+    #         has_Defective = True
+    #         break
+    #     if not has_Defective:
+    #       return False
+    #   return True
+    def csv2arff(csvfile):
+      arfffile = []
+      for line in csvfile:
         if line[-2]=="1": line=line[:-2]+ "true\n" #'str' object does not support item assignment
         if line[-2]=="0": line=line[:-2]+ "false\n"
-        arffcontent +=[line]
+        arfffile +=[line]
+      return arfffile
+
+    arffcontent =[]
+    for _ in range(10): random.shuffle(csvcontent) # each time shuffle the data
+    # for line in csvcontent:
+    #     if line[-2]=="1": line=line[:-2]+ "true\n" #'str' object does not support item assignment
+    #     if line[-2]=="0": line=line[:-2]+ "false\n"
+    #     arffcontent +=[line]
     last, dist, csvout, arffout = 0, int(math.ceil(len(csvcontent) / folds)), [], []
     cut = [(j + 1) * dist for j in range(folds) if (j + 1) * dist < len(csvcontent)]
     cut.extend([len(csvcontent)])
     for k in cut:
       csvout.extend([csvcontent[last:k]])  # divide the data into N folds
-      arffout.extend([arffcontent[last:k]])
+      # arffout.extend([arffcontent[last:k]])
       last = k
-    pdb.set_trace()
-
+    # if not isSatisfied():
+    #   pdb.set_trace()
+    #   return False # if False, we need to regenerate the data.
     for k in range(folds):
-      writefile(srcs+"/arff/test"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(arffout[k]))
-      arfftrain = mergeall(arffout,k)
-      newtune, newtrain = tuning(arfftrain)
-      writefile(srcs+"/arff/train"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newtrain))
-      writefile(srcs+"/arff/tune"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newtune))
-      writefile(srcs+"/csv/test"+str(k)+".csv",",".join(csvheader) +"".join(csvout[k]))
+      csvtest = csvout[k]
+      writefile(srcs+"/csv/test"+str(k)+".csv",",".join(csvheader) +"".join(csvtest))
       csvtrain = mergeall(csvout,k)
-      writefile(srcs+"/csv/train"+str(k)+".csv",",".join(csvheader) +"".join(csvtrain))
+      newcsvtune, newcsvtrain = tuning(csvtrain)
+      writefile(srcs+"/csv/train"+str(k)+".csv",",".join(csvheader) +"".join(newcsvtrain))
+      writefile(srcs+"/csv/tune"+str(k)+".csv",",".join(csvheader) +"".join(newcsvtune))
+      arfftest = csv2arff(csvtest)
+      writefile(srcs+"/arff/test"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(arfftest))
+      newarfftrain = csv2arff(newcsvtrain)
+      newarfftune = csv2arff(newcsvtune)
+      writefile(srcs+"/arff/train"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newarfftrain))
+      writefile(srcs+"/arff/tune"+str(k)+".arff", name+"\n\n"+"".join(arffheader)+"\n"+"".join(newarfftune))
 
   files = [ join(src,f) for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
   folders = [f[:f.find(".")] for f in listdir(src) if isfile(join(src,f)) and "py" not in f and "DS" not in f]
