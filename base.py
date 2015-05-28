@@ -26,7 +26,7 @@ Settings = Options(de = Options( np = 10,
                               life = 5
                               ),
                    cppwhich = Options(
-                              limit = [20,1,1,1,1], #bins, improvement, alpha, beta, gamma
+                              limit = [20,0.4,1,1,1], #bins, improvement, alpha, beta, gamma
                               which_int_index = [0],
                               which_float_index = [1,2,3,4],
                               ),
