@@ -130,7 +130,7 @@ class Which(DeBase):
 
 
 class WHICHCPP(DeBase):
-  def __init__(i,  arfftrain, arfftune, csvtest):
+  def __init__(i,  arfftrain, arfftune, csvtune):
     Settings.tunner.isTuning = True
     i.tobetuned = collections.OrderedDict((
         ("the.cppWHICH.bins",the.cppWHICH.bins),
@@ -142,7 +142,7 @@ class WHICHCPP(DeBase):
     i.limit = Settings.cppwhich.limit
     i.tune = arfftune
     i.train = arfftrain
-    i.csvdata = csvtest
+    i.csvtune = csvtune
     super(WHICHCPP,i).__init__()
   def genFloat(i,l): return round(random.uniform(0.0001,l) ,2)
   def genInt(i,l): return int(random.uniform(2,l))
@@ -153,8 +153,8 @@ class WHICHCPP(DeBase):
   def callModel(i):
     result = []
     para = "-bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) +" -beta 1000"\
-           +" -gamma "+str(the.cppWHICH.gamma)
-    result +=[gbest(i.csvdata)]
+           +" -gamma "+str(the.cppWHICH.gamma) +" -imp " +str(the.cppWHICH.improvements)
+    result +=[gbest(i.csvtune)] #### here is the bug ,should be csv of tune
     result += [cppWhich(i.train, i.tune,para)]
     mypercentage = postCalculation(result)
     if mypercentage != [] and mypercentage[0] <0 : pdb.set_trace()
@@ -167,7 +167,7 @@ class WHICHCPP(DeBase):
     print i.scores
   def trim(i, n,x):
     if n in Settings.cppwhich.which_int_index:
-      return max(1, min(int(x),i.limit[n]))
+      return max(2, min(int(x),i.limit[n]))
     else:
       return max(0.0001, min(round(x,2), i.limit[n]))
   def treat(i, x): return x
