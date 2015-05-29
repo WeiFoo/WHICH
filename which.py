@@ -29,9 +29,9 @@ def cppWHICH(**d):
   """
   this is for tuning cppwhch
   """
-  return o(alpha=1, beta=1000, gamma=0, bins=2, improvements=0.2
+  return o(alpha=1, beta=1, gamma=0, bins=2, improvements=0.2
 
-  ).update(**d)
+           ).update(**d)
 
 
 def readcsv(f="./data/ant/ant-1.7copy.csv"):
@@ -61,9 +61,9 @@ def _Abcd(predicted, actual):
   score = abcd.ask()
 
 
-def XY(t,mydata, flag=False):
+def XY(t, mydata, flag=False):
   '''generate X, Y coordinates for plotting'''
-  if len(mydata) == 0 : return[np.array([]),np.array([])]
+  if len(mydata) == 0: return [np.array([]), np.array([])]
   data = sorted(mydata, key=lambda z: z[the.DATA.loc], reverse=flag)
   Loc, TP = 0, 0
   xx, pd = [], []
@@ -91,7 +91,7 @@ def gbest(t):
   '''the best method which has highest score'''
   mydata = [d for d in t.data if d[-1] == 1]
   # data = sorted(data, key=lambda z: z[the.DATA.loc])
-  return XY(t,mydata)
+  return XY(t, mydata)
 
 
 def sklearn_data(train, test):
@@ -145,9 +145,9 @@ def wekaCALL(train, test, learner):
       predicted += [
         [inst.values[i] for i in range(inst.num_attributes)]]  # this API changes "false" to 0, and "true" to 1
       name += ["0"]  # this is a fake name for each column, which is made to use data() function in readdata.
-  if has_defects and len(predicted) == 0 : return [np.array([]), np.array([])]
+  if has_defects and len(predicted) == 0: return [np.array([]), np.array([])]
   ss = data(names=name, data=predicted)
-  return XY(ss,ss.data)
+  return XY(ss, ss.data)
 
 
 def cppWhich(arfftrain, arfftest, options=None):
@@ -160,18 +160,18 @@ def cppWhich(arfftrain, arfftest, options=None):
     x = map(float, printout.split("\n")[0].split(" ")[:-1])  # this line is X
     pd = map(float, printout.split("\n")[1].split(" ")[:-1])  # this line is pd, last element is null, ignored.
     return [np.array(x), np.array(pd)]
-  except: # for some parameters, the cpp version can't return a valid results, showing returned exit status -8
+  except:  # for some parameters, the cpp version can't return a valid results, showing returned exit status -8
     return [np.array([]), np.array([])]
-  # p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
-  # printout = p.communicate()[0]
-
+    # p = subprocess.Popen(cmd,stdout = subprocess.PIPE)
+    # printout = p.communicate()[0]
 
 
 def tunedwhich(arfftrain, arfftune, arfftest, csvtune):
   tunner = WHICHCPP(arfftrain, arfftune, csvtune)
   tunner.DE()
   para = "-bins " + str(the.cppWHICH.bins) + " -alpha " + str(the.cppWHICH.alpha) + " -beta " + str(
-    1000) + " -gamma " + str(the.cppWHICH.gamma)
+    the.cppWHICH.beta) + " -gamma " + str(the.cppWHICH.gamma) + " -imp " +str(the.cppWHICH.improvements)
+  print(para)
   return cppWhich(arfftrain, arfftest, para)
 
 
@@ -204,47 +204,6 @@ def _rule(train):
   return best
 
 
-def which():
-  train = readcsv(f="./data/ant/ant-1.7copy.csv")
-  test = readcsv(f="./data/ant/ant-1.7copy.csv")
-  bestrule = _rule(train)
-  if bestrule:
-    result = [bestrule.predict(test)]
-    if not Settings.tunner.isTuning:
-      return result  # not tuning
-    else:
-      # return result[0][1][-1]/(result[0][0][-1]+0.00001) if len(result[0][0]) != 0 else 0
-      return result[0][1][-1] if len(result[0][0]) != 0 else 0
-      # this is tuning score, the last point in curve: pd/effort
-  else:
-    return 0  # no rules, then return 0
-
-
-def main():
-  train = readcsv(f="/Users/WeiFu/Github/DATASET/newcsv/CM1train.csv")
-  test = readcsv(f="/Users/WeiFu/Github/DATASET/newcsv/CM1test.csv")
-  # train= readcsv(f= "./data/cm1/cm1Train.arff.csv")
-  # test = readcsv(f= "./data/cm1/cm1Test.arff.csv")
-  # ============python which============
-  bestrule = _rule(train)
-  result = [bestrule.predict(test)]
-  result = [readcpp(f="/Users/WeiFu/Github/WHICH/cppresults.csv")]
-  # ============tuned WHICH and CART============
-  # TUNER = Which()
-  # TUNER.DE()
-  # result +=which()
-  # TUNER = Cart()
-  # TUNER.DE()
-  result += [manual(test, False)]  # up : ascending order
-  result += [manual(test, True)]  # down: descending order
-  result += [[np.linspace(0, 100, 100), np.linspace(0, 100, 100)]]
-  result += [gbest(test)]
-  # result += [cart(train,test)] # tuned cart
-  result += [cart(train, test, False)]  # default cart
-  # pdb.set_trace()
-  plot(result)
-
-
 def postCalculation(result):
   areaLst = []
   for data in result:
@@ -255,8 +214,8 @@ def postCalculation(result):
 
 
 def preSK(stats):
-  names = ["manualUp", "manualDown", "C4.5", "RIPPER", "NaiveBayes",\
-           "MICRO-20", "WHICH-2", "WHICH-4", "WHICH-8","WHICH-Tuned"]
+  names = ["manualUp", "manualDown", "C4.5", "RIPPER", "NaiveBayes", "MICRO-20", "WHICH-2", "WHICH-4", "WHICH-8",
+           "WHICH-Tuned"]
   out = []
   for key, value in stats.iteritems():
     ordered = sorted(value)
@@ -316,8 +275,7 @@ def crossEval(repeats=10, folds=3, src="../DATASET"):
   # cmd for micro-20, which-2, which-4, which-8
   for k in range(repeats):
     All(src, folds)  # prepare 3 cross-way evaluation data sets
-    datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f))\
-                and ".git" not in f and ".idea" not in f]
+    datasets = [join(src, f) for f in listdir(src) if not isfile(join(src, f)) and ".git" not in f and ".idea" not in f]
     for j in range(len(datasets)):
       stats = {}  # keep all learners' results for a complete 3 cross evaluation for one data set.
       for i in range(folds):
