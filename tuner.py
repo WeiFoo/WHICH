@@ -152,7 +152,7 @@ class WHICHCPP(DeBase):
     return i.candidates
   def callModel(i):
     result = []
-    para = "-bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) +" -beta 1000"\
+    para = "-bins "+ str(the.cppWHICH.bins)+" -alpha " + str(the.cppWHICH.alpha) +" -beta "+ str(the.cppWHICH.beta)\
            +" -gamma "+str(the.cppWHICH.gamma) +" -imp " +str(the.cppWHICH.improvements)
     result +=[gbest(i.csvtune)] #### here is the bug ,should be csv of tune
     result += [cppWhich(i.train, i.tune,para)]
