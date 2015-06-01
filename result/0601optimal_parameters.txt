@@ -1,0 +1,351 @@
+-bins 9 -alpha 0.06 -beta 0.39 -gamma 0.3 -imp 0.41
+-bins 3 -alpha 0.77 -beta 0.94 -gamma 0.41 -imp 0.15
+-bins 8 -alpha 0.51 -beta 0.62 -gamma 0.97 -imp 0.03
+-bins 3 -alpha 0.03 -beta 0.46 -gamma 0.15 -imp 0.32
+-bins 4 -alpha 0.29 -beta 0.56 -gamma 0.01 -imp 0.34
+-bins 6 -alpha 0.28 -beta 0.21 -gamma 0.0 -imp 0.15
+-bins 4 -alpha 0.08 -beta 0.42 -gamma 0.12 -imp 0.32
+-bins 6 -alpha 0.16 -beta 0.44 -gamma 0.89 -imp 0.3
+-bins 4 -alpha 0.43 -beta 0.4 -gamma 0.98 -imp 0.46
+-bins 2 -alpha 0.68 -beta 0.47 -gamma 0.3 -imp 0.05
+-bins 2 -alpha 0.83 -beta 0.67 -gamma 0.64 -imp 0.38
+-bins 2 -alpha 0.87 -beta 0.49 -gamma 0.6 -imp 0.35
+-bins 2 -alpha 0.15 -beta 0.63 -gamma 0.0 -imp 0.23
+-bins 2 -alpha 0.07 -beta 0.63 -gamma 0.3 -imp 0.34
+-bins 4 -alpha 0.92 -beta 0.06 -gamma 0.22 -imp 0.47
+-bins 2 -alpha 0.12 -beta 0.25 -gamma 0.0001 -imp 0.39
+-bins 3 -alpha 0.71 -beta 0.29 -gamma 0.28 -imp 0.19
+-bins 2 -alpha 0.4 -beta 0.93 -gamma 0.17 -imp 0.22
+-bins 2 -alpha 0.58 -beta 0.07 -gamma 0.15 -imp 0.16
+-bins 4 -alpha 0.2 -beta 0.52 -gamma 0.19 -imp 0.2
+-bins 12 -alpha 0.33 -beta 1 -gamma 0.0001 -imp 0.43
+-bins 2 -alpha 1 -beta 0.87 -gamma 0.83 -imp 0.33
+-bins 16 -alpha 0.06 -beta 0.56 -gamma 0.0001 -imp 0.03
+-bins 2 -alpha 0.94 -beta 0.66 -gamma 0.33 -imp 0.0
+-bins 2 -alpha 0.23 -beta 0.0001 -gamma 0.08 -imp 0.1
+-bins 2 -alpha 0.27 -beta 0.21 -gamma 0.17 -imp 0.06
+-bins 3 -alpha 0.75 -beta 0.95 -gamma 0.3 -imp 0.28
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 4 -alpha 0.0001 -beta 0.78 -gamma 0.45 -imp 0.36
+-bins 18 -alpha 0.78 -beta 0.66 -gamma 0.19 -imp 0.07
+-bins 7 -alpha 0.73 -beta 0.75 -gamma 0.94 -imp 0.2
+-bins 2 -alpha 0.55 -beta 0.82 -gamma 0.4 -imp 0.28
+-bins 2 -alpha 0.5 -beta 0.7 -gamma 0.55 -imp 0.09
+-bins 2 -alpha 1 -beta 0.82 -gamma 1 -imp 0.3
+-bins 4 -alpha 0.82 -beta 0.5 -gamma 0.79 -imp 0.48
+-bins 4 -alpha 0.84 -beta 0.04 -gamma 0.12 -imp 0.39
+-bins 7 -alpha 0.45 -beta 0.53 -gamma 0.69 -imp 0.42
+-bins 2 -alpha 0.91 -beta 0.76 -gamma 0.32 -imp 0.23
+-bins 2 -alpha 0.51 -beta 0.14 -gamma 0.12 -imp 0.11
+-bins 3 -alpha 0.51 -beta 0.28 -gamma 0.14 -imp 0.39
+-bins 3 -alpha 0.11 -beta 0.31 -gamma 0.04 -imp 0.34
+-bins 2 -alpha 0.65 -beta 0.67 -gamma 0.08 -imp 0.38
+-bins 3 -alpha 0.99 -beta 0.59 -gamma 0.2 -imp 0.32
+-bins 2 -alpha 0.87 -beta 0.4 -gamma 0.63 -imp 0.04
+-bins 2 -alpha 0.82 -beta 0.88 -gamma 0.0001 -imp 0.5
+-bins 6 -alpha 0.92 -beta 0.64 -gamma 0.26 -imp 0.3
+-bins 3 -alpha 0.33 -beta 0.07 -gamma 0.05 -imp 0.11
+-bins 2 -alpha 1 -beta 1.0 -gamma 0.7 -imp 0.27
+-bins 2 -alpha 0.38 -beta 0.27 -gamma 0.0001 -imp 0.21
+-bins 3 -alpha 0.49 -beta 0.62 -gamma 0.0 -imp 0.29
+-bins 8 -alpha 0.73 -beta 0.89 -gamma 0.98 -imp 0.32
+-bins 2 -alpha 0.77 -beta 0.91 -gamma 0.29 -imp 0.04
+-bins 2 -alpha 0.81 -beta 0.0001 -gamma 0.0001 -imp 0.43
+-bins 2 -alpha 0.81 -beta 0.37 -gamma 0.16 -imp 0.4
+-bins 2 -alpha 0.77 -beta 0.4 -gamma 0.53 -imp 0.46
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 5 -alpha 0.37 -beta 0.97 -gamma 0.36 -imp 0.5
+-bins 3 -alpha 0.83 -beta 0.01 -gamma 0.81 -imp 0.25
+-bins 6 -alpha 0.77 -beta 0.72 -gamma 0.58 -imp 0.22
+-bins 2 -alpha 1 -beta 0.63 -gamma 0.43 -imp 0.41
+-bins 2 -alpha 0.0001 -beta 0.56 -gamma 0.11 -imp 0.05
+-bins 2 -alpha 0.96 -beta 0.58 -gamma 0.12 -imp 0.36
+-bins 9 -alpha 0.94 -beta 0.82 -gamma 0.7 -imp 0.16
+-bins 4 -alpha 0.67 -beta 0.3 -gamma 0.22 -imp 0.05
+-bins 4 -alpha 0.84 -beta 0.52 -gamma 0.67 -imp 0.4
+-bins 2 -alpha 0.84 -beta 0.99 -gamma 0.28 -imp 0.5
+-bins 3 -alpha 0.89 -beta 0.5 -gamma 0.66 -imp 0.01
+-bins 2 -alpha 0.46 -beta 0.68 -gamma 1 -imp 0.3
+-bins 2 -alpha 0.15 -beta 0.54 -gamma 0.35 -imp 0.38
+-bins 2 -alpha 0.12 -beta 0.16 -gamma 0.0001 -imp 0.0001
+-bins 3 -alpha 0.91 -beta 1 -gamma 0.41 -imp 0.09
+-bins 2 -alpha 0.87 -beta 0.25 -gamma 0.2 -imp 0.37
+-bins 2 -alpha 0.92 -beta 0.86 -gamma 0.52 -imp 0.32
+-bins 6 -alpha 0.31 -beta 0.98 -gamma 0.26 -imp 0.38
+-bins 3 -alpha 0.16 -beta 0.62 -gamma 0.87 -imp 0.0001
+-bins 2 -alpha 0.17 -beta 0.59 -gamma 0.42 -imp 0.17
+-bins 2 -alpha 0.06 -beta 0.24 -gamma 0.12 -imp 0.5
+-bins 5 -alpha 0.54 -beta 0.95 -gamma 0.24 -imp 0.3
+-bins 2 -alpha 0.58 -beta 0.37 -gamma 0.21 -imp 0.0
+-bins 4 -alpha 0.97 -beta 0.97 -gamma 0.77 -imp 0.07
+-bins 2 -alpha 0.25 -beta 0.15 -gamma 0.16 -imp 0.4
+-bins 2 -alpha 0.55 -beta 0.18 -gamma 0.09 -imp 0.39
+-bins 2 -alpha 0.8 -beta 0.12 -gamma 0.34 -imp 0.17
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 2 -alpha 0.03 -beta 0.34 -gamma 0.98 -imp 0.03
+-bins 2 -alpha 0.28 -beta 0.33 -gamma 1 -imp 0.0001
+-bins 8 -alpha 0.03 -beta 0.56 -gamma 0.17 -imp 0.44
+-bins 4 -alpha 1 -beta 0.47 -gamma 0.02 -imp 0.32
+-bins 2 -alpha 0.42 -beta 0.57 -gamma 0.78 -imp 0.34
+-bins 2 -alpha 0.6 -beta 0.09 -gamma 0.68 -imp 0.44
+-bins 3 -alpha 0.77 -beta 0.89 -gamma 0.18 -imp 0.1
+-bins 5 -alpha 0.43 -beta 0.94 -gamma 0.47 -imp 0.24
+-bins 2 -alpha 0.81 -beta 0.12 -gamma 0.51 -imp 0.04
+-bins 2 -alpha 0.35 -beta 0.72 -gamma 0.72 -imp 0.34
+-bins 2 -alpha 0.8 -beta 0.0001 -gamma 0.5 -imp 0.41
+-bins 2 -alpha 0.97 -beta 0.36 -gamma 0.75 -imp 0.34
+-bins 3 -alpha 0.62 -beta 0.8 -gamma 0.34 -imp 0.01
+-bins 2 -alpha 1 -beta 0.65 -gamma 0.0001 -imp 0.0001
+-bins 3 -alpha 0.03 -beta 0.29 -gamma 0.22 -imp 0.08
+-bins 3 -alpha 0.68 -beta 0.66 -gamma 0.05 -imp 0.01
+-bins 3 -alpha 0.83 -beta 0.62 -gamma 0.56 -imp 0.01
+-bins 2 -alpha 1 -beta 0.74 -gamma 0.03 -imp 0.34
+-bins 3 -alpha 0.97 -beta 0.0001 -gamma 0.48 -imp 0.42
+-bins 2 -alpha 0.52 -beta 0.5 -gamma 0.19 -imp 0.11
+-bins 2 -alpha 0.43 -beta 0.5 -gamma 0.92 -imp 0.06
+-bins 2 -alpha 0.86 -beta 0.88 -gamma 1 -imp 0.0001
+-bins 2 -alpha 0.21 -beta 0.1 -gamma 0.63 -imp 0.31
+-bins 4 -alpha 0.76 -beta 0.49 -gamma 0.95 -imp 0.1
+-bins 3 -alpha 0.75 -beta 0.02 -gamma 0.66 -imp 0.45
+-bins 3 -alpha 0.7 -beta 0.74 -gamma 0.36 -imp 0.47
+-bins 2 -alpha 0.72 -beta 0.46 -gamma 0.39 -imp 0.38
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 2 -alpha 0.93 -beta 0.53 -gamma 0.07 -imp 0.4
+-bins 14 -alpha 0.01 -beta 0.97 -gamma 0.81 -imp 0.5
+-bins 6 -alpha 0.97 -beta 0.47 -gamma 0.22 -imp 0.46
+-bins 2 -alpha 0.83 -beta 0.49 -gamma 0.24 -imp 0.22
+-bins 6 -alpha 0.38 -beta 0.32 -gamma 0.02 -imp 0.07
+-bins 5 -alpha 0.02 -beta 0.34 -gamma 1 -imp 0.0001
+-bins 6 -alpha 0.15 -beta 0.18 -gamma 0.64 -imp 0.08
+-bins 7 -alpha 0.04 -beta 0.58 -gamma 0.56 -imp 0.11
+-bins 6 -alpha 0.12 -beta 0.15 -gamma 0.03 -imp 0.12
+-bins 3 -alpha 0.87 -beta 0.43 -gamma 0.39 -imp 0.3
+-bins 2 -alpha 0.88 -beta 0.58 -gamma 0.05 -imp 0.35
+-bins 2 -alpha 0.63 -beta 0.54 -gamma 0.29 -imp 0.14
+-bins 2 -alpha 0.41 -beta 0.52 -gamma 0.85 -imp 0.32
+-bins 2 -alpha 0.0001 -beta 0.42 -gamma 0.0001 -imp 0.03
+-bins 3 -alpha 0.14 -beta 0.84 -gamma 0.1 -imp 0.02
+-bins 3 -alpha 0.1 -beta 0.74 -gamma 0.37 -imp 0.15
+-bins 3 -alpha 1 -beta 0.52 -gamma 0.04 -imp 0.21
+-bins 2 -alpha 0.63 -beta 0.19 -gamma 0.33 -imp 0.36
+-bins 3 -alpha 0.58 -beta 0.76 -gamma 0.0001 -imp 0.13
+-bins 2 -alpha 0.99 -beta 0.24 -gamma 0.47 -imp 0.42
+-bins 8 -alpha 0.49 -beta 0.95 -gamma 0.43 -imp 0.31
+-bins 2 -alpha 0.89 -beta 0.04 -gamma 0.39 -imp 0.1
+-bins 2 -alpha 0.93 -beta 0.26 -gamma 0.52 -imp 0.16
+-bins 8 -alpha 0.0001 -beta 0.78 -gamma 0.2 -imp 0.13
+-bins 3 -alpha 0.51 -beta 0.01 -gamma 0.08 -imp 0.37
+-bins 2 -alpha 0.94 -beta 0.2 -gamma 0.7 -imp 0.06
+-bins 2 -alpha 0.64 -beta 0.7 -gamma 0.06 -imp 0.13
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 5 -alpha 0.67 -beta 0.6 -gamma 0.23 -imp 0.3
+-bins 8 -alpha 0.3 -beta 0.11 -gamma 0.78 -imp 0.01
+-bins 5 -alpha 0.77 -beta 0.8 -gamma 0.39 -imp 0.08
+-bins 2 -alpha 0.22 -beta 0.34 -gamma 0.54 -imp 0.43
+-bins 3 -alpha 0.26 -beta 0.82 -gamma 0.64 -imp 0.12
+-bins 5 -alpha 0.58 -beta 0.83 -gamma 0.0001 -imp 0.1
+-bins 3 -alpha 0.47 -beta 0.93 -gamma 0.02 -imp 0.37
+-bins 3 -alpha 0.22 -beta 0.34 -gamma 0.34 -imp 0.19
+-bins 8 -alpha 0.39 -beta 0.84 -gamma 0.08 -imp 0.12
+-bins 2 -alpha 0.19 -beta 0.74 -gamma 0.15 -imp 0.43
+-bins 2 -alpha 0.67 -beta 0.11 -gamma 0.24 -imp 0.0001
+-bins 5 -alpha 0.31 -beta 0.84 -gamma 0.0001 -imp 0.11
+-bins 2 -alpha 0.43 -beta 0.45 -gamma 0.04 -imp 0.4
+-bins 2 -alpha 0.81 -beta 0.42 -gamma 0.37 -imp 0.0001
+-bins 2 -alpha 0.56 -beta 0.67 -gamma 0.35 -imp 0.27
+-bins 2 -alpha 0.82 -beta 0.2 -gamma 0.39 -imp 0.34
+-bins 2 -alpha 0.58 -beta 0.89 -gamma 0.53 -imp 0.4
+-bins 2 -alpha 1 -beta 0.75 -gamma 0.33 -imp 0.03
+-bins 4 -alpha 0.02 -beta 0.9 -gamma 0.6 -imp 0.18
+-bins 3 -alpha 0.21 -beta 0.52 -gamma 0.13 -imp 0.11
+-bins 2 -alpha 0.7 -beta 0.41 -gamma 0.29 -imp 0.12
+-bins 4 -alpha 1 -beta 0.05 -gamma 0.0001 -imp 0.5
+-bins 2 -alpha 0.14 -beta 0.15 -gamma 0.0001 -imp 0.04
+-bins 2 -alpha 0.02 -beta 0.69 -gamma 0.56 -imp 0.03
+-bins 6 -alpha 0.71 -beta 0.0001 -gamma 0.01 -imp 0.0
+-bins 2 -alpha 0.98 -beta 0.72 -gamma 0.03 -imp 0.12
+-bins 3 -alpha 0.91 -beta 0.53 -gamma 0.09 -imp 0.27
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 4 -alpha 0.42 -beta 0.32 -gamma 0.73 -imp 0.18
+-bins 7 -alpha 0.74 -beta 0.28 -gamma 0.96 -imp 0.42
+-bins 2 -alpha 0.37 -beta 0.65 -gamma 0.88 -imp 0.1
+-bins 3 -alpha 0.38 -beta 0.3 -gamma 0.81 -imp 0.04
+-bins 2 -alpha 0.0001 -beta 0.62 -gamma 0.58 -imp 0.42
+-bins 2 -alpha 0.49 -beta 0.03 -gamma 0.39 -imp 0.03
+-bins 8 -alpha 0.72 -beta 0.8 -gamma 0.83 -imp 0.22
+-bins 4 -alpha 0.69 -beta 0.6 -gamma 0.66 -imp 0.23
+-bins 9 -alpha 0.2 -beta 0.91 -gamma 1.0 -imp 0.16
+-bins 2 -alpha 0.21 -beta 0.55 -gamma 1 -imp 0.34
+-bins 2 -alpha 1 -beta 0.27 -gamma 0.36 -imp 0.0001
+-bins 2 -alpha 0.45 -beta 0.1 -gamma 0.17 -imp 0.12
+-bins 2 -alpha 0.87 -beta 0.71 -gamma 0.33 -imp 0.28
+-bins 3 -alpha 0.26 -beta 0.76 -gamma 0.27 -imp 0.01
+-bins 2 -alpha 0.98 -beta 0.0001 -gamma 0.15 -imp 0.05
+-bins 3 -alpha 0.18 -beta 0.86 -gamma 0.68 -imp 0.03
+-bins 2 -alpha 0.0001 -beta 0.82 -gamma 0.36 -imp 0.19
+-bins 3 -alpha 0.19 -beta 0.63 -gamma 0.0001 -imp 0.05
+-bins 2 -alpha 0.26 -beta 0.23 -gamma 0.23 -imp 0.11
+-bins 2 -alpha 1 -beta 0.99 -gamma 0.42 -imp 0.5
+-bins 2 -alpha 0.4 -beta 0.59 -gamma 0.16 -imp 0.0001
+-bins 2 -alpha 0.98 -beta 0.41 -gamma 0.8 -imp 0.11
+-bins 5 -alpha 0.49 -beta 0.18 -gamma 0.06 -imp 0.11
+-bins 6 -alpha 0.87 -beta 0.14 -gamma 0.04 -imp 0.42
+-bins 3 -alpha 0.73 -beta 0.3 -gamma 0.07 -imp 0.12
+-bins 2 -alpha 0.24 -beta 0.54 -gamma 0.0001 -imp 0.11
+-bins 3 -alpha 0.82 -beta 0.2 -gamma 0.53 -imp 0.23
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 2 -alpha 0.28 -beta 0.87 -gamma 0.09 -imp 0.09
+-bins 9 -alpha 0.23 -beta 0.32 -gamma 0.54 -imp 0.31
+-bins 2 -alpha 0.32 -beta 0.54 -gamma 0.07 -imp 0.15
+-bins 2 -alpha 0.29 -beta 0.49 -gamma 0.37 -imp 0.18
+-bins 5 -alpha 0.8 -beta 0.45 -gamma 0.74 -imp 0.44
+-bins 4 -alpha 0.4 -beta 0.79 -gamma 0.08 -imp 0.16
+-bins 4 -alpha 0.63 -beta 0.37 -gamma 0.8 -imp 0.0001
+-bins 2 -alpha 0.7 -beta 0.12 -gamma 0.85 -imp 0.38
+-bins 7 -alpha 0.96 -beta 0.19 -gamma 0.76 -imp 0.3
+-bins 2 -alpha 0.5 -beta 0.12 -gamma 0.32 -imp 0.13
+-bins 3 -alpha 0.0001 -beta 0.48 -gamma 0.02 -imp 0.49
+-bins 2 -alpha 0.11 -beta 0.73 -gamma 0.45 -imp 0.15
+-bins 2 -alpha 0.2 -beta 0.16 -gamma 0.0001 -imp 0.34
+-bins 3 -alpha 0.19 -beta 1 -gamma 0.2 -imp 0.34
+-bins 2 -alpha 0.35 -beta 1 -gamma 0.05 -imp 0.2
+-bins 3 -alpha 0.89 -beta 0.37 -gamma 0.35 -imp 0.26
+-bins 3 -alpha 0.25 -beta 0.63 -gamma 0.08 -imp 0.26
+-bins 2 -alpha 0.87 -beta 0.88 -gamma 0.42 -imp 0.24
+-bins 2 -alpha 0.83 -beta 0.86 -gamma 0.19 -imp 0.09
+-bins 2 -alpha 1 -beta 0.44 -gamma 0.94 -imp 0.13
+-bins 2 -alpha 0.35 -beta 0.22 -gamma 0.05 -imp 0.11
+-bins 2 -alpha 0.71 -beta 0.05 -gamma 0.38 -imp 0.35
+-bins 2 -alpha 0.43 -beta 0.53 -gamma 0.46 -imp 0.25
+-bins 2 -alpha 0.46 -beta 0.72 -gamma 0.6 -imp 0.33
+-bins 3 -alpha 0.75 -beta 0.02 -gamma 0.34 -imp 0.26
+-bins 2 -alpha 0.94 -beta 0.53 -gamma 0.57 -imp 0.5
+-bins 2 -alpha 0.91 -beta 0.54 -gamma 0.14 -imp 0.16
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 2 -alpha 0.04 -beta 0.65 -gamma 0.83 -imp 0.03
+-bins 2 -alpha 1 -beta 0.12 -gamma 1 -imp 0.34
+-bins 2 -alpha 1.0 -beta 0.25 -gamma 1 -imp 0.38
+-bins 5 -alpha 0.67 -beta 0.43 -gamma 0.28 -imp 0.16
+-bins 5 -alpha 0.06 -beta 0.19 -gamma 0.0001 -imp 0.0001
+-bins 3 -alpha 0.77 -beta 0.06 -gamma 0.18 -imp 0.14
+-bins 5 -alpha 0.66 -beta 0.97 -gamma 0.85 -imp 0.07
+-bins 2 -alpha 0.59 -beta 1 -gamma 0.72 -imp 0.36
+-bins 9 -alpha 0.42 -beta 0.51 -gamma 0.78 -imp 0.36
+-bins 2 -alpha 0.5 -beta 0.8 -gamma 0.04 -imp 0.08
+-bins 3 -alpha 0.52 -beta 0.2 -gamma 0.14 -imp 0.05
+-bins 2 -alpha 0.6 -beta 0.24 -gamma 0.44 -imp 0.43
+-bins 3 -alpha 0.32 -beta 0.97 -gamma 0.65 -imp 0.34
+-bins 2 -alpha 0.08 -beta 1 -gamma 0.0001 -imp 0.06
+-bins 3 -alpha 0.15 -beta 0.83 -gamma 0.14 -imp 0.36
+-bins 4 -alpha 0.18 -beta 0.35 -gamma 0.01 -imp 0.31
+-bins 3 -alpha 0.6 -beta 0.53 -gamma 0.1 -imp 0.46
+-bins 3 -alpha 0.82 -beta 0.5 -gamma 0.0 -imp 0.39
+-bins 2 -alpha 0.64 -beta 0.07 -gamma 0.04 -imp 0.47
+-bins 2 -alpha 1 -beta 1 -gamma 0.04 -imp 0.5
+-bins 3 -alpha 0.54 -beta 1 -gamma 0.69 -imp 0.23
+-bins 6 -alpha 0.66 -beta 0.69 -gamma 0.27 -imp 0.35
+-bins 6 -alpha 0.61 -beta 0.93 -gamma 0.16 -imp 0.11
+-bins 4 -alpha 0.03 -beta 0.0001 -gamma 0.0001 -imp 0.35
+-bins 2 -alpha 1.0 -beta 0.03 -gamma 0.13 -imp 0.23
+-bins 3 -alpha 0.27 -beta 0.71 -gamma 0.0001 -imp 0.03
+-bins 4 -alpha 0.15 -beta 0.93 -gamma 0.06 -imp 0.32
+*****ar3+++++
+*****ar4+++++
+*****ar5+++++
+*****CM1+++++
+*****KC1+++++
+*****KC2+++++
+*****kc3+++++
+*****mw1+++++
+*****PC1+++++
+-bins 4 -alpha 0.79 -beta 0.83 -gamma 0.25 -imp 0.43
+-bins 2 -alpha 0.06 -beta 0.15 -gamma 1 -imp 0.21
+-bins 2 -alpha 0.38 -beta 0.97 -gamma 0.21 -imp 0.17
+-bins 2 -alpha 0.83 -beta 0.95 -gamma 0.71 -imp 0.2
+-bins 2 -alpha 0.05 -beta 0.17 -gamma 0.66 -imp 0.39
+-bins 2 -alpha 0.43 -beta 0.14 -gamma 0.25 -imp 0.41
+-bins 2 -alpha 0.22 -beta 0.67 -gamma 0.39 -imp 0.23
+-bins 8 -alpha 0.32 -beta 0.79 -gamma 0.42 -imp 0.31
+-bins 2 -alpha 0.67 -beta 0.04 -gamma 0.42 -imp 0.12
+-bins 2 -alpha 0.42 -beta 0.73 -gamma 0.23 -imp 0.28
+-bins 2 -alpha 0.96 -beta 0.72 -gamma 0.05 -imp 0.35
+-bins 2 -alpha 0.14 -beta 0.3 -gamma 0.33 -imp 0.08
+-bins 2 -alpha 0.93 -beta 0.66 -gamma 0.17 -imp 0.24
+-bins 2 -alpha 0.6 -beta 0.7 -gamma 0.02 -imp 0.13
+-bins 2 -alpha 0.14 -beta 0.72 -gamma 0.53 -imp 0.12
+-bins 3 -alpha 0.38 -beta 0.46 -gamma 0.0001 -imp 0.35
+-bins 3 -alpha 0.82 -beta 0.69 -gamma 0.22 -imp 0.28
+-bins 2 -alpha 0.59 -beta 0.38 -gamma 0.48 -imp 0.09
+-bins 2 -alpha 0.7 -beta 0.88 -gamma 0.43 -imp 0.09
+-bins 5 -alpha 0.66 -beta 0.73 -gamma 0.29 -imp 0.36
+-bins 3 -alpha 0.74 -beta 0.51 -gamma 0.3 -imp 0.11
+-bins 12 -alpha 0.01 -beta 0.82 -gamma 0.0001 -imp 0.2
+-bins 11 -alpha 1.0 -beta 0.36 -gamma 0.11 -imp 0.5
+-bins 2 -alpha 0.96 -beta 0.01 -gamma 0.33 -imp 0.5
+-bins 3 -alpha 0.36 -beta 0.19 -gamma 0.19 -imp 0.45
+-bins 3 -alpha 0.48 -beta 0.79 -gamma 0.38 -imp 0.46
+-bins 3 -alpha 0.8 -beta 0.69 -gamma 0.44 -imp 0.41
